@@ -1,0 +1,24 @@
+V3 11
+FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/counter.vhd" 2017/01/26.12:35:11 P.20131013
+EN work/counter 1485468256 \
+      FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/counter.vhd" \
+      PB ieee/std_logic_1164 1381692176 PB ieee/STD_LOGIC_UNSIGNED 1381692179 \
+      PB ieee/std_logic_arith 1381692177
+AR work/counter/behv 1485468257 \
+      FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/counter.vhd" \
+      EN work/counter 1485468256
+FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/count_mem_vhdl.vhd" 2017/01/26.12:35:16 P.20131013
+EN work/count_mem 1485468260 \
+      FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/count_mem_vhdl.vhd" \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179
+AR work/count_mem/Behavioral 1485468261 \
+      FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/count_mem_vhdl.vhd" \
+      EN work/count_mem 1485468260 CP counter CP ROM_VHDL
+FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/ROM_VHDL.vhd" 2017/01/26.12:35:09 P.20131013
+EN work/ROM_VHDL 1485468258 \
+      FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/ROM_VHDL.vhd" \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177
+AR work/ROM_VHDL/BHV 1485468259 \
+      FL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/ROM_VHDL.vhd" \
+      EN work/ROM_VHDL 1485468258

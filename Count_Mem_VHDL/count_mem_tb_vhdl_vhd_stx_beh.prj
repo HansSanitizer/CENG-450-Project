@@ -1,0 +1,4 @@
+vhdl isim_temp "ROM_VHDL.vhd"
+vhdl isim_temp "counter.vhd"
+vhdl isim_temp "count_mem_vhdl.vhd"
+vhdl isim_temp "count_mem_tb_vhdl.vhd"

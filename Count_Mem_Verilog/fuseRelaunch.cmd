@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_Verilog/count_mem_tb_verilog_v_isim_beh.exe" -prj "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_Verilog/count_mem_tb_verilog_v_beh.prj" "work.count_mem_tb_verilog_v" "work.glbl" 

@@ -1,0 +1,29 @@
+Command line:
+   count_mem_tb_verilog_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  50751
+
+Thu Jan 26 13:05:17 2017
+
+
+ Elaboration Time: 0.046875 sec
+
+ Current Memory Usage: 845.771 Meg
+
+ Total Signals          : 27
+ Total Nets             : 40
+ Total Signal Drivers   : 12
+ Total Blocks           : 8
+ Total Primitive Blocks : 6
+ Total Processes        : 14
+ Total Traceable Variables  : 32
+ Total Scalar Nets and Variables : 1525
+Total Line Count : 27
+
+ Total Simulation Time: 0.125 sec
+
+ Current Memory Usage: 845.771 Meg
+
+Thu Jan 26 13:05:30 2017
+

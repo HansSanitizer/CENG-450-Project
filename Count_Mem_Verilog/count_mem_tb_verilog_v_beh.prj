@@ -1,0 +1,5 @@
+vhdl work "ROM_VHDL.vhd"
+vhdl work "counter.vhd"
+vhdl work "count_mem_vhdl.vhd"
+verilog work "count_mem_tb_verilog.v"
+verilog work "C:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"
