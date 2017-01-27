@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-01-26T13:58:54</DateModified>
+  <DateModified>2017-01-26T16:23:44</DateModified>
   <ModuleName>count_mem</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/iseconfig/count_mem.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL\</ImplementationReportsDirectory>
-  <DateInitialized>2017-01-26T12:36:57</DateInitialized>
+  <SavedFilePath>C:/Users/jgmann/CENG450/Count_Mem_VHDL/iseconfig/count_mem.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>C:/Users/jgmann/CENG450/Count_Mem_VHDL\</ImplementationReportsDirectory>
+  <DateInitialized>2017-01-26T15:20:51</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

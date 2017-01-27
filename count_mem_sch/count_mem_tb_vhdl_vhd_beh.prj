@@ -1,0 +1,3 @@
+vhdl work "Memory.vhd"
+vhdl work "count_mem.vhf"
+vhdl work "count_mem_tb.vhd"

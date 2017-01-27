@@ -1,0 +1,8 @@
+Release 13.4 Drc O.87xd (nt64)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+Thu Jan 26 15:59:41 2017
+
+drc -z count_mem.ncd count_mem.pcf
+
+DRC detected 0 errors and 0 warnings.

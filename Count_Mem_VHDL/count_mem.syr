@@ -1,16 +1,16 @@
-Release 14.7 - xst P.20131013 (nt64)
-Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Release 13.4 - xst O.87xd (nt64)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.13 secs
+Total CPU time to Xst completion: 0.09 secs
  
 --> Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.14 secs
+Total CPU time to Xst completion: 0.09 secs
  
 --> Reading design: count_mem.prj
 
@@ -68,7 +68,7 @@ Automatic Register Balancing       : No
 
 ---- Target Options
 Add IO Buffers                     : YES
-Global Maximum Fanout              : 100000
+Global Maximum Fanout              : 500
 Add Generic Clock Buffer(BUFG)     : 24
 Register Duplication               : YES
 Slice Packing                      : YES
@@ -104,11 +104,14 @@ Slice Utilization Ratio Delta      : 5
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
-Compiling vhdl file "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/counter.vhd" in Library work.
-Architecture behv of Entity counter is up to date.
-Compiling vhdl file "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/ROM_VHDL.vhd" in Library work.
+WARNING:HDLParsers:3607 - Unit work/counter is now defined in a different file.  It was defined in "C:/Users/jgmann/CENG450/Count_Mem_VHDL/counter.vhd", and is now defined in "C:/Users/jgmann/CENG450/Count_Mem_VHDL/counter_non_syn.vhd".
+WARNING:HDLParsers:3607 - Unit work/counter/behv is now defined in a different file.  It was defined in "C:/Users/jgmann/CENG450/Count_Mem_VHDL/counter.vhd", and is now defined in "C:/Users/jgmann/CENG450/Count_Mem_VHDL/counter_non_syn.vhd".
+Compiling vhdl file "C:/Users/jgmann/CENG450/Count_Mem_VHDL/counter_non_syn.vhd" in Library work.
+Entity <counter> compiled.
+Entity <counter> (Architecture <behv>) compiled.
+Compiling vhdl file "C:/Users/jgmann/CENG450/Count_Mem_VHDL/ROM_VHDL.vhd" in Library work.
 Architecture bhv of Entity rom_vhdl is up to date.
-Compiling vhdl file "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/count_mem_vhdl.vhd" in Library work.
+Compiling vhdl file "C:/Users/jgmann/CENG450/Count_Mem_VHDL/count_mem_vhdl.vhd" in Library work.
 Architecture behavioral of Entity count_mem is up to date.
 
 =========================================================================
@@ -116,7 +119,8 @@ Architecture behavioral of Entity count_mem is up to date.
 =========================================================================
 Analyzing hierarchy for entity <count_mem> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <counter> in library <work> (architecture <behv>).
+Analyzing hierarchy for entity <counter> in library <work> (architecture <behv>) with generics.
+	n = 7
 
 Analyzing hierarchy for entity <ROM_VHDL> in library <work> (architecture <bhv>).
 
@@ -127,281 +131,14 @@ Analyzing hierarchy for entity <ROM_VHDL> in library <work> (architecture <bhv>)
 Analyzing Entity <count_mem> in library <work> (Architecture <behavioral>).
 Entity <count_mem> analyzed. Unit <count_mem> generated.
 
-Analyzing Entity <counter> in library <work> (Architecture <behv>).
-Entity <counter> analyzed. Unit <counter> generated.
-
-Analyzing Entity <ROM_VHDL> in library <work> (Architecture <bhv>).
-Entity <ROM_VHDL> analyzed. Unit <ROM_VHDL> generated.
-
-
-=========================================================================
-*                           HDL Synthesis                               *
-=========================================================================
-
-Performing bidirectional port resolution...
-
-Synthesizing Unit <counter>.
-    Related source file is "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/counter.vhd".
-    Found 7-bit up counter for signal <Pre_Q>.
-    Summary:
-	inferred   1 Counter(s).
-Unit <counter> synthesized.
-
-
-Synthesizing Unit <ROM_VHDL>.
-    Related source file is "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/ROM_VHDL.vhd".
-    Found 128x8-bit ROM for signal <data$rom0000> created at line 153.
-    Found 8-bit register for signal <data>.
-    Summary:
-	inferred   1 ROM(s).
-	inferred   8 D-type flip-flop(s).
-Unit <ROM_VHDL> synthesized.
-
-
-Synthesizing Unit <count_mem>.
-    Related source file is "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/count_mem_vhdl.vhd".
-Unit <count_mem> synthesized.
-
-
-=========================================================================
-HDL Synthesis Report
-
-Macro Statistics
-# ROMs                                                 : 1
- 128x8-bit ROM                                         : 1
-# Counters                                             : 1
- 7-bit up counter                                      : 1
-# Registers                                            : 1
- 8-bit register                                        : 1
-
-=========================================================================
-
-=========================================================================
-*                       Advanced HDL Synthesis                          *
-=========================================================================
-
-
-Synthesizing (advanced) Unit <ROM_VHDL>.
-INFO:Xst:3044 - The ROM <Mrom_data_rom0000> will be implemented as a read-only BLOCK RAM, absorbing the register: <data>.
-INFO:Xst:3225 - The RAM <Mrom_data_rom0000> will be implemented as BLOCK RAM
-    -----------------------------------------------------------------------
-    | ram_type           | Block                               |          |
-    -----------------------------------------------------------------------
-    | Port A                                                              |
-    |     aspect ratio   | 128-word x 8-bit                    |          |
-    |     mode           | write-first                         |          |
-    |     clkA           | connected to signal <clk>           | rise     |
-    |     weA            | connected to internal node          | high     |
-    |     addrA          | connected to signal <addr>          |          |
-    |     diA            | connected to internal node          |          |
-    |     doA            | connected to signal <data>          |          |
-    -----------------------------------------------------------------------
-    | optimization       | speed                               |          |
-    -----------------------------------------------------------------------
-Unit <ROM_VHDL> synthesized (advanced).
-
-=========================================================================
-Advanced HDL Synthesis Report
-
-Macro Statistics
-# RAMs                                                 : 1
- 128x8-bit single-port block RAM                       : 1
-# Counters                                             : 1
- 7-bit up counter                                      : 1
-
-=========================================================================
-
-=========================================================================
-*                         Low Level Synthesis                           *
-=========================================================================
-
-Optimizing unit <count_mem> ...
-
-Mapping all equations...
-Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block count_mem, actual ratio is 0.
-
-Final Macro Processing ...
-
-=========================================================================
-Final Register Report
-
-Macro Statistics
-# Registers                                            : 7
- Flip-Flops                                            : 7
-
-=========================================================================
-
-=========================================================================
-*                           Partition Report                            *
-=========================================================================
-
-Partition Implementation Status
--------------------------------
-
-  No Partitions were found in this design.
-
--------------------------------
-
-=========================================================================
-*                            Final Report                               *
-=========================================================================
-Final Results
-RTL Top Level Output File Name     : count_mem.ngr
-Top Level Output File Name         : count_mem
-Output Format                      : NGC
-Optimization Goal                  : Speed
-Keep Hierarchy                     : No
-
-Design Statistics
-# IOs                              : 11
-
-Cell Usage :
-# BELS                             : 10
-#      GND                         : 1
-#      INV                         : 1
-#      LUT2                        : 2
-#      LUT3                        : 2
-#      LUT4                        : 2
-#      LUT4_D                      : 1
-#      VCC                         : 1
-# FlipFlops/Latches                : 7
-#      FDRE                        : 7
-# RAMS                             : 1
-#      RAMB16_S9                   : 1
-# Clock Buffers                    : 1
-#      BUFGP                       : 1
-# IO Buffers                       : 10
-#      IBUF                        : 2
-#      OBUF                        : 8
-=========================================================================
-
-Device utilization summary:
----------------------------
-
-Selected Device : 3s1200efg320-5 
-
- Number of Slices:                        4  out of   8672     0%  
- Number of Slice Flip Flops:              7  out of  17344     0%  
- Number of 4 input LUTs:                  8  out of  17344     0%  
- Number of IOs:                          11
- Number of bonded IOBs:                  11  out of    250     4%  
- Number of BRAMs:                         1  out of     28     3%  
- Number of GCLKs:                         1  out of     24     4%  
-
----------------------------
-Partition Resource Summary:
----------------------------
-
-  No Partitions were found in this design.
-
----------------------------
-
-
-=========================================================================
-TIMING REPORT
-
-NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
-      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
-      GENERATED AFTER PLACE-and-ROUTE.
-
-Clock Information:
-------------------
------------------------------------+------------------------+-------+
-Clock Signal                       | Clock buffer(FF name)  | Load  |
------------------------------------+------------------------+-------+
-clk                                | BUFGP                  | 8     |
------------------------------------+------------------------+-------+
-
-Asynchronous Control Signals Information:
-----------------------------------------
-No asynchronous control signals found in this design
-
-Timing Summary:
----------------
-Speed Grade: -5
-
-   Minimum period: 3.019ns (Maximum Frequency: 331.203MHz)
-   Minimum input arrival time before clock: 2.503ns
-   Maximum output required time after clock: 5.962ns
-   Maximum combinational path delay: No path found
-
-Timing Detail:
---------------
-All values displayed in nanoseconds (ns)
-
-=========================================================================
-Timing constraint: Default period analysis for Clock 'clk'
-  Clock period: 3.019ns (frequency: 331.203MHz)
-  Total number of paths / destination ports: 35 / 14
--------------------------------------------------------------------------
-Delay:               3.019ns (Levels of Logic = 2)
-  Source:            u0/Pre_Q_3 (FF)
-  Destination:       u0/Pre_Q_5 (FF)
-  Source Clock:      clk rising
-  Destination Clock: clk rising
-
-  Data Path: u0/Pre_Q_3 to u0/Pre_Q_5
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     FDRE:C->Q             3   0.514   0.603  u0/Pre_Q_3 (u0/Pre_Q_3)
-     LUT4_D:I0->O          2   0.612   0.410  u0/Mcount_Pre_Q_cy<3>11 (u0/Mcount_Pre_Q_cy<3>)
-     LUT3:I2->O            1   0.612   0.000  u0/Mcount_Pre_Q_xor<5>11 (Result<5>)
-     FDRE:D                    0.268          u0/Pre_Q_5
-    ----------------------------------------
-    Total                      3.019ns (2.006ns logic, 1.013ns route)
-                                       (66.4% logic, 33.6% route)
-
-=========================================================================
-Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
-  Total number of paths / destination ports: 14 / 14
--------------------------------------------------------------------------
-Offset:              2.503ns (Levels of Logic = 1)
-  Source:            reset (PAD)
-  Destination:       u0/Pre_Q_0 (FF)
-  Destination Clock: clk rising
-
-  Data Path: reset to u0/Pre_Q_0
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     IBUF:I->O             7   1.106   0.602  reset_IBUF (reset_IBUF)
-     FDRE:R                    0.795          u0/Pre_Q_0
-    ----------------------------------------
-    Total                      2.503ns (1.901ns logic, 0.602ns route)
-                                       (76.0% logic, 24.0% route)
-
-=========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
-  Total number of paths / destination ports: 8 / 8
--------------------------------------------------------------------------
-Offset:              5.962ns (Levels of Logic = 1)
-  Source:            u1/Mrom_data_rom0000 (RAM)
-  Destination:       dout<7> (PAD)
-  Source Clock:      clk rising
-
-  Data Path: u1/Mrom_data_rom0000 to dout<7>
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     RAMB16_S9:CLK->DO7    1   2.436   0.357  u1/Mrom_data_rom0000 (dout_7_OBUF)
-     OBUF:I->O                 3.169          dout_7_OBUF (dout<7>)
-    ----------------------------------------
-    Total                      5.962ns (5.605ns logic, 0.357ns route)
-                                       (94.0% logic, 6.0% route)
-
-=========================================================================
-
-
-Total REAL time to Xst completion: 6.00 secs
-Total CPU time to Xst completion: 5.52 secs
- 
+Analyzing generic Entity <counter> in library <work> (Architecture <behv>).
+	n = 7
+ERROR:Xst:841 - "C:/Users/jgmann/CENG450/Count_Mem_VHDL/counter_non_syn.vhd" line 27: Bad condition in wait statement, or only one clock per process.
 --> 
 
-Total memory usage is 310444 kilobytes
+Total memory usage is 246696 kilobytes
 
-Number of errors   :    0 (   0 filtered)
-Number of warnings :    0 (   0 filtered)
-Number of infos    :    2 (   0 filtered)
+Number of errors   :    1 (   0 filtered)
+Number of warnings :    2 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
 

@@ -1,0 +1,3 @@
+MODULE count_mem
+	SUBMODULE Memory
+		INSTANCE XLXI_6

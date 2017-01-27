@@ -1,0 +1,8 @@
+INTSTYLE=impact
+INFILE=C:\Users\jgmann\CENG450\Count_Mem_VHDL\impact.xsl
+OUTFILE=C:\Users\jgmann\CENG450\Count_Mem_VHDL\impact.xsl
+FAMILY=Multiple
+PART=Multiple
+WORKINGDIR=C:\Users\jgmann\CENG450\Count_Mem_VHDL
+LICENSE=iMPACT
+USER_INFO=iMPACT

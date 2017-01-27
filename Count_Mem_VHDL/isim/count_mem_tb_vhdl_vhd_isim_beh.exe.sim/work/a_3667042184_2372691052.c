@@ -10,7 +10,7 @@
 /*  \___\/\___\                                                    */
 /***********************************************************************/
 
-/* This file is designed for use with ISim build 0x7708f090 */
+/* This file is designed for use with ISim build 0xc3576ebc */
 
 #define XSI_HIDE_SYMBOL_SPEC true
 #include "xsi.h"
@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/Count_Mem_VHDL/count_mem_tb_vhdl.vhd";
+static const char *ng0 = "C:/Users/jgmann/CENG450/Count_Mem_VHDL/count_mem_tb_vhdl.vhd";
 
 
 

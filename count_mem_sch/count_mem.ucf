@@ -1,0 +1,14 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "CE" LOC = G18;
+NET "CLK" LOC = U9;
+NET "OUT_MEM[0]" LOC = J14;
+NET "OUT_MEM[1]" LOC = J15;
+NET "OUT_MEM[2]" LOC = K15;
+NET "OUT_MEM[3]" LOC = K14;
+NET "OUT_MEM[4]" LOC = E16;
+NET "OUT_MEM[5]" LOC = P16;
+NET "OUT_MEM[6]" LOC = E4;
+NET "OUT_MEM[7]" LOC = P4;
+NET "RST" LOC = B18;

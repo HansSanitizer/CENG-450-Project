@@ -1,0 +1,28 @@
+Command line:
+   count_mem_tb_vhdl_vhd_isim_beh.exe
+     -simmode  gui
+     -simrunnum  1
+     -socket  57745
+
+Thu Jan 26 16:49:29 2017
+
+
+ Elaboration Time: 0.1248 sec
+
+ Current Memory Usage: 825.008 Meg
+
+ Total Signals          : 315
+ Total Nets             : 114
+ Total Signal Drivers   : 75
+ Total Blocks           : 74
+ Total Primitive Blocks : 62
+ Total Processes        : 85
+ Total Traceable Variables  : 101
+ Total Scalar Nets and Variables : 3547
+
+ Total Simulation Time: 0.249601 sec
+
+ Current Memory Usage: 982.295 Meg
+
+Thu Jan 26 16:51:28 2017
+

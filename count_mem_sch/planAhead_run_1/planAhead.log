@@ -1,0 +1,127 @@
+#-----------------------------------------------------------
+# PlanAhead v13.4 (64-bit)
+# Build 157570 by hdbuild on Fri Dec 16 13:06:31 MST 2011
+# Start of session at: Thu Jan 26 16:52:23 2017
+# Process ID: 4720
+# Log file: C:/Users/jgmann/CENG450/count_mem_sch/planAhead_run_1/planAhead.log
+# Journal file: C:/Users/jgmann/CENG450/count_mem_sch/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+INFO: [Common-78] Attempting to get a license: PlanAhead
+INFO: [Common-82] Got a license: PlanAhead
+INFO: [Common-86] Your PlanAhead license expires in -1517 day(s)
+INFO: [Device-25] Loading parts and site information from C:/Xilinx/13.4/ISE_DS/PlanAhead\parts\arch.xmlParsing RTL primitives file [C:/Xilinx/13.4/ISE_DS/PlanAhead\parts\xilinx\rtl\prims\rtl_prims.xml]
+Finished parsing RTL primitives file [C:/Xilinx/13.4/ISE_DS/PlanAhead\parts\xilinx\rtl\prims\rtl_prims.xml]
+start_gui
+source C:/Users/jgmann/CENG450/count_mem_sch/pa.fromHdl.tcl
+# create_project -name count_mem_sch -dir "C:/Users/jgmann/CENG450/count_mem_sch/planAhead_run_1" -part xc3s1200efg320-5
+Parsing template File [C:/Xilinx/13.4/ISE_DS/ISE\data\projnav\templates\verilog.xml].
+Finished parsing template File [C:/Xilinx/13.4/ISE_DS/ISE\data\projnav\templates\verilog.xml].
+Parsing template File [C:/Xilinx/13.4/ISE_DS/ISE\data\projnav\templates\vhdl.xml].
+Finished parsing template File [C:/Xilinx/13.4/ISE_DS/ISE\data\projnav\templates\vhdl.xml].
+Parsing template File [C:/Xilinx/13.4/ISE_DS/ISE\data\projnav\templates\ucf.xml].
+Finished parsing template File [C:/Xilinx/13.4/ISE_DS/ISE\data\projnav\templates\ucf.xml].
+# set_param project.pinAheadLayout yes
+# set srcset [get_property srcset [current_run -impl]]
+# set_property target_constrs_file "count_mem.ucf" [current_fileset -constrset]
+Adding file 'C:\Users\jgmann\CENG450\count_mem_sch\count_mem.ucf' to fileset 'constrs_1'
+# set hdlfile [add_files [list {Memory.vhd}]]
+# set_property file_type VHDL $hdlfile
+# set_property library work $hdlfile
+# set hdlfile [add_files [list {count_mem.vhf}]]
+# set_property file_type VHDL $hdlfile
+# set_property library work $hdlfile
+# set_property top count_mem $srcset
+# add_files [list {count_mem.ucf}] -fileset [get_property constrset [current_run]]
+# open_rtl_design -part xc3s1200efg320-5
+INFO: [PlanAhead-58] Using Verific elaboration
+Parsing VHDL file "C:/Xilinx/13.4/ISE_DS/PlanAhead\parts\xilinx\rtl\lib\synplify\synattr.vhd" into library synplify
+Parsing VHDL file "C:/Xilinx/13.4/ISE_DS/PlanAhead\parts\xilinx\rtl\lib\synplify\synattr.vhd" into library synplify
+Parsing VHDL file "C:\Users\jgmann\CENG450\count_mem_sch\Memory.vhd" into library work
+Parsing VHDL file "C:\Users\jgmann\CENG450\count_mem_sch\count_mem.vhf" into library work
+INFO: [PlanAhead-430] Reading macro library C:/Xilinx/13.4/ISE_DS/PlanAhead\./parts/xilinx/spartan3e/spartan3e/hd_int_macros.edn
+Parsing EDIF File [C:/Xilinx/13.4/ISE_DS/PlanAhead\./parts/xilinx/spartan3e/spartan3e/hd_int_macros.edn]
+Finished Parsing EDIF File [C:/Xilinx/13.4/ISE_DS/PlanAhead\./parts/xilinx/spartan3e/spartan3e/hd_int_macros.edn]
+Loading clock regions from C:/Xilinx/13.4/ISE_DS/PlanAhead\parts/xilinx/spartan3e/spartan3e/xc3s1200e/ClockRegion.xml
+Loading clock buffers from C:/Xilinx/13.4/ISE_DS/PlanAhead\parts/xilinx/spartan3e/spartan3e/xc3s1200e/ClockBuffers.xml
+Loading package from C:/Xilinx/13.4/ISE_DS/PlanAhead\parts/xilinx/spartan3e/spartan3e/xc3s1200e/fg320/Package.xml
+Loading io standards from C:/Xilinx/13.4/ISE_DS/PlanAhead\./parts/xilinx/spartan3e/IOStandards.xml
+INFO: [Device-19] Loading pkg sso from C:/Xilinx/13.4/ISE_DS/PlanAhead\parts/xilinx/spartan3e/spartan3e/xc3s1200e/fg320/SSORules.xml
+Loading list of drcs for the architecture : C:/Xilinx/13.4/ISE_DS/PlanAhead\./parts/xilinx/spartan3e/spartan3e/drc.xml
+INFO: [Timing-77] Reading timing library C:/Xilinx/13.4/ISE_DS/PlanAhead\parts/xilinx/spartan3e/spartan3e/spartan3e-5.lib.
+INFO: [Timing-34] Done reading timing library C:/Xilinx/13.4/ISE_DS/PlanAhead\parts/xilinx/spartan3e/spartan3e/spartan3e-5.lib.
+Parsing UCF File [C:\Users\jgmann\CENG450\count_mem_sch\count_mem.ucf]
+Finished Parsing UCF File [C:\Users\jgmann\CENG450\count_mem_sch\count_mem.ucf]
+INFO: [PlanAhead-566] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  AND5 => AND5 (HD_LUT_F, HD_LUT_G): 1 instances
+startgroup
+startgroup
+set_property loc PAD112 [get_ports {OUT_MEM[0]}]
+set_property loc PAD112 [get_ports {OUT_MEM[0]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD113 [get_ports {OUT_MEM[1]}]
+set_property loc PAD113 [get_ports {OUT_MEM[1]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD118 [get_ports {OUT_MEM[2]}]
+set_property loc PAD118 [get_ports {OUT_MEM[2]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD117 [get_ports {OUT_MEM[3]}]
+set_property loc PAD117 [get_ports {OUT_MEM[3]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD84 [get_ports {OUT_MEM[4]}]
+set_property loc PAD84 [get_ports {OUT_MEM[4]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD142 [get_ports {OUT_MEM[5]}]
+set_property loc PAD142 [get_ports {OUT_MEM[5]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD292 [get_ports {OUT_MEM[6]}]
+set_property loc PAD292 [get_ports {OUT_MEM[6]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD241 [get_ports {OUT_MEM[7]}]
+set_property loc PAD241 [get_ports {OUT_MEM[7]}]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc IPAD106 [get_ports CE]
+set_property loc IPAD106 [get_ports CE]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc PAD193 [get_ports CLK]
+set_property loc PAD193 [get_ports CLK]
+endgroup
+endgroup
+startgroup
+startgroup
+set_property loc IPAD79 [get_ports RST]
+set_property loc IPAD79 [get_ports RST]
+endgroup
+endgroup
+save_design
+exit
+stop_gui
+INFO: [PlanAhead-261] Exiting PlanAhead...
+INFO: [Common-83] Releasing license: PlanAhead

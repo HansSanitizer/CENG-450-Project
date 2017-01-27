@@ -1,0 +1,46 @@
+#-----------------------------------------------------------
+# PlanAhead v13.4 (64-bit)
+# Build 157570 by hdbuild on Fri Dec 16 13:06:31 MST 2011
+# Start of session at: Thu Jan 26 16:52:23 2017
+# Process ID: 4720
+# Log file: C:/Users/jgmann/CENG450/count_mem_sch/planAhead_run_1/planAhead.log
+# Journal file: C:/Users/jgmann/CENG450/count_mem_sch/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source C:/Users/jgmann/CENG450/count_mem_sch/pa.fromHdl.tcl
+startgroup
+set_property loc PAD112 [get_ports {OUT_MEM[0]}]
+endgroup
+startgroup
+set_property loc PAD113 [get_ports {OUT_MEM[1]}]
+endgroup
+startgroup
+set_property loc PAD118 [get_ports {OUT_MEM[2]}]
+endgroup
+startgroup
+set_property loc PAD117 [get_ports {OUT_MEM[3]}]
+endgroup
+startgroup
+set_property loc PAD84 [get_ports {OUT_MEM[4]}]
+endgroup
+startgroup
+set_property loc PAD142 [get_ports {OUT_MEM[5]}]
+endgroup
+startgroup
+set_property loc PAD292 [get_ports {OUT_MEM[6]}]
+endgroup
+startgroup
+set_property loc PAD241 [get_ports {OUT_MEM[7]}]
+endgroup
+startgroup
+set_property loc IPAD106 [get_ports CE]
+endgroup
+startgroup
+set_property loc PAD193 [get_ports CLK]
+endgroup
+startgroup
+set_property loc IPAD79 [get_ports RST]
+endgroup
+save_design
+exit
+stop_gui

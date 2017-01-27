@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/jgmann/CENG450/count_mem_sch/count_mem_tb_vhdl_vhd_isim_beh.exe" -prj "C:/Users/jgmann/CENG450/count_mem_sch/count_mem_tb_vhdl_vhd_beh.prj" "work.count_mem_tb_vhdl_vhd" 
