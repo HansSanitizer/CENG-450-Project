@@ -1,0 +1,24 @@
+Running: C:\Xilinx\13.4\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/tlong/Documents/CENG450/simpleCPU/cpu_test_isim_beh.exe -prj C:/Users/tlong/Documents/CENG450/simpleCPU/cpu_test_beh.prj work.cpu_test 
+ISim O.87xd (signature 0xc3576ebc)
+Number of CPUs detected in this system: 8
+Turning on mult-threading, number of parallel sub-compilation jobs: 16 
+Determining compilation order of HDL files
+Parsing VHDL file "C:/Users/tlong/Documents/CENG450/simpleCPU/register_file.vhd" into library work
+Parsing VHDL file "C:/Users/tlong/Documents/CENG450/simpleCPU/alu_file.vhd" into library work
+Parsing VHDL file "C:/Users/tlong/Documents/CENG450/simpleCPU/cpu_file.vhd" into library work
+Parsing VHDL file "C:/Users/tlong/Documents/CENG450/simpleCPU/cpu_test.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Compiling package standard
+Compiling package std_logic_1164
+Compiling package std_logic_arith
+Compiling package std_logic_unsigned
+Compiling architecture behavioral of entity alu_file [alu_file_default]
+Compiling architecture behavioural of entity register_file [register_file_default]
+Compiling architecture structure of entity cpu_file [cpu_file_default]
+Compiling architecture behavior of entity cpu_test
+Time Resolution for simulation is 1ps.
+Compiled 11 VHDL Units
+Built simulation executable C:/Users/tlong/Documents/CENG450/simpleCPU/cpu_test_isim_beh.exe
+Fuse Memory Usage: 34040 KB
+Fuse CPU Usage: 327 ms

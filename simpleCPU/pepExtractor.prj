@@ -1,0 +1,3 @@
+work	"alu_file.vhd"
+work	"cpu_file.vhd"
+work	"register_file.vhd"
