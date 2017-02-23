@@ -1,0 +1,2 @@
+vhdtdtfi -lib work decoder.vhd -prj instructionDecoder -o decoder.spl -module decoder -template C:/Xilinx/13.4/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e decoder.spl C:/Users/tlong/Documents/CENG450/instructionDecoder/decoder.sym 

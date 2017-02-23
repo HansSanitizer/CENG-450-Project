@@ -1,0 +1,7 @@
+work	"ROM_VHDL.vhd"
+work	"alu_file.vhd"
+work	"controlUnit_TopLevel.vhd"
+work	"controlUnit_file.vhd"
+work	"cpu_file.vhd"
+work	"processor_file.vhd"
+work	"register_file.vhd"
