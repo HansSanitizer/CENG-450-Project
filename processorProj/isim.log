@@ -1,5 +1,5 @@
 ISim log file
-Running: C:\Users\tlong\Documents\CENG450\processorProj\processor_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/tlong/Documents/CENG450/processorProj/processor_tb_isim_beh.wdb 
+Running: C:\Users\tlong\Documents\CENG450\processorProj\reg_IF_ID_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/tlong/Documents/CENG450/processorProj/reg_IF_ID_tb_isim_beh.wdb 
 ISim O.87xd (signature 0xc3576ebc)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -20,12 +20,3 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-at 305 ns(3), Instance /processor_tb/uut/cpu0/alu0/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-ERROR: In process alu_file.vhd:53 
- Target Size 16 and source size 32 for array dimension 0 does not match. 
-
-INFO: Simulator is stopped.
-# step
-INFO: Simulator is stopped.
-# run 1.00us
-INFO: Simulator is stopped.

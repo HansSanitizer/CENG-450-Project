@@ -1,0 +1,2 @@
+vhdl work "reg_IF_ID.vhd"
+vhdl work "reg_IF_ID_tb.vhd"
