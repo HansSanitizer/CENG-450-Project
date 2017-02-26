@@ -1,21 +1,21 @@
-Running: C:\Xilinx\13.4\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/jgmann/CENG450/register_alu/testbench_isim_beh.exe -prj C:/Users/jgmann/CENG450/register_alu/testbench_beh.prj work.testbench 
+Running: C:\Xilinx\13.4\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb_isim_beh.exe -prj C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb_beh.prj work.alu_tb 
 ISim O.87xd (signature 0xc3576ebc)
-Number of CPUs detected in this system: 8
-Turning on mult-threading, number of parallel sub-compilation jobs: 16 
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
 Determining compilation order of HDL files
-Parsing VHDL file "C:/Users/jgmann/CENG450/register_alu/alu_file.vhd" into library work
-Parsing VHDL file "C:/Users/jgmann/CENG450/register_alu/alu_tb.vhd" into library work
+Parsing VHDL file "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.vhd" into library work
+Parsing VHDL file "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb.vhd" into library work
 Starting static elaboration
 Completed static elaboration
 Compiling package standard
 Compiling package std_logic_1164
-Compiling package numeric_std
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
 Compiling architecture behavioral of entity alu_file [alu_file_default]
-Compiling architecture behavior of entity testbench
+Compiling architecture behavior of entity alu_tb
 Time Resolution for simulation is 1ps.
-Compiled 8 VHDL Units
-Built simulation executable C:/Users/jgmann/CENG450/register_alu/testbench_isim_beh.exe
-Fuse Memory Usage: 36824 KB
-Fuse CPU Usage: 390 ms
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 7 VHDL Units
+Built simulation executable C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb_isim_beh.exe
+Fuse Memory Usage: 53784 KB
+Fuse CPU Usage: 937 ms

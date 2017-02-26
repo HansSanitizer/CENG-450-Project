@@ -1,26 +1,26 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    14:38:46 02/02/2017 
--- Design Name: 
--- Module Name:    alu_file - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
+-- Company:
+-- Engineer:
 --
--- Dependencies: 
+-- Create Date:    14:38:46 02/02/2017
+-- Design Name:
+-- Module Name:    alu_file - Behavioral
+-- Project Name:
+-- Target Devices:
+-- Tool versions:
+-- Description:
 --
--- Revision: 
+-- Dependencies:
+--
+-- Revision:
 -- Revision 0.01 - File Created
--- Additional Comments: 
+-- Additional Comments:
 --
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -50,17 +50,19 @@ begin
 
 --begin
 	--if(clk='1' and clk'event) then
-result <= 
+result <=
 in1 + in2 when(alu_mode = "001") else
 in1 - in2 when(alu_mode = "010") else
 in1 * in2 when(alu_mode = "011") else
-in1 nand in2 when(alu_mode = "100");
+in1 nand in2 when(alu_mode = "100") else
+STD_LOGIC_VECTOR(unsigned(in1) sll to_integer(unsigned(in2))) when(alu_mode="101") else
+STD_LOGIC_VECTOR(unsigned(in1) srl to_integer(unsigned(in2))) when(alu_mode="110");
+
 --in1  in2 when(alu_mode = "111");
 
-		
+
 	--end if;
 --end process;
 
 
 end Behavioral;
-
