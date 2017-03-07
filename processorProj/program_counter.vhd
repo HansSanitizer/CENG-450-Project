@@ -1,0 +1,54 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    15:06:28 03/02/2017 
+-- Design Name: 
+-- Module Name:    program_counter - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity program_counter is
+	port (	clk : IN STD_LOGIC;
+				next_value : IN STD_LOGIC_VECTOR(6 downto 0);
+				current_value : OUT STD_LOGIC_VECTOR(6 downto 0));
+end program_counter;
+
+architecture Behavioral of program_counter is
+
+signal counterValue : STD_LOGIC_VECTOR(6 downto 0) := (others => '0');
+
+begin
+
+process(clk)
+begin
+	if(clk='0' and clk'event) then
+		counterValue <= next_value;
+	elsif(clk='1' and clk'event) then
+		current_value <= counterValue;
+	end if;
+end process;
+
+end Behavioral;
+
