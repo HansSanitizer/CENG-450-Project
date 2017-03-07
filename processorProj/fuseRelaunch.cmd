@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -o "C:/Users/tlong/Documents/CENG450/processorProj/reg_IF_ID_tb_isim_beh.exe" -prj "C:/Users/tlong/Documents/CENG450/processorProj/reg_IF_ID_tb_beh.prj" "work.reg_IF_ID_tb" 
+-intstyle "ise" -incremental -o "C:/Users/tlong/Documents/CENG-450-Project/processorProj/testbench_isim_beh.exe" -prj "C:/Users/tlong/Documents/CENG-450-Project/processorProj/testbench_beh.prj" "work.testbench" 
