@@ -51,18 +51,20 @@ begin
 --begin
 	--if(clk='1' and clk'event) then
 result <=
-in1 + in2 when(alu_mode = "001") else
-in1 - in2 when(alu_mode = "010") else
-in1 * in2 when(alu_mode = "011") else
-in1 nand in2 when(alu_mode = "100") else
+STD_LOGIC_VECTOR(signed(in1) + signed(in2)) when(alu_mode = "001") else
+STD_LOGIC_VECTOR(signed(in1) - signed(in2)) when(alu_mode = "010") else
+STD_LOGIC_VECTOR(unsigned(in1(7 downto 0))*unsigned(in2(7 downto 0))) when(alu_mode = "011") else
+STD_LOGIC_VECTOR(signed(in1) nand signed(in2)) when(alu_mode = "100") else
 STD_LOGIC_VECTOR(unsigned(in1) sll to_integer(unsigned(in2))) when(alu_mode="101") else
 STD_LOGIC_VECTOR(unsigned(in1) srl to_integer(unsigned(in2))) when(alu_mode="110");
 
---in1  in2 when(alu_mode = "111");
+z_flag <=
+'1' when((alu_mode = "111") and (in1 = 0)) else
+'0' when((alu_mode = "111") and (in1 /= 0));
 
-
-	--end if;
---end process;
+n_flag <=
+'1' when((alu_mode = "111") and (in1 < 0)) else
+'0' when((alu_mode = "111") and (in1 >=0));
 
 
 end Behavioral;

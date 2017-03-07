@@ -11,11 +11,12 @@ Compiling package standard
 Compiling package std_logic_1164
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
+Compiling package numeric_std
 Compiling architecture behavioral of entity alu_file [alu_file_default]
 Compiling architecture behavior of entity alu_tb
 Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
-Compiled 7 VHDL Units
+Compiled 8 VHDL Units
 Built simulation executable C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb_isim_beh.exe
-Fuse Memory Usage: 53784 KB
-Fuse CPU Usage: 937 ms
+Fuse Memory Usage: 60800 KB
+Fuse CPU Usage: 1093 ms

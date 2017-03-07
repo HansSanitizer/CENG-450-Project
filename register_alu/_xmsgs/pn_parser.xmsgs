@@ -8,7 +8,7 @@
 <!-- Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb.vhd&quot; into library work</arg>
 </msg>
 
 </messages>

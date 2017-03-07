@@ -1,0 +1,557 @@
+--------------------------------------------------------------------------------
+Release 13.4 Trace  (nt64)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+C:\Xilinx\13.4\ISE_DS\ISE\bin\nt64\unwrapped\trce.exe -intstyle ise -v 3 -s 5
+-n 3 -fastpaths -xml alu_file.twx alu_file.ncd -o alu_file.twr alu_file.pcf
+
+Design file:              alu_file.ncd
+Physical constraint file: alu_file.pcf
+Device,package,speed:     xc3s1200e,fg320,-5 (PRODUCTION 1.27 2012-01-07)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+INFO:Timing:3390 - This architecture does not support a default System Jitter 
+   value, please add SYSTEM_JITTER constraint to the UCF to modify the Clock 
+   Uncertainty calculation.
+INFO:Timing:3389 - This architecture does not support 'Discrete Jitter' and 
+   'Phase Error' calculations, these terms will be zero in the Clock 
+   Uncertainty calculation.  Please make appropriate modification to 
+   SYSTEM_JITTER to account for the unsupported Discrete Jitter and Phase 
+   Error.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock alu_mode<0>
+------------+------------+------------+------------------+--------+
+            |Max Setup to|Max Hold to |                  | Clock  |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+------------+------------+------------+------------------+--------+
+in2<0>      |    7.924(F)|    0.520(F)|result_not0001    |   0.000|
+in2<1>      |    7.210(F)|    0.562(F)|result_not0001    |   0.000|
+in2<2>      |    6.817(F)|    1.339(F)|result_not0001    |   0.000|
+in2<3>      |    6.538(F)|    1.216(F)|result_not0001    |   0.000|
+in2<4>      |    7.066(F)|    1.094(F)|result_not0001    |   0.000|
+in2<5>      |    7.065(F)|    0.143(F)|result_not0001    |   0.000|
+in2<6>      |    7.415(F)|    0.127(F)|result_not0001    |   0.000|
+in2<7>      |    7.347(F)|    0.049(F)|result_not0001    |   0.000|
+in2<8>      |    7.510(F)|    0.069(F)|result_not0001    |   0.000|
+in2<9>      |    7.262(F)|    0.278(F)|result_not0001    |   0.000|
+in2<10>     |    6.980(F)|    0.102(F)|result_not0001    |   0.000|
+in2<11>     |    7.551(F)|   -0.015(F)|result_not0001    |   0.000|
+in2<12>     |    8.259(F)|   -0.161(F)|result_not0001    |   0.000|
+in2<13>     |    7.757(F)|   -0.222(F)|result_not0001    |   0.000|
+in2<14>     |    7.771(F)|    0.748(F)|result_not0001    |   0.000|
+in2<15>     |    8.227(F)|    0.110(F)|result_not0001    |   0.000|
+------------+------------+------------+------------------+--------+
+
+Setup/Hold to clock alu_mode<1>
+------------+------------+------------+------------------+--------+
+            |Max Setup to|Max Hold to |                  | Clock  |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+------------+------------+------------+------------------+--------+
+in2<0>      |    8.041(F)|    0.373(F)|result_not0001    |   0.000|
+in2<1>      |    7.327(F)|    0.415(F)|result_not0001    |   0.000|
+in2<2>      |    6.934(F)|    1.192(F)|result_not0001    |   0.000|
+in2<3>      |    6.655(F)|    1.069(F)|result_not0001    |   0.000|
+in2<4>      |    7.183(F)|    0.947(F)|result_not0001    |   0.000|
+in2<5>      |    7.182(F)|   -0.004(F)|result_not0001    |   0.000|
+in2<6>      |    7.532(F)|   -0.020(F)|result_not0001    |   0.000|
+in2<7>      |    7.464(F)|   -0.098(F)|result_not0001    |   0.000|
+in2<8>      |    7.627(F)|   -0.078(F)|result_not0001    |   0.000|
+in2<9>      |    7.379(F)|    0.131(F)|result_not0001    |   0.000|
+in2<10>     |    7.097(F)|   -0.045(F)|result_not0001    |   0.000|
+in2<11>     |    7.668(F)|   -0.162(F)|result_not0001    |   0.000|
+in2<12>     |    8.376(F)|   -0.308(F)|result_not0001    |   0.000|
+in2<13>     |    7.874(F)|   -0.369(F)|result_not0001    |   0.000|
+in2<14>     |    7.888(F)|    0.601(F)|result_not0001    |   0.000|
+in2<15>     |    8.344(F)|   -0.037(F)|result_not0001    |   0.000|
+------------+------------+------------+------------------+--------+
+
+Setup/Hold to clock alu_mode<2>
+------------+------------+------------+------------------+--------+
+            |Max Setup to|Max Hold to |                  | Clock  |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+------------+------------+------------+------------------+--------+
+in2<0>      |    8.028(F)|    0.389(F)|result_not0001    |   0.000|
+in2<1>      |    7.314(F)|    0.431(F)|result_not0001    |   0.000|
+in2<2>      |    6.921(F)|    1.208(F)|result_not0001    |   0.000|
+in2<3>      |    6.642(F)|    1.085(F)|result_not0001    |   0.000|
+in2<4>      |    7.170(F)|    0.963(F)|result_not0001    |   0.000|
+in2<5>      |    7.169(F)|    0.012(F)|result_not0001    |   0.000|
+in2<6>      |    7.519(F)|   -0.004(F)|result_not0001    |   0.000|
+in2<7>      |    7.451(F)|   -0.082(F)|result_not0001    |   0.000|
+in2<8>      |    7.614(F)|   -0.062(F)|result_not0001    |   0.000|
+in2<9>      |    7.366(F)|    0.147(F)|result_not0001    |   0.000|
+in2<10>     |    7.084(F)|   -0.029(F)|result_not0001    |   0.000|
+in2<11>     |    7.655(F)|   -0.146(F)|result_not0001    |   0.000|
+in2<12>     |    8.363(F)|   -0.292(F)|result_not0001    |   0.000|
+in2<13>     |    7.861(F)|   -0.353(F)|result_not0001    |   0.000|
+in2<14>     |    7.875(F)|    0.617(F)|result_not0001    |   0.000|
+in2<15>     |    8.331(F)|   -0.021(F)|result_not0001    |   0.000|
+------------+------------+------------+------------------+--------+
+
+Clock alu_mode<0> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+result<0>   |    7.851(F)|result_not0001    |   0.000|
+result<1>   |    7.838(F)|result_not0001    |   0.000|
+result<2>   |    7.858(F)|result_not0001    |   0.000|
+result<3>   |    7.847(F)|result_not0001    |   0.000|
+result<4>   |    7.959(F)|result_not0001    |   0.000|
+result<5>   |    7.947(F)|result_not0001    |   0.000|
+result<6>   |    8.160(F)|result_not0001    |   0.000|
+result<7>   |    7.959(F)|result_not0001    |   0.000|
+result<8>   |    7.851(F)|result_not0001    |   0.000|
+result<9>   |    7.847(F)|result_not0001    |   0.000|
+result<10>  |    7.839(F)|result_not0001    |   0.000|
+result<11>  |    7.858(F)|result_not0001    |   0.000|
+result<12>  |    7.851(F)|result_not0001    |   0.000|
+result<13>  |    7.838(F)|result_not0001    |   0.000|
+result<14>  |    8.160(F)|result_not0001    |   0.000|
+result<15>  |    7.839(F)|result_not0001    |   0.000|
+------------+------------+------------------+--------+
+
+Clock alu_mode<1> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+result<0>   |    7.704(F)|result_not0001    |   0.000|
+result<1>   |    7.691(F)|result_not0001    |   0.000|
+result<2>   |    7.711(F)|result_not0001    |   0.000|
+result<3>   |    7.700(F)|result_not0001    |   0.000|
+result<4>   |    7.812(F)|result_not0001    |   0.000|
+result<5>   |    7.800(F)|result_not0001    |   0.000|
+result<6>   |    8.013(F)|result_not0001    |   0.000|
+result<7>   |    7.812(F)|result_not0001    |   0.000|
+result<8>   |    7.704(F)|result_not0001    |   0.000|
+result<9>   |    7.700(F)|result_not0001    |   0.000|
+result<10>  |    7.692(F)|result_not0001    |   0.000|
+result<11>  |    7.711(F)|result_not0001    |   0.000|
+result<12>  |    7.704(F)|result_not0001    |   0.000|
+result<13>  |    7.691(F)|result_not0001    |   0.000|
+result<14>  |    8.013(F)|result_not0001    |   0.000|
+result<15>  |    7.692(F)|result_not0001    |   0.000|
+------------+------------+------------------+--------+
+
+Clock alu_mode<2> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+result<0>   |    7.720(F)|result_not0001    |   0.000|
+result<1>   |    7.707(F)|result_not0001    |   0.000|
+result<2>   |    7.727(F)|result_not0001    |   0.000|
+result<3>   |    7.716(F)|result_not0001    |   0.000|
+result<4>   |    7.828(F)|result_not0001    |   0.000|
+result<5>   |    7.816(F)|result_not0001    |   0.000|
+result<6>   |    8.029(F)|result_not0001    |   0.000|
+result<7>   |    7.828(F)|result_not0001    |   0.000|
+result<8>   |    7.720(F)|result_not0001    |   0.000|
+result<9>   |    7.716(F)|result_not0001    |   0.000|
+result<10>  |    7.708(F)|result_not0001    |   0.000|
+result<11>  |    7.727(F)|result_not0001    |   0.000|
+result<12>  |    7.720(F)|result_not0001    |   0.000|
+result<13>  |    7.707(F)|result_not0001    |   0.000|
+result<14>  |    8.029(F)|result_not0001    |   0.000|
+result<15>  |    7.708(F)|result_not0001    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<0> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    9.973(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<1> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |   10.227(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<2> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |   10.088(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<3> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    8.977(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<4> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    6.022(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<5> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    7.422(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<6> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    7.083(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<7> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    9.186(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<8> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    8.582(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<9> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    7.635(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<10> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    9.059(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<11> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    7.412(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<12> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |   10.790(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<13> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    7.863(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<14> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    8.018(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock in1<15> to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+z_flag      |    7.682(F)|z_flag_not0000    |   0.000|
+------------+------------+------------------+--------+
+
+Clock to Setup on destination clock alu_mode<0>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    7.781|    7.781|
+alu_mode<1>    |         |         |    6.321|    6.321|
+alu_mode<2>    |         |         |    7.406|    7.406|
+in1<0>         |         |         |    7.515|    7.515|
+in1<1>         |         |         |    6.936|    6.936|
+in1<2>         |         |         |    7.201|    7.201|
+in1<3>         |         |         |    9.398|    9.398|
+in1<4>         |         |         |    8.249|    8.249|
+in1<5>         |         |         |    7.079|    7.079|
+in1<6>         |         |         |    6.999|    6.999|
+in1<7>         |         |         |    7.276|    7.276|
+in1<8>         |         |         |    6.465|    6.465|
+in1<9>         |         |         |    5.754|    5.754|
+in1<10>        |         |         |    7.037|    7.037|
+in1<11>        |         |         |    6.426|    6.426|
+in1<12>        |         |         |    7.653|    7.653|
+in1<13>        |         |         |    6.191|    6.191|
+in1<14>        |         |         |    5.514|    5.514|
+in1<15>        |         |         |    6.130|    6.130|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock alu_mode<1>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    7.898|    7.898|
+alu_mode<1>    |         |         |    6.438|    6.438|
+alu_mode<2>    |         |         |    7.523|    7.523|
+in1<0>         |         |         |    7.632|    7.632|
+in1<1>         |         |         |    7.053|    7.053|
+in1<2>         |         |         |    7.318|    7.318|
+in1<3>         |         |         |    9.515|    9.515|
+in1<4>         |         |         |    8.366|    8.366|
+in1<5>         |         |         |    7.196|    7.196|
+in1<6>         |         |         |    7.116|    7.116|
+in1<7>         |         |         |    7.393|    7.393|
+in1<8>         |         |         |    6.582|    6.582|
+in1<9>         |         |         |    5.871|    5.871|
+in1<10>        |         |         |    7.154|    7.154|
+in1<11>        |         |         |    6.543|    6.543|
+in1<12>        |         |         |    7.770|    7.770|
+in1<13>        |         |         |    6.308|    6.308|
+in1<14>        |         |         |    5.631|    5.631|
+in1<15>        |         |         |    6.247|    6.247|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock alu_mode<2>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    7.885|    7.885|
+alu_mode<1>    |         |         |    6.425|    6.425|
+alu_mode<2>    |         |         |    7.510|    7.510|
+in1<0>         |         |         |    7.619|    7.619|
+in1<1>         |         |         |    7.040|    7.040|
+in1<2>         |         |         |    7.305|    7.305|
+in1<3>         |         |         |    9.502|    9.502|
+in1<4>         |         |         |    8.353|    8.353|
+in1<5>         |         |         |    7.183|    7.183|
+in1<6>         |         |         |    7.103|    7.103|
+in1<7>         |         |         |    7.380|    7.380|
+in1<8>         |         |         |    6.569|    6.569|
+in1<9>         |         |         |    5.858|    5.858|
+in1<10>        |         |         |    7.141|    7.141|
+in1<11>        |         |         |    6.530|    6.530|
+in1<12>        |         |         |    7.757|    7.757|
+in1<13>        |         |         |    6.295|    6.295|
+in1<14>        |         |         |    5.618|    5.618|
+in1<15>        |         |         |    6.234|    6.234|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<0>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -0.886|   -0.886|
+alu_mode<1>    |         |         |   -2.421|   -2.421|
+alu_mode<2>    |         |         |   -0.747|   -0.747|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<1>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -1.089|   -1.089|
+alu_mode<1>    |         |         |   -2.624|   -2.624|
+alu_mode<2>    |         |         |   -0.950|   -0.950|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<2>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -0.978|   -0.978|
+alu_mode<1>    |         |         |   -2.513|   -2.513|
+alu_mode<2>    |         |         |   -0.839|   -0.839|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<3>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -0.089|   -0.089|
+alu_mode<1>    |         |         |   -1.624|   -1.624|
+alu_mode<2>    |         |         |    0.050|    0.050|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<4>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    2.275|    2.275|
+alu_mode<1>    |         |         |    0.740|    0.740|
+alu_mode<2>    |         |         |    2.414|    2.414|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<5>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    1.155|    1.155|
+alu_mode<1>    |         |         |   -0.380|   -0.380|
+alu_mode<2>    |         |         |    1.294|    1.294|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<6>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    1.426|    1.426|
+alu_mode<1>    |         |         |   -0.109|   -0.109|
+alu_mode<2>    |         |         |    1.565|    1.565|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<7>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -0.256|   -0.256|
+alu_mode<1>    |         |         |   -1.791|   -1.791|
+alu_mode<2>    |         |         |   -0.117|   -0.117|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<8>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    0.227|    0.227|
+alu_mode<1>    |         |         |   -1.308|   -1.308|
+alu_mode<2>    |         |         |    0.366|    0.366|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<9>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    0.985|    0.985|
+alu_mode<1>    |         |         |   -0.550|   -0.550|
+alu_mode<2>    |         |         |    1.124|    1.124|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<10>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -0.155|   -0.155|
+alu_mode<1>    |         |         |   -1.690|   -1.690|
+alu_mode<2>    |         |         |   -0.016|   -0.016|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<11>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    1.163|    1.163|
+alu_mode<1>    |         |         |   -0.372|   -0.372|
+alu_mode<2>    |         |         |    1.302|    1.302|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<12>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |   -1.539|   -1.539|
+alu_mode<1>    |         |         |   -3.074|   -3.074|
+alu_mode<2>    |         |         |   -1.400|   -1.400|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<13>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    0.802|    0.802|
+alu_mode<1>    |         |         |   -0.733|   -0.733|
+alu_mode<2>    |         |         |    0.941|    0.941|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<14>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    0.678|    0.678|
+alu_mode<1>    |         |         |   -0.857|   -0.857|
+alu_mode<2>    |         |         |    0.817|    0.817|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock in1<15>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+alu_mode<0>    |         |         |    0.946|    0.946|
+alu_mode<1>    |         |         |   -0.589|   -0.589|
+alu_mode<2>    |         |         |    1.085|    1.085|
+---------------+---------+---------+---------+---------+
+
+
+Analysis completed Thu Mar 02 16:12:05 2017 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 258 MB
+
+
+

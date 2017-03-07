@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-02-25T21:03:49</DateModified>
+  <DateModified>2017-03-06T17:41:48</DateModified>
   <ModuleName>alu_file</ModuleName>
-  <SummaryTimeStamp>Unknown</SummaryTimeStamp>
+  <SummaryTimeStamp>2017-03-02T16:12:12</SummaryTimeStamp>
   <SavedFilePath>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/iseconfig/alu_file.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu\</ImplementationReportsDirectory>
   <DateInitialized>2017-02-25T21:03:48</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
