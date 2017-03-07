@@ -45,10 +45,10 @@ process(clk)
 begin
 	if(clk='0' and clk'event) then
 		counterValue <= next_value;
-	elsif(clk='1' and clk'event) then
-		current_value <= counterValue;
 	end if;
 end process;
+
+current_value <= counterValue;
 
 end Behavioral;
 

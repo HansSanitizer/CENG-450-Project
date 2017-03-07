@@ -1,4 +1,4 @@
-Running: C:\Xilinx\13.4\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/tlong/Documents/CENG-450-Project/processorProj/testbench_isim_beh.exe -prj C:/Users/tlong/Documents/CENG-450-Project/processorProj/testbench_beh.prj work.testbench 
+Running: fuse.exe -relaunch -intstyle "ise" -incremental -o "C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench_isim_beh.exe" -prj "C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench_beh.prj" "work.processorTestBench" 
 ISim O.87xd (signature 0xc3576ebc)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
@@ -12,12 +12,15 @@ Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/progr
 Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/pc_incrementor.vhd" into library work
 Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/alu_file.vhd" into library work
 Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/cpu_file.vhd" into library work
-Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/cpu_tb.vhd" into library work
+Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/controlUnit_file.vhd" into library work
+Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTopLevel.vhd" into library work
+Parsing VHDL file "C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench.vhd" into library work
 Starting static elaboration
 Completed static elaboration
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package numeric_std
+Compiling architecture behavioral of entity controlUnit_file [controlunit_file_default]
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
 Compiling architecture behavioral of entity program_counter [program_counter_default]
@@ -29,10 +32,11 @@ Compiling architecture behavioral of entity reg_ID_EXE [reg_id_exe_default]
 Compiling architecture behavioral of entity alu_file [alu_file_default]
 Compiling architecture behavioral of entity reg_EXE_MEM [reg_exe_mem_default]
 Compiling architecture structure of entity cpu_file [cpu_file_default]
-Compiling architecture behavior of entity testbench
+Compiling architecture structure of entity processorTopLevel [processortoplevel_default]
+Compiling architecture behavior of entity processortestbench
 Time Resolution for simulation is 1ps.
-Waiting for 1 sub-compilation(s) to finish...
-Compiled 24 VHDL Units
-Built simulation executable C:/Users/tlong/Documents/CENG-450-Project/processorProj/testbench_isim_beh.exe
-Fuse Memory Usage: 37628 KB
-Fuse CPU Usage: 436 ms
+Waiting for 3 sub-compilation(s) to finish...
+Compiled 28 VHDL Units
+Built simulation executable C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench_isim_beh.exe
+Fuse Memory Usage: 37300 KB
+Fuse CPU Usage: 467 ms
