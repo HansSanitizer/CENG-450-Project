@@ -1,3 +1,27 @@
 xst -intstyle ise -ifn "C:/Users/jgmann/CENG450/register_alu/alu_file.xst" -ofn "C:/Users/jgmann/CENG450/register_alu/alu_file.syr" 
 xst -intstyle ise -ifn "C:/Users/jgmann/CENG450/register_alu/alu_file.xst" -ofn "C:/Users/jgmann/CENG450/register_alu/alu_file.syr" 
 xst -intstyle ise -ifn "C:/Users/jgmann/CENG450/register_alu/alu_file.xst" -ofn "C:/Users/jgmann/CENG450/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s1200e-fg320-5 "alu_file.ngc" alu_file.ngd  
+map -intstyle ise -p xc3s1200e-fg320-5 -cm area -ir off -pr off -c 100 -o alu_file_map.ncd alu_file.ngd alu_file.pcf 
+par -w -intstyle ise -ol high -t 1 alu_file_map.ncd alu_file.ncd alu_file.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml alu_file.twx alu_file.ncd -o alu_file.twr alu_file.pcf 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s1200e-fg320-5 "alu_file.ngc" alu_file.ngd  
+map -intstyle ise -p xc3s1200e-fg320-5 -cm area -ir off -pr off -c 100 -o alu_file_map.ncd alu_file.ngd alu_file.pcf 
+par -w -intstyle ise -ol high -t 1 alu_file_map.ncd alu_file.ncd alu_file.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml alu_file.twx alu_file.ncd -o alu_file.twr alu_file.pcf 
+xst -intstyle ise -ifn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.xst" -ofn "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.syr" 
