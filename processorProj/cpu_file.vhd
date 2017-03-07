@@ -38,7 +38,6 @@ entity cpu_file is
 				op_index2: in std_logic_vector(2 downto 0);         
 				alu_code : in  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
-				alu_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- EXE Stage Signals Monitored by Control Unit
 				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);

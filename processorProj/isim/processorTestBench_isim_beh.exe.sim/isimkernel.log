@@ -1,0 +1,31 @@
+Command line:
+   processorTestBench_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  56880
+
+Tue Mar 07 14:46:13 2017
+
+
+ Elaboration Time: 0.093601 sec
+
+ Current Memory Usage: 824.967 Meg
+
+ Total Signals          : 109
+ Total Nets             : 440
+ Total Signal Drivers   : 30
+ Total Blocks           : 16
+ Total Primitive Blocks : 13
+ Total Processes        : 20
+ Total Traceable Variables  : 17
+ Total Scalar Nets and Variables : 2990
+In process alu_file.vhd:51 
+ Target Size 16 and source size 32 for array dimension 0 does not match. 
+
+
+ Total Simulation Time: 1.57561 sec
+
+ Current Memory Usage: 667.681 Meg
+
+Tue Mar 07 14:56:51 2017
+

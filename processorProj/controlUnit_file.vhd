@@ -37,29 +37,29 @@ entity controlUnit_file is
 			  ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
 			  rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
 			  rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  reg_wd : out STD_LOGIC_VECTOR(15 downto 0);
+			  reg_waddr : out STD_LOGIC_VECTOR(2 downto 0);
 			  reg_wen : out STD_LOGIC;
 			  alu_code : out STD_LOGIC_VECTOR(2 downto 0));
 end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
 --Define states for each stage
-type state_type is (fetch, decode, execute);
-signal Current_State, Next_State : state_type;
-signal PC : unsigned(6 downto 0) := "0000000";
-signal PC_next : unsigned(6 downto 0);
-signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
+--type state_type is (fetch, decode, execute);
+--signal Current_State, Next_State : state_type;
+--signal PC : unsigned(6 downto 0) := "0000000";
+--signal PC_next : unsigned(6 downto 0);
+--signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
 
-alias opcode is instruction(15 downto 9);
-alias operand_ra is instruction(8 downto 6);
-alias operand_rb is instruction(5 downto 3);
-alias operand_rc is instruction(2 downto 0);
+alias opcode is instruction(15 downto 9); -- All formats
+alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3
+alias operand_rb is instruction(5 downto 3); -- Formats: A1
+alias operand_rc is instruction(2 downto 0); -- Formats: A1
 
 begin
 
 -- DECODE
 opcode_out <= opcode;
-ra_addr <= operand_ra;
+ra_addr <= operand_ra; 
 rb_addr <= operand_rb;
 rc_addr <= operand_rc;
 
@@ -72,6 +72,9 @@ alu_code <=
 	"110" when opcode = "0000110" else
 	"111" when opcode = "0000111" else
 	"000";
-
+	
+-- Temporary for IN OUT command
+reg_waddr <= operand_ra;
+reg_wen <= '1' when opcode = "0100001" else '0';
 end Behavioral;
 
