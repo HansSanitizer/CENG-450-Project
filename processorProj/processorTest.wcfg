@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="17" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -46,10 +46,20 @@
       <obj_property name="ElementShortName">wr_index[2:0]</obj_property>
       <obj_property name="ObjectShortName">wr_index[2:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">in1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">in1[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">in2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">in2[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/alu0/result" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">result[15:0]</obj_property>
       <obj_property name="ObjectShortName">result[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/result_out" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">result_out[15:0]</obj_property>

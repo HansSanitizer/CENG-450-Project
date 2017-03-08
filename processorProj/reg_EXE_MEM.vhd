@@ -42,6 +42,10 @@ entity reg_EXE_MEM is
 				z_flag_in : IN STD_LOGIC;
 				n_flag_in : IN STD_LOGIC;
 				-- Write Signals
+				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
+				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
+				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
+				op2_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end reg_EXE_MEM;
 
@@ -67,7 +71,7 @@ begin
 			-- Clear register with reset signal
 			pipeRegister <= (others => '0');
 		else
-			opCode <= opcode_in;
+			opcode <= opcode_in;
 			destAddress <= dest_addr_in;
 			operandAddress1 <= op1_addr_in;
 			operandAddress2 <= op2_addr_in;

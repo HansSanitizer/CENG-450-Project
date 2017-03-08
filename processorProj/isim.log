@@ -20,11 +20,6 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-at 115 ns(2), Instance /processortestbench/uut/cpu0/alu0/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-ERROR: In process alu_file.vhd:51 
- Target Size 16 and source size 32 for array dimension 0 does not match. 
-
-INFO: Simulator is stopped.
 ISim O.87xd (signature 0xc3576ebc)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -42,11 +37,6 @@ This is a Full version of ISim.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-at 115 ns(2), Instance /processortestbench/uut/cpu0/alu0/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-ERROR: In process alu_file.vhd:51 
- Target Size 16 and source size 32 for array dimension 0 does not match. 
-
-INFO: Simulator is stopped.
 ISim O.87xd (signature 0xc3576ebc)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -64,14 +54,6 @@ This is a Full version of ISim.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-ERROR: In process alu_file.vhd:51 
- Target Size 16 and source size 32 for array dimension 0 does not match. 
-
-INFO: Simulator is stopped.
-# run 1.00us
-INFO: Simulator is stopped.
-# run 1.00us
-INFO: Simulator is stopped.
 ISim O.87xd (signature 0xc3576ebc)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -89,7 +71,3 @@ This is a Full version of ISim.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-ERROR: In process alu_file.vhd:51 
- Target Size 16 and source size 32 for array dimension 0 does not match. 
-
-INFO: Simulator is stopped.

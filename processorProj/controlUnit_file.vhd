@@ -60,8 +60,12 @@ begin
 -- DECODE
 opcode_out <= opcode;
 ra_addr <= operand_ra; 
-rb_addr <= operand_rb;
-rc_addr <= operand_rc;
+rb_addr <= 
+	operand_ra when opcode = "0000100" else
+	operand_ra when opcode = "0000101" else
+	operand_ra when opcode = "0000110" else
+	operand_rb;
+rc_addr <= operand_rb when opcode = "0000100" else operand_rc;
 
 alu_code <=
 	"001" when opcode = "0000001" else

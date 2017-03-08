@@ -54,10 +54,9 @@ component cpu_file is
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--write signals (From WB stage)
-				wr_index: in std_logic_vector(2 downto 0); 
-				wr_data: in std_logic_vector(15 downto 0);
-				wr_enable: in std_logic;
-				result_out: OUT STD_LOGIC_VECTOR(15 downto 0));
+				--wr_index: in std_logic_vector(2 downto 0); 
+				--wr_data: in std_logic_vector(15 downto 0);
+				wr_enable: in std_logic);
 end component;
 
 component controlUnit_file is
@@ -99,10 +98,9 @@ cpu0: cpu_file port map (
 	alu_code => aluCode,
 	opcode_in => opcode,
 	dest_addr_in => ra,
-	wr_index => writeAddress,
-	wr_data => wr_data,
-	wr_enable => wen,
-	result_out => result_out);
+	--wr_index => writeAddress,
+	--wr_data => wr_data,
+	wr_enable => wen);
 
 end Structure;
 

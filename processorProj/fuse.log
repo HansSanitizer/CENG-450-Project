@@ -35,8 +35,8 @@ Compiling architecture structure of entity cpu_file [cpu_file_default]
 Compiling architecture structure of entity processorTopLevel [processortoplevel_default]
 Compiling architecture behavior of entity processortestbench
 Time Resolution for simulation is 1ps.
-Waiting for 3 sub-compilation(s) to finish...
+Waiting for 1 sub-compilation(s) to finish...
 Compiled 28 VHDL Units
 Built simulation executable C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench_isim_beh.exe
-Fuse Memory Usage: 37300 KB
-Fuse CPU Usage: 467 ms
+Fuse Memory Usage: 37568 KB
+Fuse CPU Usage: 483 ms
