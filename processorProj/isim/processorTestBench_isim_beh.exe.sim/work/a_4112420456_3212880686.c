@@ -23,6 +23,7 @@
 #endif
 static const char *ng0 = "C:/Users/tlong/Documents/CENG-450-Project/processorProj/alu_file.vhd";
 extern char *IEEE_P_3620187407;
+<<<<<<< HEAD
 extern char *IEEE_P_1242562249;
 
 int ieee_p_1242562249_sub_1657552908_1035706684(char *, char *, char *);
@@ -36,12 +37,21 @@ unsigned char ieee_p_3620187407_sub_2546382208_3965413181(char *, char *, char *
 unsigned char ieee_p_3620187407_sub_2546418145_3965413181(char *, char *, char *, int );
 unsigned char ieee_p_3620187407_sub_3890342512_3965413181(char *, char *, char *, int );
 unsigned char ieee_p_3620187407_sub_3908131327_3965413181(char *, char *, char *, int );
+=======
+extern char *IEEE_P_2592010699;
+
+char *ieee_p_2592010699_sub_3798478767_503743352(char *, char *, char *, char *, char *, char *);
+char *ieee_p_3620187407_sub_767632659_3965413181(char *, char *, char *, char *, char *, char *);
+char *ieee_p_3620187407_sub_767668596_3965413181(char *, char *, char *, char *, char *, char *);
+char *ieee_p_3620187407_sub_767740470_3965413181(char *, char *, char *, char *, char *, char *);
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
 
 
 static void work_a_4112420456_3212880686_p_0(char *t0)
 {
     char t5[16];
     char t11[16];
+<<<<<<< HEAD
     char t25[16];
     char t30[16];
     char t44[16];
@@ -54,6 +64,14 @@ static void work_a_4112420456_3212880686_p_0(char *t0)
     char t99[16];
     char t114[16];
     char t119[16];
+=======
+    char t28[16];
+    char t34[16];
+    char t51[16];
+    char t57[16];
+    char t74[16];
+    char t80[16];
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     char *t1;
     char *t2;
     char *t3;
@@ -67,13 +85,19 @@ static void work_a_4112420456_3212880686_p_0(char *t0)
     char *t14;
     char *t15;
     char *t16;
+<<<<<<< HEAD
     char *t17;
     char *t18;
+=======
+    unsigned int t17;
+    unsigned char t18;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     char *t19;
     char *t20;
     char *t21;
     char *t22;
     char *t23;
+<<<<<<< HEAD
     char *t26;
     char *t27;
     int t28;
@@ -82,11 +106,22 @@ static void work_a_4112420456_3212880686_p_0(char *t0)
     char *t32;
     char *t33;
     char *t34;
+=======
+    char *t24;
+    char *t25;
+    char *t26;
+    char *t29;
+    char *t30;
+    int t31;
+    unsigned int t32;
+    unsigned char t33;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     char *t35;
     char *t36;
     char *t37;
     char *t38;
     char *t39;
+<<<<<<< HEAD
     char *t40;
     char *t41;
     char *t42;
@@ -108,6 +143,31 @@ static void work_a_4112420456_3212880686_p_0(char *t0)
     char *t63;
     int t64;
     unsigned int t65;
+=======
+    unsigned int t40;
+    unsigned char t41;
+    char *t42;
+    char *t43;
+    char *t44;
+    char *t45;
+    char *t46;
+    char *t47;
+    char *t48;
+    char *t49;
+    char *t52;
+    char *t53;
+    int t54;
+    unsigned int t55;
+    unsigned char t56;
+    char *t58;
+    char *t59;
+    char *t60;
+    char *t61;
+    char *t62;
+    unsigned int t63;
+    unsigned char t64;
+    char *t65;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     char *t66;
     char *t67;
     char *t68;
@@ -115,23 +175,36 @@ static void work_a_4112420456_3212880686_p_0(char *t0)
     char *t70;
     char *t71;
     char *t72;
+<<<<<<< HEAD
     char *t73;
     char *t76;
     char *t77;
     int t78;
+=======
+    char *t75;
+    char *t76;
+    int t77;
+    unsigned int t78;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     unsigned char t79;
     char *t81;
     char *t82;
     char *t83;
     char *t84;
     char *t85;
+<<<<<<< HEAD
     char *t86;
     char *t87;
+=======
+    unsigned int t86;
+    unsigned char t87;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     char *t88;
     char *t89;
     char *t90;
     char *t91;
     char *t92;
+<<<<<<< HEAD
     char *t95;
     char *t96;
     int t97;
@@ -164,12 +237,20 @@ static void work_a_4112420456_3212880686_p_0(char *t0)
     char *t128;
     char *t129;
     char *t130;
+=======
+    char *t93;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
 
 LAB0:    xsi_set_current_line(51, ng0);
     t1 = (t0 + 1352U);
     t2 = *((char **)t1);
+<<<<<<< HEAD
     t1 = (t0 + 6204U);
     t3 = (t0 + 6279);
+=======
+    t1 = (t0 + 5376U);
+    t3 = (t0 + 5451);
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
     t6 = (t5 + 0U);
     t7 = (t6 + 0U);
     *((int *)t7) = 0;
@@ -186,6 +267,7 @@ LAB0:    xsi_set_current_line(51, ng0);
     if (t10 != 0)
         goto LAB3;
 
+<<<<<<< HEAD
 LAB4:    t21 = (t0 + 1352U);
     t22 = *((char **)t21);
     t21 = (t0 + 6204U);
@@ -289,10 +371,76 @@ LAB12:    t110 = (t0 + 1352U);
 LAB14:
 LAB2:    t130 = (t0 + 3808);
     *((int *)t130) = 1;
+=======
+LAB4:    t24 = (t0 + 1352U);
+    t25 = *((char **)t24);
+    t24 = (t0 + 5376U);
+    t26 = (t0 + 5454);
+    t29 = (t28 + 0U);
+    t30 = (t29 + 0U);
+    *((int *)t30) = 0;
+    t30 = (t29 + 4U);
+    *((int *)t30) = 2;
+    t30 = (t29 + 8U);
+    *((int *)t30) = 1;
+    t31 = (2 - 0);
+    t32 = (t31 * 1);
+    t32 = (t32 + 1);
+    t30 = (t29 + 12U);
+    *((unsigned int *)t30) = t32;
+    t33 = ieee_std_logic_unsigned_equal_stdv_stdv(IEEE_P_3620187407, t25, t24, t26, t28);
+    if (t33 != 0)
+        goto LAB7;
+
+LAB8:    t47 = (t0 + 1352U);
+    t48 = *((char **)t47);
+    t47 = (t0 + 5376U);
+    t49 = (t0 + 5457);
+    t52 = (t51 + 0U);
+    t53 = (t52 + 0U);
+    *((int *)t53) = 0;
+    t53 = (t52 + 4U);
+    *((int *)t53) = 2;
+    t53 = (t52 + 8U);
+    *((int *)t53) = 1;
+    t54 = (2 - 0);
+    t55 = (t54 * 1);
+    t55 = (t55 + 1);
+    t53 = (t52 + 12U);
+    *((unsigned int *)t53) = t55;
+    t56 = ieee_std_logic_unsigned_equal_stdv_stdv(IEEE_P_3620187407, t48, t47, t49, t51);
+    if (t56 != 0)
+        goto LAB11;
+
+LAB12:    t70 = (t0 + 1352U);
+    t71 = *((char **)t70);
+    t70 = (t0 + 5376U);
+    t72 = (t0 + 5460);
+    t75 = (t74 + 0U);
+    t76 = (t75 + 0U);
+    *((int *)t76) = 0;
+    t76 = (t75 + 4U);
+    *((int *)t76) = 2;
+    t76 = (t75 + 8U);
+    *((int *)t76) = 1;
+    t77 = (2 - 0);
+    t78 = (t77 * 1);
+    t78 = (t78 + 1);
+    t76 = (t75 + 12U);
+    *((unsigned int *)t76) = t78;
+    t79 = ieee_std_logic_unsigned_equal_stdv_stdv(IEEE_P_3620187407, t71, t70, t72, t74);
+    if (t79 != 0)
+        goto LAB15;
+
+LAB16:
+LAB2:    t93 = (t0 + 3312);
+    *((int *)t93) = 1;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
 
 LAB1:    return;
 LAB3:    t7 = (t0 + 1032U);
     t12 = *((char **)t7);
+<<<<<<< HEAD
     t7 = (t0 + 6172U);
     t13 = (t0 + 1192U);
     t14 = *((char **)t13);
@@ -672,13 +820,120 @@ LAB10:    t26 = (t0 + 1032U);
     t30 = ieee_p_3620187407_sub_3908131327_3965413181(IEEE_P_3620187407, t29, t26, 0);
     t19 = t30;
     goto LAB12;
+=======
+    t7 = (t0 + 5344U);
+    t13 = (t0 + 1192U);
+    t14 = *((char **)t13);
+    t13 = (t0 + 5360U);
+    t15 = ieee_p_3620187407_sub_767668596_3965413181(IEEE_P_3620187407, t11, t12, t7, t14, t13);
+    t16 = (t11 + 12U);
+    t9 = *((unsigned int *)t16);
+    t17 = (1U * t9);
+    t18 = (16U != t17);
+    if (t18 == 1)
+        goto LAB5;
+
+LAB6:    t19 = (t0 + 3392);
+    t20 = (t19 + 56U);
+    t21 = *((char **)t20);
+    t22 = (t21 + 56U);
+    t23 = *((char **)t22);
+    memcpy(t23, t15, 16U);
+    xsi_driver_first_trans_fast_port(t19);
+    goto LAB2;
+
+LAB5:    xsi_size_not_matching(16U, t17, 0);
+    goto LAB6;
+
+LAB7:    t30 = (t0 + 1032U);
+    t35 = *((char **)t30);
+    t30 = (t0 + 5344U);
+    t36 = (t0 + 1192U);
+    t37 = *((char **)t36);
+    t36 = (t0 + 5360U);
+    t38 = ieee_p_3620187407_sub_767740470_3965413181(IEEE_P_3620187407, t34, t35, t30, t37, t36);
+    t39 = (t34 + 12U);
+    t32 = *((unsigned int *)t39);
+    t40 = (1U * t32);
+    t41 = (16U != t40);
+    if (t41 == 1)
+        goto LAB9;
+
+LAB10:    t42 = (t0 + 3392);
+    t43 = (t42 + 56U);
+    t44 = *((char **)t43);
+    t45 = (t44 + 56U);
+    t46 = *((char **)t45);
+    memcpy(t46, t38, 16U);
+    xsi_driver_first_trans_fast_port(t42);
+    goto LAB2;
+
+LAB9:    xsi_size_not_matching(16U, t40, 0);
+    goto LAB10;
+
+LAB11:    t53 = (t0 + 1032U);
+    t58 = *((char **)t53);
+    t53 = (t0 + 5344U);
+    t59 = (t0 + 1192U);
+    t60 = *((char **)t59);
+    t59 = (t0 + 5360U);
+    t61 = ieee_p_3620187407_sub_767632659_3965413181(IEEE_P_3620187407, t57, t58, t53, t60, t59);
+    t62 = (t57 + 12U);
+    t55 = *((unsigned int *)t62);
+    t63 = (1U * t55);
+    t64 = (16U != t63);
+    if (t64 == 1)
+        goto LAB13;
+
+LAB14:    t65 = (t0 + 3392);
+    t66 = (t65 + 56U);
+    t67 = *((char **)t66);
+    t68 = (t67 + 56U);
+    t69 = *((char **)t68);
+    memcpy(t69, t61, 16U);
+    xsi_driver_first_trans_fast_port(t65);
+    goto LAB2;
+
+LAB13:    xsi_size_not_matching(16U, t63, 0);
+    goto LAB14;
+
+LAB15:    t76 = (t0 + 1032U);
+    t81 = *((char **)t76);
+    t76 = (t0 + 5344U);
+    t82 = (t0 + 1192U);
+    t83 = *((char **)t82);
+    t82 = (t0 + 5360U);
+    t84 = ieee_p_2592010699_sub_3798478767_503743352(IEEE_P_2592010699, t80, t81, t76, t83, t82);
+    t85 = (t80 + 12U);
+    t78 = *((unsigned int *)t85);
+    t86 = (1U * t78);
+    t87 = (16U != t86);
+    if (t87 == 1)
+        goto LAB17;
+
+LAB18:    t88 = (t0 + 3392);
+    t89 = (t88 + 56U);
+    t90 = *((char **)t89);
+    t91 = (t90 + 56U);
+    t92 = *((char **)t91);
+    memcpy(t92, t84, 16U);
+    xsi_driver_first_trans_fast_port(t88);
+    goto LAB2;
+
+LAB17:    xsi_size_not_matching(16U, t86, 0);
+    goto LAB18;
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
 
 }
 
 
 extern void work_a_4112420456_3212880686_init()
 {
+<<<<<<< HEAD
 	static char *pe[] = {(void *)work_a_4112420456_3212880686_p_0,(void *)work_a_4112420456_3212880686_p_1,(void *)work_a_4112420456_3212880686_p_2};
+=======
+	static char *pe[] = {(void *)work_a_4112420456_3212880686_p_0};
+>>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
 	xsi_register_didat("work_a_4112420456_3212880686", "isim/processorTestBench_isim_beh.exe.sim/work/a_4112420456_3212880686.didat");
 	xsi_register_executes(pe);
 }

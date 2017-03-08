@@ -55,15 +55,21 @@ component cpu_file is
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--write signals (From WB stage)
 <<<<<<< HEAD
+<<<<<<< HEAD
 				--wr_index: in std_logic_vector(2 downto 0); 
 				--wr_data: in std_logic_vector(15 downto 0);
 				wr_enable: in std_logic);
 =======
+=======
+>>>>>>> parent of efa23a9... Added WB register
 				wr_index: in std_logic_vector(2 downto 0); 
 				wr_data: in std_logic_vector(15 downto 0);
 				wr_enable: in std_logic;
 				result_out: OUT STD_LOGIC_VECTOR(15 downto 0));
+<<<<<<< HEAD
 >>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
+=======
+>>>>>>> parent of efa23a9... Added WB register
 end component;
 
 component controlUnit_file is
@@ -106,15 +112,21 @@ cpu0: cpu_file port map (
 	opcode_in => opcode,
 	dest_addr_in => ra,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	--wr_index => writeAddress,
 	--wr_data => wr_data,
 	wr_enable => wen);
 =======
+=======
+>>>>>>> parent of efa23a9... Added WB register
 	wr_index => writeAddress,
 	wr_data => wr_data,
 	wr_enable => wen,
 	result_out => result_out);
+<<<<<<< HEAD
 >>>>>>> d1d16647a98c0652245ab0cf838648ed3d7a02e0
+=======
+>>>>>>> parent of efa23a9... Added WB register
 
 end Structure;
 
