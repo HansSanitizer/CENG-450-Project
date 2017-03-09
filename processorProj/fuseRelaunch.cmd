@@ -1,1 +1,0 @@
--intstyle "ise" -incremental -o "C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench_isim_beh.exe" -prj "C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench_beh.prj" "work.processorTestBench" 

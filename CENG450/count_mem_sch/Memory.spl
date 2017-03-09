@@ -1,5 +1,0 @@
-[Inputs]
-=addr[7:0]=
-[Outputs]
-=dout[7:0]=
-[BiDir]

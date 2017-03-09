@@ -1,4 +1,0 @@
-vhdl isim_temp "ROM_VHDL.vhd"
-vhdl isim_temp "controlUnit_file.vhd"
-vhdl isim_temp "controlUnit_TopLevel.vhd"
-vhdl isim_temp "controlUnit_tb.vhd"

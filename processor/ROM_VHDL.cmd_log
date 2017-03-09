@@ -1,0 +1,1 @@
+vhdtdtfi -prj processor -o "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor/ROM_VHDL.vhi" -module ROM_VHDL -template C:/Xilinx/13.4/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work source/ROM_VHDL.vhd 

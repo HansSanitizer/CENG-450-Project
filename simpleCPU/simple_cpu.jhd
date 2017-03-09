@@ -1,5 +1,0 @@
-MODULE simple_cpu
-	SUBMODULE alu_file
-		INSTANCE XLXI_1
-	SUBMODULE register_file
-		INSTANCE XLXI_2

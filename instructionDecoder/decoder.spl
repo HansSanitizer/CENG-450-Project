@@ -1,8 +1,0 @@
-[Inputs]
-=instruction[15:0]=
-[Outputs]
-=alu_code[2:0]=
-=ra_addr[2:0]=
-=rb_addr[2:0]=
-=rc_addr[2:0]=
-[BiDir]

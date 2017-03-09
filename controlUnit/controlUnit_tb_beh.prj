@@ -1,4 +1,0 @@
-vhdl work "ROM_VHDL.vhd"
-vhdl work "controlUnit_file.vhd"
-vhdl work "controlUnit_TopLevel.vhd"
-vhdl work "controlUnit_tb.vhd"

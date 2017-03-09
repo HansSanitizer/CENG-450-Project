@@ -1,4 +1,0 @@
-AR register_file behavioural C:/Users/jgmann/CENG450/register_alu/register_file.vhd sub00/vhpl01 1486072087
-EN alu_file NULL "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.vhd" sub00/vhpl02 1488501267
-AR alu_file behavioral "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_file.vhd" sub00/vhpl03 1488501268
-EN register_file NULL C:/Users/jgmann/CENG450/register_alu/register_file.vhd sub00/vhpl00 1486072086

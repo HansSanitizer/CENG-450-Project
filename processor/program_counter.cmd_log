@@ -1,0 +1,1 @@
+vhdtdtfi -prj processor -o "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor/program_counter.vhi" -module program_counter -template C:/Xilinx/13.4/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work source/program_counter.vhd 

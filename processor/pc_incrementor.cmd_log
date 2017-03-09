@@ -1,0 +1,1 @@
+vhdtdtfi -prj processor -o "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor/pc_incrementor.vhi" -module pc_incrementor -template C:/Xilinx/13.4/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work source/pc_incrementor.vhd 

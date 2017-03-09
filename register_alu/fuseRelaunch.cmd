@@ -1,1 +1,0 @@
--intstyle "ise" -incremental -o "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb_isim_beh.exe" -prj "C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/register_alu/alu_tb_beh.prj" "work.alu_tb" 

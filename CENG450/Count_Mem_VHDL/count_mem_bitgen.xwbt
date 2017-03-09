@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=C:\Users\jgmann\CENG450\Count_Mem_VHDL\count_mem.ncd
-OUTFILE=C:\Users\jgmann\CENG450\Count_Mem_VHDL\count_mem.bit
-FAMILY=Spartan3E
-PART=xc3s1200e-5fg320
-WORKINGDIR=C:\Users\jgmann\CENG450\Count_Mem_VHDL
-LICENSE=ISE
-USER_INFO=174116782_174116783_177179904_529

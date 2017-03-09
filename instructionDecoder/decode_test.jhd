@@ -1,5 +1,0 @@
-MODULE decode_test
-	SUBMODULE decoder
-		INSTANCE XLXI_1
-	SUBMODULE register_file
-		INSTANCE XLXI_2

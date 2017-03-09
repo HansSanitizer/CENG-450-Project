@@ -1,2 +1,0 @@
-vhdl isim_temp "reg_IF_ID.vhd"
-vhdl isim_temp "reg_IF_ID_tb.vhd"

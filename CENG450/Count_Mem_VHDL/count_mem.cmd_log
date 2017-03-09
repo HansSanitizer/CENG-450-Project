@@ -1,8 +1,0 @@
-xst -intstyle ise -ifn "C:/Users/jgmann/CENG450/Count_Mem_VHDL/count_mem.xst" -ofn "C:/Users/jgmann/CENG450/Count_Mem_VHDL/count_mem.syr" 
-ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc count_mem_vhdl_pinout.ucf -p xc3s1200e-fg320-5 count_mem.ngc count_mem.ngd  
-map -intstyle ise -p xc3s1200e-fg320-5 -cm area -ir off -pr off -c 100 -o count_mem_map.ncd count_mem.ngd count_mem.pcf 
-par -w -intstyle ise -ol high -t 1 count_mem_map.ncd count_mem.ncd count_mem.pcf 
-trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml count_mem.twx count_mem.ncd -o count_mem.twr count_mem.pcf -ucf count_mem_vhdl_pinout.ucf 
-bitgen -intstyle ise -f count_mem.ut count_mem.ncd 
-bitgen -intstyle ise -f count_mem.ut count_mem.ncd 
-xst -intstyle ise -ifn "C:/Users/jgmann/CENG450/Count_Mem_VHDL/count_mem.xst" -ofn "C:/Users/jgmann/CENG450/Count_Mem_VHDL/count_mem.syr" 

@@ -1,0 +1,17 @@
+[Inputs]
+clk
+rst
+imm_select
+wb_mux_select
+wr_enable
+=op_index1[2:0]=
+=op_index2[2:0]=
+=alu_code[2:0]=
+=opcode_in[6:0]=
+=dest_addr_in[2:0]=
+=immediate[3:0]=
+=wr_data[15:0]=
+[Outputs]
+=instr_out[15:0]=
+=wb_opcode[6:0]=
+[BiDir]

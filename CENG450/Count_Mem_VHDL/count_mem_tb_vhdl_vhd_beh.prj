@@ -1,4 +1,0 @@
-vhdl work "ROM_VHDL.vhd"
-vhdl work "counter_non_syn.vhd"
-vhdl work "count_mem_vhdl.vhd"
-vhdl work "count_mem_tb_vhdl.vhd"

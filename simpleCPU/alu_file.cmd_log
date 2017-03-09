@@ -1,2 +1,0 @@
-vhdtdtfi -lib work alu_file.vhd -prj simpleCPU -o alu_file.spl -module alu_file -template C:/Xilinx/13.4/ISE_DS/ISE//data/splfile.tft -deleteonerror 
-spl2sym -intstyle ise -family spartan3e alu_file.spl C:/Users/tlong/Documents/CENG450/simpleCPU/alu_file.sym 
