@@ -47,6 +47,8 @@ component cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				imm_select : IN STD_LOGIC;
+				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
 				-- EXE Stage Signals Monitored by Control Unit
 				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);
 				--dest_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -69,6 +71,8 @@ component controlUnit_file is
 				rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
+				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
+				imm_select : OUT STD_LOGIC;
 				-- WRITE BACK
 				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
@@ -78,7 +82,8 @@ end component;
 signal instr : STD_LOGIC_VECTOR(15 downto 0);
 signal opcodeID, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
 signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
-signal wen, wbSel : STD_LOGIC;
+signal immData : STD_LOGIC_VECTOR(3 downto 0);
+signal wen, wbSel, immSel : STD_LOGIC;
 
 begin
 
@@ -89,6 +94,8 @@ ctrl0: controlUnit_file port map (
 	rb_addr => rb,
 	rc_addr => rc,
 	alu_code => aluCode,
+	imm_data => immData,
+	imm_select => immSel,
 	opcode_wb => opcodeWB,
 	wb_mux_sel => wbSel,
 	reg_wen => wen);
@@ -102,6 +109,8 @@ cpu0: cpu_file port map (
 	alu_code => aluCode,
 	opcode_in => opcodeID,
 	dest_addr_in => ra,
+	imm_select => immSel, -- From CU
+	immediate => immData, -- From CU
 	wr_data => wr_data, -- External
 	wb_mux_select => wbSel, -- To CU
 	wr_enable => wen,

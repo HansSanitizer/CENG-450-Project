@@ -25,6 +25,7 @@
     <file xil_pn:fileType="FILE_LOG" xil_pn:name="fuse.log"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="processorTestBench_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="processorTestBench_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="processorTestBench_isim_beh.wdb"/>
@@ -37,13 +38,14 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1489015660" xil_pn:in_ck="1879525193511829859" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1489015660">
+    <transform xil_pn:end_ts="1489020426" xil_pn:in_ck="-689807827973629130" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1489020426">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="source/ROM_VHDL.vhd"/>
       <outfile xil_pn:name="source/alu_file.vhd"/>
       <outfile xil_pn:name="source/controlUnit_file.vhd"/>
       <outfile xil_pn:name="source/cpu_file.vhd"/>
+      <outfile xil_pn:name="source/op2_data_mux.vhd"/>
       <outfile xil_pn:name="source/pc_incrementor.vhd"/>
       <outfile xil_pn:name="source/processorTopLevel.vhd"/>
       <outfile xil_pn:name="source/processor_tb.vhd"/>
@@ -67,13 +69,14 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1489015663" xil_pn:in_ck="1879525193511829859" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1489015663">
+    <transform xil_pn:end_ts="1489020429" xil_pn:in_ck="-689807827973629130" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1489020429">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="source/ROM_VHDL.vhd"/>
       <outfile xil_pn:name="source/alu_file.vhd"/>
       <outfile xil_pn:name="source/controlUnit_file.vhd"/>
       <outfile xil_pn:name="source/cpu_file.vhd"/>
+      <outfile xil_pn:name="source/op2_data_mux.vhd"/>
       <outfile xil_pn:name="source/pc_incrementor.vhd"/>
       <outfile xil_pn:name="source/processorTopLevel.vhd"/>
       <outfile xil_pn:name="source/processor_tb.vhd"/>
@@ -85,19 +88,28 @@
       <outfile xil_pn:name="source/reg_wrdata_mux.vhd"/>
       <outfile xil_pn:name="source/register_file.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1489015667" xil_pn:in_ck="1879525193511829859" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-3107904547917748850" xil_pn:start_ts="1489015663">
+    <transform xil_pn:end_ts="1489020432" xil_pn:in_ck="-689807827973629130" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-3107904547917748850" xil_pn:start_ts="1489020429">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="fuse.log"/>
       <outfile xil_pn:name="isim"/>
+      <outfile xil_pn:name="isim.log"/>
       <outfile xil_pn:name="processorTestBench_beh.prj"/>
       <outfile xil_pn:name="processorTestBench_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1489015667" xil_pn:in_ck="5287584233168923247" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-846101659818990949" xil_pn:start_ts="1489015667">
+    <transform xil_pn:end_ts="1489020432" xil_pn:in_ck="5287584233168923247" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-846101659818990949" xil_pn:start_ts="1489020432">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="isim.cmd"/>
+      <outfile xil_pn:name="isim.log"/>
       <outfile xil_pn:name="processorTestBench_isim_beh.wdb"/>
     </transform>
   </transforms>

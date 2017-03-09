@@ -81,12 +81,12 @@
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[2]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[2]</obj_property>
          <obj_property name="ObjectShortName">reg_file[2]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[3]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[3]</obj_property>
          <obj_property name="ObjectShortName">reg_file[3]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[4]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[4]</obj_property>

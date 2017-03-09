@@ -39,6 +39,8 @@ entity cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				imm_select : IN STD_LOGIC;
+				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
 				-- EXE Stage Signals Monitored by Control Unit
 				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);
 				--dest_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -96,6 +98,13 @@ component register_file is
 		wr_index: in std_logic_vector(2 downto 0); 
 		wr_data: in std_logic_vector(15 downto 0);
 		wr_enable: in std_logic);
+end component;
+
+component op2_data_mux is
+	Port (	imm_select: IN STD_LOGIC;
+				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				data : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 -- EXE Components
@@ -177,7 +186,7 @@ end component;
 
 signal currentPC, nextPC : STD_LOGIC_VECTOR(6 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
-signal regOpData1, regOpData2, aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
+signal regOpData1, regOpData2, muxOpData2, aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal zeroFlag, negFlag : STD_LOGIC;
 
@@ -229,6 +238,12 @@ reg0: register_file port map (
 	wr_index => writeAddress,
 	wr_data => wbMuxData,
 	wr_enable => wr_enable);
+	
+mux1: op2_data_mux port map (
+	imm_select => imm_select, -- From CU
+	immediate => immediate, -- From CU
+	reg_data => regOpData2,
+	data => muxOpData2);
 
 -- ID/EXE
 
@@ -241,7 +256,7 @@ idexe0: reg_ID_EXE port map (
 	op1_addr_in => op_index1,
 	op2_addr_in => op_index2, 
 	op1_data_in => regOpData1,
-	op2_data_in => regOpData2,
+	op2_data_in => muxOpData2,
 	opcode_out => opcode_EXE,
 	alu_out => aluCode,
 	dest_addr_out => dest_addr_EXE,

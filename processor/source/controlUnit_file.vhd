@@ -37,6 +37,8 @@ entity controlUnit_file is
 				rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
+				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
+				imm_select : OUT STD_LOGIC;
 				-- WRITE BACK
 				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
@@ -63,21 +65,27 @@ begin
 opcode_out <= opcode;
 ra_addr <= operand_ra; 
 rb_addr <= 
-	operand_ra when opcode = "0000100" else
-	operand_ra when opcode = "0000101" else
-	operand_ra when opcode = "0000110" else
+	operand_ra when opcode = "0000100" else	-- NAND
+	operand_ra when opcode = "0000101" else	-- SHL
+	operand_ra when opcode = "0000110" else	-- SHR
 	operand_rb;
-rc_addr <= operand_rb when opcode = "0000100" else operand_rc;
+rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
+
+imm_data <= operand_c1;
+imm_select <=
+	'1' when opcode = "0000101" else	-- SHL
+	'1' when opcode = "0000110" else -- SHR
+	'0';
 
 alu_code <=
-	"001" when opcode = "0000001" else
-	"010" when opcode = "0000010" else
-	"011" when opcode = "0000011" else
-	"100" when opcode = "0000100" else
-	"101" when opcode = "0000101" else
-	"110" when opcode = "0000110" else
-	"111" when opcode = "0000111" else
-	"000";
+	"001" when opcode = "0000001" else	-- ADD
+	"010" when opcode = "0000010" else	-- SUB
+	"011" when opcode = "0000011" else	-- MUL
+	"100" when opcode = "0000100" else	-- NAND
+	"101" when opcode = "0000101" else	-- SHL
+	"110" when opcode = "0000110" else	-- SHR
+	"111" when opcode = "0000111" else	-- TEST
+	"000";										-- NOP
 	
 -- WRITE BACK
 reg_wen <=
