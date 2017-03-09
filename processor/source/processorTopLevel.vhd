@@ -32,20 +32,19 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity processorTopLevel is
 	Port (	clk: in STD_LOGIC;
 				rst: in STD_LOGIC;
-				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
-				result_out: OUT STD_LOGIC_VECTOR(15 downto 0));
+				wr_data: IN STD_LOGIC_VECTOR(15 downto 0));
 end processorTopLevel;
 
 architecture Structure of processorTopLevel is
 
 component cpu_file is
-	Port (	clk: in std_logic;
-				rst : in std_logic;
-				-- Control Unit Signals
+	Port (	clk: IN STD_LOGIC;
+				rst : IN STD_LOGIC;
+				-- Control Unit INSTRUCTION DECODE Signals
 				instr_out : OUT STD_LOGIC_VECTOR(15 downto 0);
-				op_index1: in std_logic_vector(2 downto 0); 
-				op_index2: in std_logic_vector(2 downto 0);         
-				alu_code : in  STD_LOGIC_VECTOR(2 downto 0);
+				op_index1: IN STD_LOGIC_VECTOR(2 downto 0); 
+				op_index2: IN STD_LOGIC_VECTOR(2 downto 0);         
+				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- EXE Stage Signals Monitored by Control Unit
@@ -55,40 +54,44 @@ component cpu_file is
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--write signals (From WB stage)
 				--wr_index: in std_logic_vector(2 downto 0); 
-				--wr_data: in std_logic_vector(15 downto 0);
-				wr_enable: in std_logic;
-				result_out: OUT STD_LOGIC_VECTOR(15 downto 0));
+				-- Control Unit WRITE BACK Signals
+				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
+				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
+				wr_enable: IN STD_LOGIC;
+				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0));
 end component;
 
 component controlUnit_file is
-    Port ( --clk : in  STD_LOGIC;
-           --rst : in  STD_LOGIC;
-			  instruction : in STD_LOGIC_VECTOR(15 downto 0);
-			  opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
-			  ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  reg_waddr : out STD_LOGIC_VECTOR(2 downto 0);
-			  reg_wen : out STD_LOGIC;
-			  alu_code : out STD_LOGIC_VECTOR(2 downto 0));
+    Port (	-- DECODE
+				instruction : in STD_LOGIC_VECTOR(15 downto 0);
+				opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
+				ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
+				rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
+				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
+				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
+				-- WRITE BACK
+				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
+				wb_mux_sel: OUT STD_LOGIC;
+				reg_wen : OUT STD_LOGIC);
 end component;
 
 signal instr : STD_LOGIC_VECTOR(15 downto 0);
-signal opcode : STD_LOGIC_VECTOR(6 downto 0);
-signal ra, rb, rc, writeAddress, aluCode : STD_LOGIC_VECTOR(2 downto 0);
-signal wen : STD_LOGIC;
+signal opcodeID, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
+signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
+signal wen, wbSel : STD_LOGIC;
 
 begin
 
 ctrl0: controlUnit_file port map (
 	instruction => instr,
-	opcode_out => opcode,
+	opcode_out => opcodeID,
 	ra_addr => ra,
 	rb_addr => rb,
 	rc_addr => rc,
-	reg_waddr => writeAddress,
-	reg_wen => wen,
-	alu_code => aluCode);
+	alu_code => aluCode,
+	opcode_wb => opcodeWB,
+	wb_mux_sel => wbSel,
+	reg_wen => wen);
 	
 cpu0: cpu_file port map (
 	clk => clk,
@@ -97,12 +100,12 @@ cpu0: cpu_file port map (
 	op_index1 => rb,
 	op_index2 => rc,
 	alu_code => aluCode,
-	opcode_in => opcode,
+	opcode_in => opcodeID,
 	dest_addr_in => ra,
-	wr_index => writeAddress,
-	wr_data => wr_data,
+	wr_data => wr_data, -- External
+	wb_mux_select => wbSel, -- To CU
 	wr_enable => wen,
-	result_out => result_out);
+	wb_opcode => opcodeWB); -- To CU
 
 end Structure;
 

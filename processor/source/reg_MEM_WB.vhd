@@ -39,7 +39,7 @@ entity reg_MEM_WB is
 				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				result_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- Write Signals
-				opcode_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_out: OUT STD_LOGIC_VECTOR(2 downto 0);
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end reg_MEM_WB;

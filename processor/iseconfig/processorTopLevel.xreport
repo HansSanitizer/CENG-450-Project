@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-03-08T15:19:55</DateModified>
+  <DateModified>2017-03-08T15:27:21</DateModified>
   <ModuleName>processorTopLevel</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>C:/Users/tlong/Documents/CENG-450-Project/processor/iseconfig/processorTestBench.xreport</SavedFilePath>
+  <SavedFilePath>C:/Users/tlong/Documents/CENG-450-Project/processor/iseconfig/processorTopLevel.xreport</SavedFilePath>
   <ImplementationReportsDirectory>C:/Users/tlong/Documents/CENG-450-Project/processor</ImplementationReportsDirectory>
-  <DateInitialized>2017-03-08T15:19:54</DateInitialized>
+  <DateInitialized>2017-03-08T15:21:29</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

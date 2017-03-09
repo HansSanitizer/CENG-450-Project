@@ -30,16 +30,17 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity controlUnit_file is
-    Port ( --clk : in  STD_LOGIC;
-           --rst : in  STD_LOGIC;
-			  instruction : in STD_LOGIC_VECTOR(15 downto 0);
-			  opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
-			  ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  reg_waddr : out STD_LOGIC_VECTOR(2 downto 0);
-			  reg_wen : out STD_LOGIC;
-			  alu_code : out STD_LOGIC_VECTOR(2 downto 0));
+    Port (	-- DECODE
+				instruction : in STD_LOGIC_VECTOR(15 downto 0);
+				opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
+				ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
+				rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
+				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
+				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
+				-- WRITE BACK
+				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
+				wb_mux_sel: OUT STD_LOGIC;
+				reg_wen : OUT STD_LOGIC);
 end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
@@ -51,9 +52,10 @@ architecture Behavioral of controlUnit_file is
 --signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
 
 alias opcode is instruction(15 downto 9); -- All formats
-alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3
+alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3, B2
 alias operand_rb is instruction(5 downto 3); -- Formats: A1
 alias operand_rc is instruction(2 downto 0); -- Formats: A1
+alias operand_c1 is instruction(3 downto 0); -- Formats: A2
 
 begin
 
@@ -77,8 +79,14 @@ alu_code <=
 	"111" when opcode = "0000111" else
 	"000";
 	
--- Temporary for IN OUT command
-reg_waddr <= operand_ra;
-reg_wen <= '1' when opcode = "0100001" else '0';
+-- WRITE BACK
+reg_wen <=
+	'0' when opcode_wb = "0000000" else	-- NOP
+	'0' when opcode_wb = "0000111" else	-- TEST
+	'0' when opcode_wb = "0100000" else	-- OUT
+	'1';
+
+wb_mux_sel <= '1' when opcode_wb = "0100001" else '0'; -- IN
+
 end Behavioral;
 

@@ -81,6 +81,10 @@ begin
 		end if;
 	elsif(clk='1' and clk'event) then
 		-- Send data out to next stage
+		opcode_out <= opcode;
+		dest_addr_out <= destAddress;
+		op1_addr_out <= operandAddress1;
+		op2_addr_out <= operandAddress2;
 		result_out <= aluResult;
 	end if;
 end process;

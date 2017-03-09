@@ -30,13 +30,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity cpu_file is
-	Port (	clk: in std_logic;
-				rst : in std_logic;
-				-- Control Unit Signals
+	Port (	clk: IN STD_LOGIC;
+				rst : IN STD_LOGIC;
+				-- Control Unit INSTRUCTION DECODE Signals
 				instr_out : OUT STD_LOGIC_VECTOR(15 downto 0);
-				op_index1: in std_logic_vector(2 downto 0); 
-				op_index2: in std_logic_vector(2 downto 0);         
-				alu_code : in  STD_LOGIC_VECTOR(2 downto 0);
+				op_index1: IN STD_LOGIC_VECTOR(2 downto 0); 
+				op_index2: IN STD_LOGIC_VECTOR(2 downto 0);         
+				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- EXE Stage Signals Monitored by Control Unit
@@ -46,11 +46,16 @@ entity cpu_file is
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--write signals (From WB stage)
 				--wr_index: in std_logic_vector(2 downto 0); 
-				--wr_data: in std_logic_vector(15 downto 0);
-				wr_enable: in std_logic);
+				-- Control Unit WRITE BACK Signals
+				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
+				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
+				wr_enable: IN STD_LOGIC;
+				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0));
 end cpu_file;
 
 architecture Structure of cpu_file is
+
+-- IF Components
 
 component program_counter is
 	port (	clk : IN STD_LOGIC;
@@ -71,6 +76,15 @@ component ROM_VHDL is
          );
 end component;
 
+-- DECODE Components
+
+component reg_wrdata_mux is
+	port ( 	ext_select : IN STD_LOGIC;
+				wb_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				ext_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				data : OUT STD_LOGIC_VECTOR(15 downto 0));
+end component;
+
 component register_file is
 	port(rst : in std_logic; clk: in std_logic;
 		--read signals
@@ -83,6 +97,8 @@ component register_file is
 		wr_data: in std_logic_vector(15 downto 0);
 		wr_enable: in std_logic);
 end component;
+
+-- EXE Components
 
 component alu_file is
 	Port ( in1 : in  STD_LOGIC_VECTOR(15 downto 0);
@@ -154,12 +170,11 @@ component reg_MEM_WB is
 				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				result_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- Write Signals
-				opcode_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_out: OUT STD_LOGIC_VECTOR(2 downto 0);
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
---SIGNAL data1, data2: std_logic_vector(15 downto 0);
 signal currentPC, nextPC : STD_LOGIC_VECTOR(6 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
 signal regOpData1, regOpData2, aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
@@ -174,9 +189,11 @@ signal dest_addr_MEM, op1_addr_MEM, op2_addr_MEM : STD_LOGIC_VECTOR(2 downto 0);
 signal result_MEM: STD_LOGIC_VECTOR(15 downto 0);
 
 signal writeAddress: STD_LOGIC_VECTOR(2 downto 0);
-signal writeData: STD_LOGIC_VECTOR(15 downto 0);
+signal writeData, wbMuxData: STD_LOGIC_VECTOR(15 downto 0);
 
 begin
+
+-- ISTRUCTION FETCH
 
 pc0: program_counter port map (
 	clk => clk,
@@ -192,11 +209,15 @@ rom0: ROM_VHDL port map (
 	addr => currentPC,
 	data => instructionFETCH);
 
+-- IF/ID
+
 ifid0: reg_IF_ID port map (
 	clk => clk, 
 	rst => rst,
 	instr_in => instructionFETCH,
 	instr_out => instr_out);
+
+-- INSTRUCTION DECODE
 	
 reg0: register_file port map (
 	clk => clk,
@@ -206,8 +227,10 @@ reg0: register_file port map (
 	rd_data1 => regOpData1,
 	rd_data2 => regOpData2, 
 	wr_index => writeAddress,
-	wr_data => writeData,
+	wr_data => wbMuxData,
 	wr_enable => wr_enable);
+
+-- ID/EXE
 
 idexe0: reg_ID_EXE port map (
 	clk => clk, 
@@ -226,7 +249,9 @@ idexe0: reg_ID_EXE port map (
 	op1_data_out => aluOpData1,
 	op2_addr_out => op2_addr_EXE,
 	op2_data_out => aluOpData2);
-	
+
+-- EXECUTE
+
 alu0: alu_file port map (
 	in1 => aluOpData1,
 	in2 => aluOpData2,
@@ -234,7 +259,9 @@ alu0: alu_file port map (
 	result => aluResult,
 	z_flag => zeroFlag,
 	n_flag => negFlag);
-	
+
+-- EXE/MEM
+
 exemem0: reg_EXE_MEM port map (
 	clk => clk,
 	rst => rst,
@@ -251,6 +278,8 @@ exemem0: reg_EXE_MEM port map (
 	op2_addr_out => op2_addr_MEM,
 	result_out => result_MEM);
 	
+-- MEM/WB
+	
 memwb0: reg_MEM_WB port map (
 	clk => clk,
 	rst => rst,
@@ -259,9 +288,17 @@ memwb0: reg_MEM_WB port map (
 	op1_addr_in => op1_addr_MEM,
 	op2_addr_in => op2_addr_MEM,
 	result_in => result_MEM,
-	opcode_out => open,
+	opcode_out => wb_opcode, -- To CU
 	dest_addr_out => writeAddress,
 	result_out => writeData);
+
+-- WRITE BACK
+
+mux0: reg_wrdata_mux port map (
+	ext_select => wb_mux_select, -- Fom CU
+	wb_data => writeData,
+	ext_data => wr_data, -- From CU
+	data => wbMuxData);
 
 end Structure;
 

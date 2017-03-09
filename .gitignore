@@ -4,3 +4,7 @@
 *.exe
 *.prj
 isim.*
+fuse.*
+*.ini
+*.wdb
+*.cmd
