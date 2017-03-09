@@ -81,7 +81,12 @@ begin
 			operandAddress2 <= op2_addr_in;
 			operandData2 <= op2_data_in;
 		end if;
-	elsif(clk='1' and clk'event) then
+	end if;
+end process;
+
+process(clk)
+begin
+	if(clk='1' and clk'event) then
 		-- Send data out to next stage
 		opCode_out <= opCode;
 		alu_out <= aluCode;

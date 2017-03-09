@@ -44,15 +44,20 @@ begin
 
 process(clk)
 begin
-	if(clk='0' and clk'event) then
+	if(rising_edge(clk)) then
 		-- Falling edge action latch new instruction
 		if(rst = '1') then
 			-- Clear register with reset signal
 			instructionReg <= (others => '0');
-		else
+		elsif(rst = '0') then
 			instructionReg <= instr_in;
 		end if;
-	elsif(clk='1' and clk'event) then
+	end if;
+end process;
+
+process(clk)
+begin
+	if(falling_edge(clk)) then
 		-- Send instruction out to be decoded
 		instr_out <= instructionReg;
 	end if;

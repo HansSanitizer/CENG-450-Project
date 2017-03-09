@@ -1,0 +1,2 @@
+vhdtdtfi -lib work source/reg_IF_ID.vhd -prj processor -o reg_IF_ID.spl -module reg_IF_ID -template C:/Xilinx/13.4/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e reg_IF_ID.spl {C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor/reg_IF_ID.sym} 

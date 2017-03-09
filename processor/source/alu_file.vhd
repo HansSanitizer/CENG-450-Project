@@ -58,11 +58,13 @@ STD_LOGIC_VECTOR(unsigned(in1) srl to_integer(unsigned(in2))) when(alu_mode="110
 
 z_flag <=
 '1' when((alu_mode = "111") and (in1 = 0)) else
-'0' when((alu_mode = "111") and (in1 /= 0));
+'0' when((alu_mode = "111") and (in1 /= 0)) else
+'0';
 
 n_flag <=
 '1' when((alu_mode = "111") and (in1 < 0)) else
-'0' when((alu_mode = "111") and (in1 >=0));
+'0' when((alu_mode = "111") and (in1 >=0)) else
+'0';
 
 
 end Behavioral;

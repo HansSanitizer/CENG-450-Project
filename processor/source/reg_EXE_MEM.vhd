@@ -79,7 +79,12 @@ begin
 			zeroFlag <= z_flag_in;
 			negativeFlag <= n_flag_in;
 		end if;
-	elsif(clk='1' and clk'event) then
+	end if;
+end process;
+
+process(clk)
+begin
+	if(clk='1' and clk'event) then
 		-- Send data out to next stage
 		opcode_out <= opcode;
 		dest_addr_out <= destAddress;
