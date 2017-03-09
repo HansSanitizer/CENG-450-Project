@@ -1,0 +1,10 @@
+*/isim/
+*/xst/
+*/_xmsgs/
+*.exe
+*.prj
+isim.*
+fuse.*
+*.ini
+*.wdb
+*.cmd

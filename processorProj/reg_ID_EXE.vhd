@@ -33,6 +33,7 @@ entity reg_ID_EXE is
 	port (	clk : IN STD_LOGIC;
 				rst : IN STD_LOGIC;
 				-- Control Unit read signals
+				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				alu_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -41,6 +42,7 @@ entity reg_ID_EXE is
 				op1_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				op2_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- write signals
+				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				alu_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -51,8 +53,9 @@ end reg_ID_EXE;
 
 architecture Behavioral of reg_ID_EXE is
 
-signal pipeRegister : STD_LOGIC_VECTOR(43 downto 0) := (others => '0');
+signal pipeRegister : STD_LOGIC_VECTOR(50 downto 0) := (others => '0');
 
+alias opCode is pipeRegister (50 downto 44);
 alias aluCode is pipeRegister(43 downto 41);
 alias destAddress is pipeRegister(40 downto 38);
 alias operandAddress1 is pipeRegister(37 downto 35);
@@ -70,6 +73,7 @@ begin
 			-- Clear register with reset signal
 			pipeRegister <= (others => '0');
 		else
+			opCode <= opcode_in;
 			aluCode <= alu_in;
 			destAddress <= dest_addr_in;
 			operandAddress1 <= op1_addr_in;
@@ -79,6 +83,7 @@ begin
 		end if;
 	elsif(clk='1' and clk'event) then
 		-- Send data out to next stage
+		opCode_out <= opCode;
 		alu_out <= aluCode;
 		dest_addr_out <= destAddress;
 		op1_addr_out <= operandAddress1;

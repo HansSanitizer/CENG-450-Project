@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/tlong/Documents/CENG-450-Project/processorProj/testbench_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="testbench" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="17" />
+   <wvobject fp_name="/testbench/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/uut/pc0/next_value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">next_value[6:0]</obj_property>
+      <obj_property name="ObjectShortName">next_value[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/uut/pc0/current_value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">current_value[6:0]</obj_property>
+      <obj_property name="ObjectShortName">current_value[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/uut/ifid0/instr_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instr_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instr_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/op_index1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_index1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">op_index1[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/op_index2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_index2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">op_index2[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/alu_code" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_code[2:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_code[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/alu_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_in[2:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_in[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/dest_addr_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dest_addr_in[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dest_addr_in[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/wr_index" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wr_index[2:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_index[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/wr_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wr_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/wr_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wr_enable</obj_property>
+      <obj_property name="ObjectShortName">wr_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/result_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">result_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">result_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/clk_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+</wave_config>

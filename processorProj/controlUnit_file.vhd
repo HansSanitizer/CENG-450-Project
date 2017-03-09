@@ -30,90 +30,55 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity controlUnit_file is
-    Port ( clk : in  STD_LOGIC;
-           rst : in  STD_LOGIC;
-			  address : out STD_LOGIC_VECTOR(6 downto 0);
+    Port ( --clk : in  STD_LOGIC;
+           --rst : in  STD_LOGIC;
 			  instruction : in STD_LOGIC_VECTOR(15 downto 0);
+			  opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
 			  ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
 			  rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
 			  rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
-			  reg_wd : out STD_LOGIC_VECTOR(15 downto 0);
+			  reg_waddr : out STD_LOGIC_VECTOR(2 downto 0);
 			  reg_wen : out STD_LOGIC;
 			  alu_code : out STD_LOGIC_VECTOR(2 downto 0));
 end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
 --Define states for each stage
-type state_type is (fetch, decode, execute);
-signal Current_State, Next_State : state_type;
-signal PC : unsigned(6 downto 0) := "0000000";
-signal PC_next : unsigned(6 downto 0);
-signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
+--type state_type is (fetch, decode, execute);
+--signal Current_State, Next_State : state_type;
+--signal PC : unsigned(6 downto 0) := "0000000";
+--signal PC_next : unsigned(6 downto 0);
+--signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
 
-alias opcode is instr_reg(15 downto 9);
-alias operand_ra is instr_reg(8 downto 6);
-alias operand_rb is instr_reg(5 downto 3);
-alias operand_rc is instr_reg(2 downto 0);
+alias opcode is instruction(15 downto 9); -- All formats
+alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3
+alias operand_rb is instruction(5 downto 3); -- Formats: A1
+alias operand_rc is instruction(2 downto 0); -- Formats: A1
 
 begin
 
-process(clk)
-begin
-	if(rst = '1') then
-		Current_State <= fetch;
-	elsif (clk'event and clk = '1') then
-		Current_State <= Next_State;
-	end if;
-end process;
+-- DECODE
+opcode_out <= opcode;
+ra_addr <= operand_ra; 
+rb_addr <= 
+	operand_ra when opcode = "0000100" else
+	operand_ra when opcode = "0000101" else
+	operand_ra when opcode = "0000110" else
+	operand_rb;
+rc_addr <= operand_rb when opcode = "0000100" else operand_rc;
 
-process(Current_State)
-begin
-	case Current_State is
-		when fetch =>
-			address <= STD_LOGIC_VECTOR(PC);
-			instr_reg <= instruction;
-			Next_State <= decode;
-		when decode =>
-			PC <= PC_next;
-			
-			ra_addr <= operand_ra;
-			rb_addr <= operand_rb;
-			rc_addr <= operand_rc;
-			
-			case opcode is
-				when "0000001" => alu_code <= "001";
-				when "0000010" => alu_code <= "010";
-				when "0000011" => alu_code <= "011";
-				when "0000100" => alu_code <= "100";
-				when others => alu_code <= "000";
-			end case;
-			--with opcode select alu_code <=
-				--"001" when "0000001",
-				--"010" when "0000010",
-				--"011" when "0000011",
-				--"100" when "0000100";
-			--alu_code <=
-			--"001" when(opcode="0000001") else
-			--"010" when(opcode="0000010") else
-			--"011" when(opcode="0000011") else
-			--"100" when(opcode="0000100") else "000";
-			
-			if (opcode ="0100001") then
-				reg_wen <= '1';
-			else
-				reg_wen <= '0';
-			end if;
-			
-			Next_State <= execute;
-		when execute =>
-			Next_State <= fetch;
-		when others =>
-			NULL;
-	end case;
-end process;
-
-PC_next <= PC + 1;
-reg_wd <= X"0003";
-
+alu_code <=
+	"001" when opcode = "0000001" else
+	"010" when opcode = "0000010" else
+	"011" when opcode = "0000011" else
+	"100" when opcode = "0000100" else
+	"101" when opcode = "0000101" else
+	"110" when opcode = "0000110" else
+	"111" when opcode = "0000111" else
+	"000";
+	
+-- Temporary for IN OUT command
+reg_waddr <= operand_ra;
+reg_wen <= '1' when opcode = "0100001" else '0';
 end Behavioral;
 
