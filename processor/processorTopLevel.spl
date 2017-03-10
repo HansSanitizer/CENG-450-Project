@@ -1,6 +1,0 @@
-[Inputs]
-clk
-rst
-=wr_data[15:0]=
-[Outputs]
-[BiDir]
