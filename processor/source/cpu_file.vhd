@@ -41,14 +41,18 @@ entity cpu_file is
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				imm_select : IN STD_LOGIC;
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				stall_en : IN STD_LOGIC;
 				-- EXE Stage Signals Monitored by Control Unit
 				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);
-				--dest_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
+				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
+				-- MEM Stage Signals Monitored by Control Unit
+				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--write signals (From WB stage)
 				--wr_index: in std_logic_vector(2 downto 0); 
 				-- Control Unit WRITE BACK Signals
+				dest_addr_WB_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
 				wr_enable: IN STD_LOGIC;
@@ -202,6 +206,10 @@ signal writeData, wbMuxData: STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
+dest_addr_EXE_CU <= dest_addr_EXE;
+dest_addr_MEM_CU <= dest_addr_MEM;
+dest_addr_WB_CU <= writeAddress;
+
 -- ISTRUCTION FETCH
 
 pc0: program_counter port map (
@@ -244,12 +252,14 @@ mux1: op2_data_mux port map (
 	immediate => immediate, -- From CU
 	reg_data => regOpData2,
 	data => muxOpData2);
+	
+
 
 -- ID/EXE
 
 idexe0: reg_ID_EXE port map (
 	clk => clk, 
-	rst => rst,
+	rst => stall_en,
 	opcode_in => opcode_in,
 	alu_in => alu_code,
 	dest_addr_in => dest_addr_in,

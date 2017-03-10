@@ -32,6 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity processorTopLevel is
 	Port (	clk: in STD_LOGIC;
 				rst: in STD_LOGIC;
+				stall : OUT STD_LOGIC;
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0));
 end processorTopLevel;
 
@@ -49,14 +50,18 @@ component cpu_file is
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				imm_select : IN STD_LOGIC;
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				stall_en : IN STD_LOGIC;
 				-- EXE Stage Signals Monitored by Control Unit
 				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);
-				--dest_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
+				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
+				-- MEM Stage Signals Monitored by Control Unit
+				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--write signals (From WB stage)
 				--wr_index: in std_logic_vector(2 downto 0); 
 				-- Control Unit WRITE BACK Signals
+				dest_addr_WB_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
 				wr_enable: IN STD_LOGIC;
@@ -73,8 +78,14 @@ component controlUnit_file is
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
 				imm_select : OUT STD_LOGIC;
+				stall : OUT STD_LOGIC;
+				-- EXECUTE
+				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
+				-- MEMORY
+				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- WRITE BACK
 				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
+				dest_addr_wb : IN STD_LOGIC_VECTOR(2 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
 				reg_wen : OUT STD_LOGIC);
 end component;
@@ -82,10 +93,13 @@ end component;
 signal instr : STD_LOGIC_VECTOR(15 downto 0);
 signal opcodeID, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
 signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
+signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0);
 signal immData : STD_LOGIC_VECTOR(3 downto 0);
-signal wen, wbSel, immSel : STD_LOGIC;
+signal wen, wbSel, immSel, stallEnable : STD_LOGIC;
 
 begin
+
+stall <= stallEnable;
 
 ctrl0: controlUnit_file port map (
 	instruction => instr,
@@ -96,6 +110,10 @@ ctrl0: controlUnit_file port map (
 	alu_code => aluCode,
 	imm_data => immData,
 	imm_select => immSel,
+	stall => stallEnable,
+	dest_addr_exe => dest_addr_EXE,
+	dest_addr_mem => dest_addr_MEM,
+	dest_addr_wb => dest_addr_WB,
 	opcode_wb => opcodeWB,
 	wb_mux_sel => wbSel,
 	reg_wen => wen);
@@ -111,6 +129,10 @@ cpu0: cpu_file port map (
 	dest_addr_in => ra,
 	imm_select => immSel, -- From CU
 	immediate => immData, -- From CU
+	stall_en => stallEnable,
+	dest_addr_EXE_CU => dest_addr_EXE,
+	dest_addr_MEM_CU => dest_addr_MEM,
+	dest_addr_WB_CU => dest_addr_WB,
 	wr_data => wr_data, -- External
 	wb_mux_select => wbSel, -- To CU
 	wr_enable => wen,

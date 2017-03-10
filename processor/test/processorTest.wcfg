@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="14" />
+   <WVObjectSize size="15" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -25,6 +25,7 @@
    <wvobject fp_name="/processortestbench/uut/cpu0/ifid0/instr_in" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">instr_in[15:0]</obj_property>
       <obj_property name="ObjectShortName">instr_in[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/idexe0/opcode_in" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
@@ -64,49 +65,53 @@
       <obj_property name="ElementShortName">reg_wen</obj_property>
       <obj_property name="ObjectShortName">reg_wen</obj_property>
    </wvobject>
+   <wvobject fp_name="/processortestbench/stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
+   </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">reg_file[0:7]</obj_property>
       <obj_property name="ObjectShortName">reg_file[0:7]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[0]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[0]</obj_property>
          <obj_property name="ObjectShortName">reg_file[0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[1]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[1]</obj_property>
          <obj_property name="ObjectShortName">reg_file[1]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[2]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[2]</obj_property>
          <obj_property name="ObjectShortName">reg_file[2]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[3]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[3]</obj_property>
          <obj_property name="ObjectShortName">reg_file[3]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[4]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[4]</obj_property>
          <obj_property name="ObjectShortName">reg_file[4]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[5]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[5]</obj_property>
          <obj_property name="ObjectShortName">reg_file[5]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[6]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[6]</obj_property>
          <obj_property name="ObjectShortName">reg_file[6]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[7]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[7]</obj_property>
          <obj_property name="ObjectShortName">reg_file[7]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="/processortestbench/clk_period" type="other" db_ref_id="1">

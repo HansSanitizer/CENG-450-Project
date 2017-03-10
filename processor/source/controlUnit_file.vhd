@@ -39,8 +39,14 @@ entity controlUnit_file is
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
 				imm_select : OUT STD_LOGIC;
+				stall : OUT STD_LOGIC;
+				-- EXECUTE
+				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
+				-- MEMORY
+				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- WRITE BACK
 				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
+				dest_addr_wb : IN STD_LOGIC_VECTOR(2 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
 				reg_wen : OUT STD_LOGIC);
 end controlUnit_file;
@@ -52,6 +58,7 @@ architecture Behavioral of controlUnit_file is
 --signal PC : unsigned(6 downto 0) := "0000000";
 --signal PC_next : unsigned(6 downto 0);
 --signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
+signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
 alias opcode is instruction(15 downto 9); -- All formats
 alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3, B2
@@ -86,7 +93,62 @@ alu_code <=
 	"110" when opcode = "0000110" else	-- SHR
 	"111" when opcode = "0000111" else	-- TEST
 	"000";										-- NOP
-	
+
+-- possible hazards
+dataHazard(5 downto 4) <=
+	"01" when operand_ra = dest_addr_exe else
+	"10" when operand_ra = dest_addr_mem else
+	"11" when operand_ra = dest_addr_wb else
+	"00";
+dataHazard(3 downto 2) <=
+	"01" when operand_rb = dest_addr_exe else
+	"10" when operand_rb = dest_addr_mem else
+	"11" when operand_rb = dest_addr_wb else
+	"00";
+dataHazard(1 downto 0) <=
+	"01" when operand_rc = dest_addr_exe else
+	"10" when operand_rc = dest_addr_mem else
+	"11" when operand_rc = dest_addr_wb else
+	"00";
+
+-- detect and handle hazard
+hazard: process (dataHazard)
+begin
+	case opcode is
+		when "0000001" => -- ADD
+		-- Check Operands for pending write
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+					stall <= '0';
+			end case;
+			case dataHazard(1 downto 0) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+					stall <= '0';
+			end case;
+		when others =>
+	end case;
+end process hazard;
+
 -- WRITE BACK
 reg_wen <=
 	'0' when opcode_wb = "0000000" else	-- NOP
