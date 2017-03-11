@@ -65,6 +65,7 @@ architecture Structure of cpu_file is
 
 component program_counter is
 	port (	clk : IN STD_LOGIC;
+				hold : IN STD_LOGIC;
 				next_value : IN STD_LOGIC_VECTOR(6 downto 0);
 				current_value : OUT STD_LOGIC_VECTOR(6 downto 0));
 end component;
@@ -127,6 +128,7 @@ end component;
 component reg_IF_ID is
 	port(	clk : IN STD_LOGIC;
 			rst : IN STD_LOGIC;
+			hold: IN STD_LOGIC;
 			instr_in : IN STD_LOGIC_VECTOR(15 downto 0);
 			instr_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
@@ -192,7 +194,7 @@ signal currentPC, nextPC : STD_LOGIC_VECTOR(6 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
 signal regOpData1, regOpData2, muxOpData2, aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
-signal zeroFlag, negFlag : STD_LOGIC;
+signal stallEnable, zeroFlag, negFlag : STD_LOGIC;
 
 signal opcode_EXE: STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_EXE, op1_addr_EXE, op2_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
@@ -206,6 +208,8 @@ signal writeData, wbMuxData: STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
+stallEnable <= stall_en;
+
 dest_addr_EXE_CU <= dest_addr_EXE;
 dest_addr_MEM_CU <= dest_addr_MEM;
 dest_addr_WB_CU <= writeAddress;
@@ -214,6 +218,7 @@ dest_addr_WB_CU <= writeAddress;
 
 pc0: program_counter port map (
 	clk => clk,
+	hold  => stallEnable,
 	next_value => nextPC,
 	current_value => currentPC);
 	
@@ -231,6 +236,7 @@ rom0: ROM_VHDL port map (
 ifid0: reg_IF_ID port map (
 	clk => clk, 
 	rst => rst,
+	hold => stallEnable,
 	instr_in => instructionFETCH,
 	instr_out => instr_out);
 
@@ -259,7 +265,7 @@ mux1: op2_data_mux port map (
 
 idexe0: reg_ID_EXE port map (
 	clk => clk, 
-	rst => stall_en,
+	rst => stallEnable,
 	opcode_in => opcode_in,
 	alu_in => alu_code,
 	dest_addr_in => dest_addr_in,
