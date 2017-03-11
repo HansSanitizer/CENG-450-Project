@@ -72,10 +72,11 @@ begin
 opcode_out <= opcode;
 ra_addr <= operand_ra; 
 rb_addr <= 
+	operand_ra when opcode = "0000100" else	-- NAND
 	operand_ra when opcode = "0000101" else	-- SHL
 	operand_ra when opcode = "0000110" else	-- SHR
 	operand_rb;
-rc_addr <= operand_rc;
+rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
 
 imm_data <= operand_c1;
 imm_select <=
@@ -131,150 +132,6 @@ begin
 					-- don't stall
 			end case;
 			case dataHazard(1 downto 0) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0000010" => -- SUB
-		-- Check Operands for pending write
-			case dataHazard(3 downto 2) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-			case dataHazard(1 downto 0) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0000011" => -- MUL
-		-- Check Operands for pending write
-			case dataHazard(3 downto 2) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-			case dataHazard(1 downto 0) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0000100" => -- NAND
-		-- Check Operands for pending write
-			case dataHazard(3 downto 2) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-			case dataHazard(1 downto 0) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0000101" => -- SHL
-		-- Check Operand for pending write
-			case dataHazard(5 downto 4) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0000110" => -- SHR
-		-- Check Operand for pending write
-			case dataHazard(5 downto 4) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0000111" => -- TEST
-		-- Check Operand for pending write
-			case dataHazard(5 downto 4) is
-				when "01" =>
-					-- stall
-					stall <= '1';
-				when "10" =>
-					-- stall
-					stall <= '1';
-				when "11" =>
-					-- stall
-					stall <= '1';
-				when others =>
-					-- don't stall
-			end case;
-		when "0100000" => -- OUT
-		-- Check Operand for pending write
-			case dataHazard(5 downto 4) is
 				when "01" =>
 					-- stall
 					stall <= '1';
