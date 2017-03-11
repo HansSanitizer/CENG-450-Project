@@ -54,16 +54,17 @@ STD_LOGIC_VECTOR(signed(in1) - signed(in2)) when(alu_mode = "010") else
 STD_LOGIC_VECTOR(unsigned(in1(7 downto 0))*unsigned(in2(7 downto 0))) when(alu_mode = "011") else
 STD_LOGIC_VECTOR(signed(in1) nand signed(in2)) when(alu_mode = "100") else
 STD_LOGIC_VECTOR(unsigned(in1) sll to_integer(unsigned(in2))) when(alu_mode="101") else
-STD_LOGIC_VECTOR(unsigned(in1) srl to_integer(unsigned(in2))) when(alu_mode="110");
+STD_LOGIC_VECTOR(unsigned(in1) srl to_integer(unsigned(in2))) when(alu_mode="110") else
+STD_LOGIC_VECTOR(unsigned(in1));
 
 z_flag <=
-'1' when((alu_mode = "111") and (in1 = 0)) else
-'0' when((alu_mode = "111") and (in1 /= 0)) else
+'1' when((alu_mode = "111") and (to_integer(unsigned(in1)) = 0)) else
+'0' when((alu_mode = "111") and (to_integer(unsigned(in1)) /= 0)) else
 '0';
 
 n_flag <=
-'1' when((alu_mode = "111") and (in1 < 0)) else
-'0' when((alu_mode = "111") and (in1 >=0)) else
+'1' when((alu_mode = "111") and (to_integer(signed(in1)) < 0)) else
+'0' when((alu_mode = "111") and (to_integer(signed(in1)) >=0)) else
 '0';
 
 
