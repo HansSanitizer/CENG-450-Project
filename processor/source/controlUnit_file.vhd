@@ -114,6 +114,7 @@ dataHazard(1 downto 0) <=
 -- detect and handle hazard
 hazard: process (dataHazard)
 begin
+	stall <='0';	
 	case opcode is
 		when "0000001" => -- ADD
 		-- Check Operands for pending write
@@ -129,7 +130,6 @@ begin
 					stall <= '1';
 				when others =>
 					-- don't stall
-					stall <= '0';
 			end case;
 			case dataHazard(1 downto 0) is
 				when "01" =>
@@ -143,7 +143,6 @@ begin
 					stall <= '1';
 				when others =>
 					-- don't stall
-					stall <= '0';
 			end case;
 		when others =>
 	end case;

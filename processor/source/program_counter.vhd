@@ -31,6 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity program_counter is
 	port (	clk : IN STD_LOGIC;
+				hold : IN STD_LOGIC;
 				next_value : IN STD_LOGIC_VECTOR(6 downto 0);
 				current_value : OUT STD_LOGIC_VECTOR(6 downto 0));
 end program_counter;
@@ -44,7 +45,9 @@ begin
 process(clk)
 begin
 	if(clk='0' and clk'event) then
-		counterValue <= next_value;
+		if hold = '0' then
+			counterValue <= next_value;
+		end if;
 	end if;
 end process;
 

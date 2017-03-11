@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/Users/tlong/Documents/CENG-450-Project/processor/processorTestBench_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/hackThePlanet/CENG-450-Project/processor/processorTestBench_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="numeric_std" />
             <top_module name="processortestbench" />
@@ -13,23 +13,74 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="23" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/processortestbench/rst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst</obj_property>
-      <obj_property name="ObjectShortName">rst</obj_property>
+   <wvobject fp_name="/processortestbench/uut/cpu0/pc0/current_value" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">current_value[6:0]</obj_property>
+      <obj_property name="ObjectShortName">current_value[6:0]</obj_property>
+      <obj_property name="label">PC[6:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/ifid0/instr_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">instr_in[15:0]</obj_property>
       <obj_property name="ObjectShortName">instr_in[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="label">FETCH[15:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/idexe0/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
       <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="label">DECODE[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/instruction" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="label">instruction[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/exemem0/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="label">EXECUTE[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/memwb0/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="label">MEMORY[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/memwb0/opcode_out" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_out[6:0]</obj_property>
+      <obj_property name="label">WRITEBACK[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/datahazard" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">datahazard[5:0]</obj_property>
+      <obj_property name="ObjectShortName">datahazard[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/dest_addr_exe" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dest_addr_exe[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dest_addr_exe[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/dest_addr_mem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dest_addr_mem[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dest_addr_mem[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/writeaddress" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">writeaddress[2:0]</obj_property>
+      <obj_property name="ObjectShortName">writeaddress[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">in1[15:0]</obj_property>
@@ -64,10 +115,6 @@
    <wvobject fp_name="/processortestbench/uut/ctrl0/reg_wen" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">reg_wen</obj_property>
       <obj_property name="ObjectShortName">reg_wen</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processortestbench/stall" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">stall</obj_property>
-      <obj_property name="ObjectShortName">stall</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">reg_file[0:7]</obj_property>
@@ -104,9 +151,11 @@
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[6]" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">label</obj_property>
          <obj_property name="ElementShortName">[6]</obj_property>
          <obj_property name="ObjectShortName">reg_file[6]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="label">[6]</obj_property>
       </wvobject>
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[7]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[7]</obj_property>

@@ -32,6 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity reg_IF_ID is
 	port(	clk : IN STD_LOGIC;
 			rst : IN STD_LOGIC;
+			hold : IN STD_LOGIC;
 			instr_in : IN STD_LOGIC_VECTOR(15 downto 0);
 			instr_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end reg_IF_ID;
@@ -44,7 +45,7 @@ begin
 
 process(clk)
 begin
-	if(rising_edge(clk)) then
+	if(falling_edge(clk)) then
 		-- Falling edge action latch new instruction
 		if(rst = '1') then
 			-- Clear register with reset signal
@@ -57,9 +58,11 @@ end process;
 
 process(clk)
 begin
-	if(falling_edge(clk)) then
+	if(rising_edge(clk)) then
 		-- Send instruction out to be decoded
-		instr_out <= instructionReg;
+		if hold = '0' then
+			instr_out <= instructionReg;
+		end if;
 	end if;
 end process;
 
