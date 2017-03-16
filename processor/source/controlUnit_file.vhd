@@ -111,7 +111,7 @@ dataHazard(1 downto 0) <=
 	"00";
 
 -- detect and handle hazard
-hazard: process (dataHazard)
+hazard: process (dataHazard, opcode)
 begin
 	stall <='0';	
 	case opcode is

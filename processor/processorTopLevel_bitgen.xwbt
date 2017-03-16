@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\Users\J-Lenovo14\OneDrive\3A 4A\CENG 450\CENG450Project\processor\processorTopLevel.ncd
+OUTFILE=C:\Users\J-Lenovo14\OneDrive\3A 4A\CENG 450\CENG450Project\processor\processorTopLevel.bit
+FAMILY=Spartan3E
+PART=xc3s1200e-5fg320
+WORKINGDIR=C:\Users\J-Lenovo14\OneDrive\3A 4A\CENG 450\CENG450Project\processor
+LICENSE=WebPack
+USER_INFO=211298184_0_0_778
