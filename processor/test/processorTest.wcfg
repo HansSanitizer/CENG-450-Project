@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/hackThePlanet/CENG-450-Project/processor/processorTestBench_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/Users/tlong/Documents/CENG-450-Project/processor/processorTestBench_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="numeric_std" />
             <top_module name="processortestbench" />
@@ -13,16 +13,22 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="23" />
+   <WVObjectSize size="24" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/pc0/current_value" type="array" db_ref_id="1">
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">current_value[6:0]</obj_property>
-      <obj_property name="ObjectShortName">current_value[6:0]</obj_property>
+      <obj_property name="ElementShortName">current_value[15:0]</obj_property>
+      <obj_property name="ObjectShortName">current_value[15:0]</obj_property>
       <obj_property name="label">PC[6:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/rom0/addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/ifid0/instr_in" type="array" db_ref_id="1">
       <obj_property name="DisplayName">label</obj_property>

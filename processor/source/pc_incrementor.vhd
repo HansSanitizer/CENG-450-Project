@@ -38,7 +38,7 @@ architecture Behavioral of pc_incrementor is
 
 begin
 
-output <= std_logic_vector(unsigned(input) +1 );
+output <= std_logic_vector(unsigned(input) +2 );
 
 end Behavioral;
 
