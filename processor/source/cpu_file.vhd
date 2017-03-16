@@ -66,19 +66,19 @@ architecture Structure of cpu_file is
 component program_counter is
 	port (	clk : IN STD_LOGIC;
 				hold : IN STD_LOGIC;
-				next_value : IN STD_LOGIC_VECTOR(6 downto 0);
-				current_value : OUT STD_LOGIC_VECTOR(6 downto 0));
+				next_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				current_value : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component pc_incrementor is
-	port (	input : IN STD_LOGIC_VECTOR(6 downto 0);
-				output : OUT STD_LOGIC_VECTOR(6 downto 0));
+	port (	input : IN STD_LOGIC_VECTOR(15 downto 0);
+				output : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component ROM_VHDL is
     port(
          clk      : in  std_logic;
-         addr     : in  std_logic_vector (6 downto 0);
+         addr     : in  std_logic_vector (15 downto 0);
          data     : out std_logic_vector (15 downto 0)
          );
 end component;
@@ -190,7 +190,7 @@ component reg_MEM_WB is
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
-signal currentPC, nextPC : STD_LOGIC_VECTOR(6 downto 0);
+signal currentPC, nextPC : STD_LOGIC_VECTOR(15 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
 signal regOpData1, regOpData2, muxOpData2, aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);

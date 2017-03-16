@@ -65,6 +65,8 @@ alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3, B2
 alias operand_rb is instruction(5 downto 3); -- Formats: A1
 alias operand_rc is instruction(2 downto 0); -- Formats: A1
 alias operand_c1 is instruction(3 downto 0); -- Formats: A2
+alias disp_l is instruction(8 downto 0); -- Formats: B1
+alias disp_s is instruction(5 downto 0); -- Formats: B2
 
 begin
 

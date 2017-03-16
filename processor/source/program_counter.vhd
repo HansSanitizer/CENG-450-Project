@@ -32,13 +32,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity program_counter is
 	port (	clk : IN STD_LOGIC;
 				hold : IN STD_LOGIC;
-				next_value : IN STD_LOGIC_VECTOR(6 downto 0);
-				current_value : OUT STD_LOGIC_VECTOR(6 downto 0));
+				next_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				current_value : OUT STD_LOGIC_VECTOR(15 downto 0));
 end program_counter;
 
 architecture Behavioral of program_counter is
 
-signal counterValue : STD_LOGIC_VECTOR(6 downto 0) := (others => '0');
+signal counterValue : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
 
 begin
 
