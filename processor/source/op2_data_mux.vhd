@@ -30,7 +30,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity op2_data_mux is
-	Port (	imm_select: IN STD_LOGIC;
+	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
@@ -44,7 +44,7 @@ begin
 
 bigImmediate(3 downto 0) <= immediate;
 
-data <= bigImmediate when imm_select = '1' else reg_data;
+data <= bigImmediate when data_select = "01" else reg_data;
 
 end Behavioral;
 

@@ -39,7 +39,7 @@ entity cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				imm_select : IN STD_LOGIC;
+				data_select : IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
 				stall_en : IN STD_LOGIC;
 				-- EXE Stage Signals Monitored by Control Unit
@@ -56,7 +56,9 @@ entity cpu_file is
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
 				wr_enable: IN STD_LOGIC;
-				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0));
+				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0);
+				-- FOR TESTING
+				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end cpu_file;
 
 architecture Structure of cpu_file is
@@ -106,7 +108,7 @@ component register_file is
 end component;
 
 component op2_data_mux is
-	Port (	imm_select: IN STD_LOGIC;
+	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
@@ -214,6 +216,9 @@ dest_addr_EXE_CU <= dest_addr_EXE;
 dest_addr_MEM_CU <= dest_addr_MEM;
 dest_addr_WB_CU <= writeAddress;
 
+--TESTING
+result <= writeData;
+
 -- ISTRUCTION FETCH
 
 pc0: program_counter port map (
@@ -254,7 +259,7 @@ reg0: register_file port map (
 	wr_enable => wr_enable);
 	
 mux1: op2_data_mux port map (
-	imm_select => imm_select, -- From CU
+	data_select => data_select, -- From CU
 	immediate => immediate, -- From CU
 	reg_data => regOpData2,
 	data => muxOpData2);

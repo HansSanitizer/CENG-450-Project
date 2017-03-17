@@ -33,7 +33,8 @@ entity processorTopLevel is
 	Port (	clk: in STD_LOGIC;
 				rst: in STD_LOGIC;
 				stall : OUT STD_LOGIC;
-				wr_data: IN STD_LOGIC_VECTOR(15 downto 0));
+				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
+				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end processorTopLevel;
 
 architecture Structure of processorTopLevel is
@@ -48,7 +49,7 @@ component cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				imm_select : IN STD_LOGIC;
+				data_select : IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
 				stall_en : IN STD_LOGIC;
 				-- EXE Stage Signals Monitored by Control Unit
@@ -65,7 +66,9 @@ component cpu_file is
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
 				wr_enable: IN STD_LOGIC;
-				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0));
+				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0);
+				-- FOR TESTING
+				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component controlUnit_file is
@@ -77,7 +80,8 @@ component controlUnit_file is
 				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
-				imm_select : OUT STD_LOGIC;
+				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
+				data_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				stall : OUT STD_LOGIC;
 				-- EXECUTE
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -95,7 +99,8 @@ signal opcodeID, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
 signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0);
 signal immData : STD_LOGIC_VECTOR(3 downto 0);
-signal wen, wbSel, immSel, stallEnable : STD_LOGIC;
+signal dataSel : STD_LOGIC_VECTOR(1 downto 0);
+signal wen, wbSel, stallEnable : STD_LOGIC;
 
 begin
 
@@ -109,7 +114,8 @@ ctrl0: controlUnit_file port map (
 	rc_addr => rc,
 	alu_code => aluCode,
 	imm_data => immData,
-	imm_select => immSel,
+	disp_data => open,
+	data_select => dataSel,
 	stall => stallEnable,
 	dest_addr_exe => dest_addr_EXE,
 	dest_addr_mem => dest_addr_MEM,
@@ -127,7 +133,7 @@ cpu0: cpu_file port map (
 	alu_code => aluCode,
 	opcode_in => opcodeID,
 	dest_addr_in => ra,
-	imm_select => immSel, -- From CU
+	data_select => dataSel, -- From CU
 	immediate => immData, -- From CU
 	stall_en => stallEnable,
 	dest_addr_EXE_CU => dest_addr_EXE,
@@ -136,7 +142,8 @@ cpu0: cpu_file port map (
 	wr_data => wr_data, -- External
 	wb_mux_select => wbSel, -- To CU
 	wr_enable => wen,
-	wb_opcode => opcodeWB); -- To CU
+	wb_opcode => opcodeWB, -- To CU
+	result => result);
 
 end Structure;
 

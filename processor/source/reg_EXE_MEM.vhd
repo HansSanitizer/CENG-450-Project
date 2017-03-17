@@ -52,6 +52,8 @@ end reg_EXE_MEM;
 architecture Behavioral of reg_EXE_MEM is
 
 signal pipeRegister : STD_LOGIC_VECTOR(33 downto 0) := (others => '0');
+attribute S: string;
+attribute S of pipeRegister: signal is "Yes";
 
 alias opcode is pipeRegister(33 downto 27);
 alias destAddress is pipeRegister(26 downto 24);

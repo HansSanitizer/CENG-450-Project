@@ -47,6 +47,8 @@ end reg_MEM_WB;
 architecture Behavioral of reg_MEM_WB is
 
 signal pipeRegister : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+attribute S: string;
+attribute S of pipeRegister: signal is "Yes";
 
 alias opcode is pipeRegister(31 downto 25);
 alias destAddress is pipeRegister(24 downto 22);

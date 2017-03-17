@@ -39,6 +39,8 @@ end program_counter;
 architecture Behavioral of program_counter is
 
 signal counterValue : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
+attribute S: string;
+attribute S of counterValue: signal is "Yes";
 
 begin
 

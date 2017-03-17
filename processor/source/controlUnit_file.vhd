@@ -38,7 +38,8 @@ entity controlUnit_file is
 				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
-				imm_select : OUT STD_LOGIC;
+				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
+				data_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				stall : OUT STD_LOGIC;
 				-- EXECUTE
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -81,10 +82,12 @@ rb_addr <=
 rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
 
 imm_data <= operand_c1;
-imm_select <=
-	'1' when opcode = "0000101" else	-- SHL
-	'1' when opcode = "0000110" else -- SHR
-	'0';
+disp_data <= disp_l;
+
+data_select <=
+	"01" when opcode = "0000101" else	-- SHL
+	"01" when opcode = "0000110" else -- SHR
+	"00";
 
 alu_code <=
 	"001" when opcode = "0000001" else	-- ADD
@@ -114,7 +117,7 @@ dataHazard(1 downto 0) <=
 	"00";
 
 -- detect and handle hazard
-hazard: process (dataHazard)
+hazard: process (dataHazard, opcode)
 begin
 	stall <='0';	
 	case opcode is
