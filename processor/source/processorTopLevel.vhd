@@ -58,6 +58,8 @@ component cpu_file is
 				-- EXE Stage Signals Monitored by Control Unit
 				opcode_EXE_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
+				zero_flag : OUT STD_LOGIC;
+				ngtv_flag : OUT STD_LOGIC;
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				pcwr_en : IN STD_LOGIC;
@@ -90,6 +92,8 @@ component controlUnit_file is
 				-- EXECUTE
 				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
+				n_flag: IN STD_LOGIC;
+				z_flag: IN STD_LOGIC;
 				pc_write_en : OUT STD_LOGIC;
 				-- MEMORY
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -107,6 +111,7 @@ signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0)
 signal dispData : STD_LOGIC_VECTOR(8 downto 0);
 signal immData : STD_LOGIC_VECTOR(3 downto 0);
 signal data1Sel, data2Sel : STD_LOGIC_VECTOR(1 downto 0);
+signal zeroFlag, negativeFlag : STD_LOGIC;
 signal wen, wbSel, stallEnable, fetchStallEn, pcWriteEnable : STD_LOGIC;
 
 begin
@@ -128,6 +133,8 @@ ctrl0: controlUnit_file port map (
 	fetch_stall => fetchStallEn,
 	opcode_exe => opcodeEXE,
 	dest_addr_exe => dest_addr_EXE,
+	n_flag => negativeFlag,
+	z_flag => zeroFlag,
 	pc_write_en => pcWriteEnable,
 	dest_addr_mem => dest_addr_MEM,
 	dest_addr_wb => dest_addr_WB,
@@ -152,6 +159,8 @@ cpu0: cpu_file port map (
 	fstall_en => fetchStallEn, -- From CU
 	dest_addr_EXE_CU => dest_addr_EXE,
 	opcode_EXE_CU => opcodeEXE, -- To CU
+	zero_flag => zeroFlag,
+	ngtv_flag => negativeFlag,
 	pcwr_en => pcWriteEnable, -- From CU
 	dest_addr_MEM_CU => dest_addr_MEM,
 	dest_addr_WB_CU => dest_addr_WB,

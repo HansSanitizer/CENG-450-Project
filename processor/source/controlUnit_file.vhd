@@ -46,6 +46,8 @@ entity controlUnit_file is
 				-- EXECUTE
 				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
+				n_flag: IN STD_LOGIC;
+				z_flag: IN STD_LOGIC;
 				pc_write_en : OUT STD_LOGIC;
 				-- MEMORY
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -82,6 +84,7 @@ rb_addr <=
 	operand_ra when opcode = "0000100" else	-- NAND
 	operand_ra when opcode = "0000101" else	-- SHL
 	operand_ra when opcode = "0000110" else	-- SHR
+	operand_ra when opcode = "0000111" else	-- TEST
 	operand_rb;
 rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
 
@@ -90,12 +93,16 @@ disp_data <= disp_l;
 
 data1_select <=
 	"01" when opcode = "1000000" else	-- BRR PC value
+	"01" when opcode = "1000001" else	-- BRR.N PC value
+	"01" when opcode = "1000010" else	-- BRR.Z PC value
 	"00";
 
 data2_select <=
 	"01" when opcode = "0000101" else	-- SHL immediate
 	"01" when opcode = "0000110" else	-- SHR immediate
 	"10" when opcode = "1000000" else	-- BRR displacement
+	"10" when opcode = "1000001" else	-- BRR.N displacement
+	"10" when opcode = "1000010" else	-- BRR.Z displacement
 	"00";
 
 alu_code <=
@@ -107,12 +114,18 @@ alu_code <=
 	"110" when opcode = "0000110" else	-- SHR
 	"111" when opcode = "0000111" else	-- TEST
 	"001" when opcode = "1000000" else	-- BRR
+	"001" when opcode = "1000001" else	-- BRR.N
+	"001" when opcode = "1000010" else	-- BRR.Z
 	"000";										-- NOP
 
 -- control hazard
 fetch_stall <=
 	'1' when opcode = "1000000" else 	-- BRR
 	'1' when opcode_exe = "1000000" else
+	'1' when opcode = "1000001" else 	-- BRR.N
+	'1' when opcode_exe = "1000001" else
+	'1' when opcode = "1000010" else 	-- BRR.Z
+	'1' when opcode_exe = "1000010" else
 	'0';
 
 -- possible data hazards
@@ -317,6 +330,8 @@ end process hazard;
 
 pc_write_en <=
 	'1' when opcode_exe = "1000000" else	-- BRR
+	'1' when ((opcode_exe = "1000001") and (n_flag = '1')) else	-- BRR.N
+	'1' when ((opcode_exe = "1000010") and (z_flag = '1')) else	-- BRR.Z
 	'0';
 
 -- WRITE BACK
@@ -325,6 +340,8 @@ reg_wen <=
 	'0' when opcode_wb = "0000111" else	-- TEST
 	'0' when opcode_wb = "0100000" else	-- OUT
 	'0' when opcode_wb = "1000000" else -- BRR
+	'0' when opcode_wb = "1000001" else -- BRR.N
+	'0' when opcode_wb = "1000010" else -- BRR.Z
 	'1';
 
 wb_mux_sel <= '1' when opcode_wb = "0100001" else '0'; -- IN

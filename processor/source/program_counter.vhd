@@ -53,7 +53,7 @@ begin
 		if (hold = '0' and fhold = '0') then
 			counterValue <= next_value;
 		elsif (write_en = '1') then
-			counterValue <= overwrite_value;
+			counterValue <= overwrite_value(15 downto 1) & "0"; -- Mask LSB to ensure word alignment
 		end if;
 	end if;
 end process;

@@ -47,7 +47,8 @@ bigImmediate(3 downto 0) <= immediate;
 
 data <=
 	bigImmediate when data_select = "01" else
-	"000000" & displacement & "0" when data_select = "10" else -- 2*disp
+	"000000" & displacement & "0" when ((data_select = "10") and (displacement(8) = '0')) else -- 2*disp
+	"111111" & displacement & "0" when ((data_select = "10") and (displacement(8) = '1')) else -- 2*disp (negative)
 	reg_data;
 
 end Behavioral;

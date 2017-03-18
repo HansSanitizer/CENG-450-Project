@@ -48,6 +48,8 @@ entity cpu_file is
 				-- EXE Stage Signals Monitored by Control Unit
 				opcode_EXE_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
+				zero_flag : OUT STD_LOGIC;
+				ngtv_flag : OUT STD_LOGIC;
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				pcwr_en : IN STD_LOGIC;
@@ -189,7 +191,9 @@ component reg_EXE_MEM is
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op2_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
-				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
+				result_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+				z_flag_out : OUT STD_LOGIC;
+				n_flag_out : OUT STD_LOGIC);
 end component;
 
 component reg_MEM_WB is
@@ -213,17 +217,18 @@ signal pcValue : STD_LOGIC_VECTOR(15 downto 0);
 signal regOpData1, regOpData2, muxOpData1, muxOpData2 : STD_LOGIC_VECTOR(15 downto 0);
 signal aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
-signal stallEnable, fstallEnable, zeroFlag, negFlag : STD_LOGIC;
+signal stallEnable, fstallEnable : STD_LOGIC;
 
-signal opcode_EXE: STD_LOGIC_VECTOR(6 downto 0);
+signal opcode_EXE : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_EXE, op1_addr_EXE, op2_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
 
-signal opcode_MEM: STD_LOGIC_VECTOR(6 downto 0);
+signal opcode_MEM : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_MEM, op1_addr_MEM, op2_addr_MEM : STD_LOGIC_VECTOR(2 downto 0);
-signal result_MEM: STD_LOGIC_VECTOR(15 downto 0);
+signal result_MEM : STD_LOGIC_VECTOR(15 downto 0);
+signal zeroFlag, negativeFlag : STD_LOGIC;
 
-signal writeAddress: STD_LOGIC_VECTOR(2 downto 0);
-signal writeData, wbMuxData: STD_LOGIC_VECTOR(15 downto 0);
+signal writeAddress : STD_LOGIC_VECTOR(2 downto 0);
+signal writeData, wbMuxData : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
@@ -324,7 +329,7 @@ alu0: alu_file port map (
 	alu_mode => aluCode ,
 	result => aluResult,
 	z_flag => zeroFlag,
-	n_flag => negFlag);
+	n_flag => negativeFlag);
 
 -- EXE/MEM
 
@@ -337,12 +342,14 @@ exemem0: reg_EXE_MEM port map (
 	op2_addr_in => op2_addr_EXE,
 	result_in => aluResult,
 	z_flag_in => zeroFlag,
-	n_flag_in => negFlag,
+	n_flag_in => negativeFlag,
 	opcode_out => opcode_MEM,
 	dest_addr_out => dest_addr_MEM,
 	op1_addr_out => op1_addr_MEM,
 	op2_addr_out => op2_addr_MEM,
-	result_out => result_MEM);
+	result_out => result_MEM,
+	z_flag_out => zero_flag,
+	n_flag_out => ngtv_flag);
 	
 -- MEM/WB
 	
