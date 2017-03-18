@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="24" />
+   <WVObjectSize size="26" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -23,11 +23,6 @@
       <obj_property name="ElementShortName">current_value[15:0]</obj_property>
       <obj_property name="ObjectShortName">current_value[15:0]</obj_property>
       <obj_property name="label">PC[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processortestbench/uut/cpu0/rom0/addr" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">addr[15:0]</obj_property>
-      <obj_property name="ObjectShortName">addr[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/ifid0/instr_in" type="array" db_ref_id="1">
@@ -55,6 +50,21 @@
       <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
       <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
       <obj_property name="label">EXECUTE[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">in1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">in1[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">in2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">in2[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/alu0/result" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">result[15:0]</obj_property>
+      <obj_property name="ObjectShortName">result[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/memwb0/opcode_in" type="array" db_ref_id="1">
       <obj_property name="DisplayName">label</obj_property>

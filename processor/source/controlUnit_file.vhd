@@ -39,7 +39,8 @@ entity controlUnit_file is
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
 				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
-				data_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				data2_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				stall : OUT STD_LOGIC;
 				-- EXECUTE
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -84,9 +85,14 @@ rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
 imm_data <= operand_c1;
 disp_data <= disp_l;
 
-data_select <=
-	"01" when opcode = "0000101" else	-- SHL
-	"01" when opcode = "0000110" else -- SHR
+data1_select <=
+	"01" when opcode = "1000000" else	-- BRR PC value
+	"00";
+
+data2_select <=
+	"01" when opcode = "0000101" else	-- SHL immediate
+	"01" when opcode = "0000110" else	-- SHR immediate
+	"10" when opcode = "1000000" else	-- BRR displacement
 	"00";
 
 alu_code <=
@@ -97,6 +103,7 @@ alu_code <=
 	"101" when opcode = "0000101" else	-- SHL
 	"110" when opcode = "0000110" else	-- SHR
 	"111" when opcode = "0000111" else	-- TEST
+	"001" when opcode = "1000000" else	-- BRR
 	"000";										-- NOP
 
 -- possible hazards

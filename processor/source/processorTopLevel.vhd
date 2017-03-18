@@ -49,8 +49,10 @@ component cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				data_select : IN STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : IN STD_LOGIC_VECTOR(1 downto 0);
+				data2_select : IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
 				-- EXE Stage Signals Monitored by Control Unit
 				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);
@@ -81,7 +83,8 @@ component controlUnit_file is
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
 				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
-				data_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				data2_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				stall : OUT STD_LOGIC;
 				-- EXECUTE
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -98,8 +101,9 @@ signal instr : STD_LOGIC_VECTOR(15 downto 0);
 signal opcodeID, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
 signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0);
+signal dispData : STD_LOGIC_VECTOR(8 downto 0);
 signal immData : STD_LOGIC_VECTOR(3 downto 0);
-signal dataSel : STD_LOGIC_VECTOR(1 downto 0);
+signal data1Sel, data2Sel : STD_LOGIC_VECTOR(1 downto 0);
 signal wen, wbSel, stallEnable : STD_LOGIC;
 
 begin
@@ -114,8 +118,9 @@ ctrl0: controlUnit_file port map (
 	rc_addr => rc,
 	alu_code => aluCode,
 	imm_data => immData,
-	disp_data => open,
-	data_select => dataSel,
+	disp_data => dispData,
+	data1_select => data1Sel,
+	data2_select => data2Sel,
 	stall => stallEnable,
 	dest_addr_exe => dest_addr_EXE,
 	dest_addr_mem => dest_addr_MEM,
@@ -133,8 +138,10 @@ cpu0: cpu_file port map (
 	alu_code => aluCode,
 	opcode_in => opcodeID,
 	dest_addr_in => ra,
-	data_select => dataSel, -- From CU
+	data1_select => data1Sel, -- From CU
+	data2_select => data2Sel, -- From CU
 	immediate => immData, -- From CU
+	disp_data => dispData,
 	stall_en => stallEnable,
 	dest_addr_EXE_CU => dest_addr_EXE,
 	dest_addr_MEM_CU => dest_addr_MEM,
