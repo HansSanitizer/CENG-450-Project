@@ -85,11 +85,24 @@ rb_addr <=
 	operand_ra when opcode = "0000101" else	-- SHL
 	operand_ra when opcode = "0000110" else	-- SHR
 	operand_ra when opcode = "0000111" else	-- TEST
+	operand_ra when opcode = "1000011" else	-- BR
+	operand_ra when opcode = "1000100" else	-- BR.N
+	operand_ra when opcode = "1000101" else	-- BR.Z
+	operand_ra when opcode = "1000110" else	-- BR.SUB
 	operand_rb;
 rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
 
 imm_data <= operand_c1;
-disp_data <= disp_l;
+disp_data <=
+	("000" & disp_s) when ((opcode = "1000011") and (disp_s(5) = '0')) else	-- BR
+	("111" & disp_s) when ((opcode = "1000011") and (disp_s(5) = '1')) else
+	("000" & disp_s) when ((opcode = "1000100") and (disp_s(5) = '0')) else	-- BR.N
+	("111" & disp_s) when ((opcode = "1000100") and (disp_s(5) = '1')) else
+	("000" & disp_s) when ((opcode = "1000101") and (disp_s(5) = '0')) else	-- BR.Z
+	("111" & disp_s) when ((opcode = "1000101") and (disp_s(5) = '1')) else
+	("000" & disp_s) when ((opcode = "1000110") and (disp_s(5) = '0')) else	-- BR.SUB
+	("111" & disp_s) when ((opcode = "1000110") and (disp_s(5) = '1')) else
+	disp_l;
 
 data1_select <=
 	"01" when opcode = "1000000" else	-- BRR PC value
@@ -103,6 +116,10 @@ data2_select <=
 	"10" when opcode = "1000000" else	-- BRR displacement
 	"10" when opcode = "1000001" else	-- BRR.N displacement
 	"10" when opcode = "1000010" else	-- BRR.Z displacement
+	"10" when opcode = "1000011" else	-- BR displacement
+	"10" when opcode = "1000100" else	-- BR.N displacement
+	"10" when opcode = "1000101" else	-- BR.Z displacement
+	"10" when opcode = "1000110" else	-- BR.SUB displacement
 	"00";
 
 alu_code <=
@@ -115,7 +132,10 @@ alu_code <=
 	"111" when opcode = "0000111" else	-- TEST
 	"001" when opcode = "1000000" else	-- BRR
 	"001" when opcode = "1000001" else	-- BRR.N
-	"001" when opcode = "1000010" else	-- BRR.Z
+	"001" when opcode = "1000011" else	-- BR
+	"001" when opcode = "1000100" else	-- BR.N
+	"001" when opcode = "1000101" else	-- BR.Z
+	"001" when opcode = "1000110" else	-- BR.SUB
 	"000";										-- NOP
 
 -- control hazard
@@ -126,6 +146,14 @@ fetch_stall <=
 	'1' when opcode_exe = "1000001" else
 	'1' when opcode = "1000010" else 	-- BRR.Z
 	'1' when opcode_exe = "1000010" else
+	'1' when opcode = "1000011" else 	-- BR
+	'1' when opcode_exe = "1000011" else
+	'1' when opcode = "1000100" else 	-- BR.N
+	'1' when opcode_exe = "1000100" else
+	'1' when opcode = "1000101" else 	-- BR.Z
+	'1' when opcode_exe = "1000101" else
+	'1' when opcode = "1000110" else 	-- BR.SUB
+	'1' when opcode_exe = "1000110" else
 	'0';
 
 -- possible data hazards
@@ -332,6 +360,10 @@ pc_write_en <=
 	'1' when opcode_exe = "1000000" else	-- BRR
 	'1' when ((opcode_exe = "1000001") and (n_flag = '1')) else	-- BRR.N
 	'1' when ((opcode_exe = "1000010") and (z_flag = '1')) else	-- BRR.Z
+	'1' when opcode_exe = "1000011" else	-- BR
+	'1' when ((opcode_exe = "1000100") and (n_flag = '1')) else	-- BR.N
+	'1' when ((opcode_exe = "1000101") and (z_flag = '1')) else	-- BR.Z
+	'1' when opcode_exe = "1000110" else	-- BR.SUB
 	'0';
 
 -- WRITE BACK
