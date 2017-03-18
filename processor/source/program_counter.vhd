@@ -32,7 +32,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity program_counter is
 	port (	clk : IN STD_LOGIC;
 				hold : IN STD_LOGIC;
+				fhold : IN STD_LOGIC;
+				write_en : IN STD_LOGIC;
 				next_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				overwrite_value : IN STD_LOGIC_VECTOR(15 downto 0);
 				current_value : OUT STD_LOGIC_VECTOR(15 downto 0));
 end program_counter;
 
@@ -47,8 +50,10 @@ begin
 process(clk)
 begin
 	if(clk='0' and clk'event) then
-		if hold = '0' then
+		if (hold = '0' and fhold = '0') then
 			counterValue <= next_value;
+		elsif (write_en = '1') then
+			counterValue <= overwrite_value;
 		end if;
 	end if;
 end process;

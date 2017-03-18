@@ -23,12 +23,20 @@
 
   <files xmlns="http://www.xilinx.com/XMLSchema">
     <file xil_pn:fileType="FILE_LSO" xil_pn:name=".lso"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="ROM_VHDL_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="ROM_VHDL_stx_beh.prj"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="cpu_file.sym" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_NCD" xil_pn:name="cpu_file_guide.ncd" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_LOG" xil_pn:name="fuse.log"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="op2_data_mux.prj"/>
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="op2_data_mux.stx"/>
     <file xil_pn:fileType="FILE_XST" xil_pn:name="op2_data_mux.xst"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="processorTestBench_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="processorTestBench_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="processorTestBench_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="processorTestBench_stx_beh.prj"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="processorTopLevel.prj"/>
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="processorTopLevel.stx"/>
@@ -36,7 +44,7 @@
     <file xil_pn:fileType="FILE_XST" xil_pn:name="processorTopLevel.xst"/>
     <file xil_pn:fileType="FILE_NCD" xil_pn:name="processorTopLevel_guide.ncd" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="reg_IF_ID.sym" xil_pn:origination="imported"/>
-    <file xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xst"/>
   </files>
 
@@ -45,7 +53,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1489864140" xil_pn:in_ck="5989598575322715877" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1489864140">
+    <transform xil_pn:end_ts="1489869059" xil_pn:in_ck="5989598575322715877" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1489869059">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="source/RAM_VHDL.vhd"/>
@@ -66,11 +74,11 @@
       <outfile xil_pn:name="source/reg_wrdata_mux.vhd"/>
       <outfile xil_pn:name="source/register_file.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1489863905" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="1814394554323120694" xil_pn:start_ts="1489863905">
+    <transform xil_pn:end_ts="1489869090" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="1814394554323120694" xil_pn:start_ts="1489869090">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1489863905" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="-3612176678712086088" xil_pn:start_ts="1489863905">
+    <transform xil_pn:end_ts="1489869090" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="-3612176678712086088" xil_pn:start_ts="1489869090">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
@@ -78,13 +86,9 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1489864111" xil_pn:in_ck="5989598575322715877" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1489864111">
+    <transform xil_pn:end_ts="1489869065" xil_pn:in_ck="5989598575322715877" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1489869065">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="InputChanged"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="source/RAM_VHDL.vhd"/>
       <outfile xil_pn:name="source/ROM_VHDL.vhd"/>
       <outfile xil_pn:name="source/alu_file.vhd"/>
@@ -103,12 +107,22 @@
       <outfile xil_pn:name="source/reg_wrdata_mux.vhd"/>
       <outfile xil_pn:name="source/register_file.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1489864113" xil_pn:in_ck="5989598575322715877" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-3107904547917748850" xil_pn:start_ts="1489864111">
-      <status xil_pn:value="FailedRun"/>
+    <transform xil_pn:end_ts="1489869093" xil_pn:in_ck="5989598575322715877" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-3107904547917748850" xil_pn:start_ts="1489869090">
+      <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForPredecessor"/>
-      <status xil_pn:value="InputChanged"/>
+      <outfile xil_pn:name="fuse.log"/>
+      <outfile xil_pn:name="isim"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="processorTestBench_beh.prj"/>
+      <outfile xil_pn:name="processorTestBench_isim_beh.exe"/>
+      <outfile xil_pn:name="xilinxsim.ini"/>
+    </transform>
+    <transform xil_pn:end_ts="1489869094" xil_pn:in_ck="-2219649547193538311" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-846101659818990949" xil_pn:start_ts="1489869093">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="isim.cmd"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="processorTestBench_isim_beh.wdb"/>
     </transform>
   </transforms>
 

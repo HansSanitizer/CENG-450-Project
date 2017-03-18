@@ -41,9 +41,12 @@ entity controlUnit_file is
 				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
 				data1_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				data2_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
 				-- EXECUTE
+				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
+				pc_write_en : OUT STD_LOGIC;
 				-- MEMORY
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- WRITE BACK
@@ -106,7 +109,13 @@ alu_code <=
 	"001" when opcode = "1000000" else	-- BRR
 	"000";										-- NOP
 
--- possible hazards
+-- control hazard
+fetch_stall <=
+	'1' when opcode = "1000000" else 	-- BRR
+	'1' when opcode_exe = "1000000" else
+	'0';
+
+-- possible data hazards
 dataHazard(5 downto 4) <=
 	"01" when operand_ra = dest_addr_exe else
 	"10" when operand_ra = dest_addr_mem else
@@ -156,15 +165,166 @@ begin
 				when others =>
 					-- don't stall
 			end case;
+		when "0000010" => -- SUB
+		-- Check Operands for pending write
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+			case dataHazard(1 downto 0) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0000011" => -- MUL
+		-- Check Operands for pending write
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+			case dataHazard(1 downto 0) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0000100" => -- NAND
+		-- Check Operands for pending write
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+			case dataHazard(1 downto 0) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0000101" => -- SHL
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0000110" => -- SHR
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0000111" => -- TEST
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0100000" => -- OUT
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
 		when others =>
 	end case;
 end process hazard;
+
+-- EXECUTE
+
+pc_write_en <=
+	'1' when opcode_exe = "1000000" else	-- BRR
+	'0';
 
 -- WRITE BACK
 reg_wen <=
 	'0' when opcode_wb = "0000000" else	-- NOP
 	'0' when opcode_wb = "0000111" else	-- TEST
 	'0' when opcode_wb = "0100000" else	-- OUT
+	'0' when opcode_wb = "1000000" else -- BRR
 	'1';
 
 wb_mux_sel <= '1' when opcode_wb = "0100001" else '0'; -- IN
