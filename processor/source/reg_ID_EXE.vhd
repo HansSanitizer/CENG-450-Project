@@ -38,10 +38,13 @@ entity reg_ID_EXE is
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				-- Next PC Value
+				next_pc_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- Register File read signals
 				op1_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				op2_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- write signals
+				next_pc_out : OUT STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				alu_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -53,8 +56,9 @@ end reg_ID_EXE;
 
 architecture Behavioral of reg_ID_EXE is
 
-signal pipeRegister : STD_LOGIC_VECTOR(50 downto 0) := (others => '0');
+signal pipeRegister : STD_LOGIC_VECTOR(66 downto 0) := (others => '0');
 
+alias nextPC is pipeRegister (66 downto 51); -- PC+2
 alias opCode is pipeRegister (50 downto 44);
 alias aluCode is pipeRegister(43 downto 41);
 alias destAddress is pipeRegister(40 downto 38);
@@ -73,6 +77,7 @@ begin
 			-- Clear register with reset signal
 			pipeRegister <= (others => '0');
 		else
+			nextPC <= next_pc_in;
 			opCode <= opcode_in;
 			aluCode <= alu_in;
 			destAddress <= dest_addr_in;
@@ -88,6 +93,7 @@ process(clk)
 begin
 	if(clk='1' and clk'event) then
 		-- Send data out to next stage
+		next_pc_out <= nextPC;
 		opCode_out <= opCode;
 		alu_out <= aluCode;
 		dest_addr_out <= destAddress;

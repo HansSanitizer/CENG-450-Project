@@ -1,17 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-03-21T14:56:38</DateModified>
+<<<<<<< a14f5de87e35c20f0410a532a0c52abddb046a2f
+  <DateModified>2017-03-10T17:14:08</DateModified>
   <DateModified>2017-03-09T18:27:17</DateModified>
   <ModuleName>RAM_VHDL</ModuleName>
-  <SummaryTimeStamp>2017-03-16T17:49:15</SummaryTimeStamp>
+  <SummaryTimeStamp>2017-03-09T18:26:36</SummaryTimeStamp>
   <DateModified>2017-03-09T18:38:53</DateModified>
   <DateModified>2017-03-10T13:31:23</DateModified>
   <ModuleName>processorTopLevel</ModuleName>
   <SummaryTimeStamp>2017-03-09T09:37:25</SummaryTimeStamp>
+  <SavedFilePath>C:/hackThePlanet/CENG-450-Project/processor/iseconfig/processorTopLevel.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>C:/hackThePlanet/CENG-450-Project/processor\</ImplementationReportsDirectory>
+  <DateInitialized>2017-03-09T17:24:36</DateInitialized>
+=======
+  <DateModified>2017-03-16T13:45:41</DateModified>
+  <ModuleName>processorTopLevel</ModuleName>
+  <SummaryTimeStamp>2017-03-09T09:37:25</SummaryTimeStamp>
   <SavedFilePath>C:/Users/tlong/Documents/CENG-450-Project/processor/iseconfig/processorTopLevel.xreport</SavedFilePath>
   <ImplementationReportsDirectory>C:/Users/tlong/Documents/CENG-450-Project/processor\</ImplementationReportsDirectory>
-  <DateInitialized>2017-03-09T17:24:36</DateInitialized>
+  <DateInitialized>2017-03-08T15:21:29</DateInitialized>
+>>>>>>> expanded instruction mem space to 16-bit
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>
