@@ -91,6 +91,7 @@ rb_addr <=
 	operand_ra when opcode = "1000100" else	-- BR.N
 	operand_ra when opcode = "1000101" else	-- BR.Z
 	operand_ra when opcode = "1000110" else	-- BR.SUB
+	"111" when opcode = "1000111" else			-- RETURN
 	operand_rb;
 rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
 
@@ -104,6 +105,7 @@ disp_data <=
 	("111" & disp_s) when ((opcode = "1000101") and (disp_s(5) = '1')) else
 	("000" & disp_s) when ((opcode = "1000110") and (disp_s(5) = '0')) else	-- BR.SUB
 	("111" & disp_s) when ((opcode = "1000110") and (disp_s(5) = '1')) else
+	"000000000" when opcode = "1000111" else											-- RETURN
 	disp_l;
 
 data1_select <=
@@ -122,6 +124,7 @@ data2_select <=
 	"10" when opcode = "1000100" else	-- BR.N displacement
 	"10" when opcode = "1000101" else	-- BR.Z displacement
 	"10" when opcode = "1000110" else	-- BR.SUB displacement
+	"10" when opcode = "1000111" else	-- RETURN displacement of zero
 	"00";
 
 alu_code <=
@@ -138,6 +141,7 @@ alu_code <=
 	"001" when opcode = "1000100" else	-- BR.N
 	"001" when opcode = "1000101" else	-- BR.Z
 	"001" when opcode = "1000110" else	-- BR.SUB
+	"001" when opcode = "1000111" else	-- RETURN
 	"000";										-- NOP
 
 -- control hazard
@@ -156,6 +160,8 @@ fetch_stall <=
 	'1' when opcode_exe = "1000101" else
 	'1' when opcode = "1000110" else 	-- BR.SUB
 	'1' when opcode_exe = "1000110" else
+	'1' when opcode = "1000111" else 	-- RETURN
+	'1' when opcode_exe = "1000111" else
 	'0';
 
 -- possible data hazards
@@ -366,6 +372,7 @@ pc_write_en <=
 	'1' when ((opcode_exe = "1000100") and (n_flag = '1')) else	-- BR.N
 	'1' when ((opcode_exe = "1000101") and (z_flag = '1')) else	-- BR.Z
 	'1' when opcode_exe = "1000110" else	-- BR.SUB
+	'1' when opcode_exe = "1000111" else	-- RETURN
 	'0';
 
 dest_select <=
@@ -384,6 +391,10 @@ reg_wen <=
 	'0' when opcode_wb = "1000000" else -- BRR
 	'0' when opcode_wb = "1000001" else -- BRR.N
 	'0' when opcode_wb = "1000010" else -- BRR.Z
+	'0' when opcode_wb = "1000011" else	-- BR
+	'0' when opcode_wb = "1000100" else	-- BR.N
+	'0' when opcode_wb = "1000101" else	-- BR.Z
+	'0' when opcode_wb = "1000111" else	-- RETURN
 	'1';
 
 wb_mux_sel <= '1' when opcode_wb = "0100001" else '0'; -- IN

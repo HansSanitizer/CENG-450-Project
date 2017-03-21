@@ -190,7 +190,7 @@
       <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file[7]" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">[7]</obj_property>
          <obj_property name="ObjectShortName">reg_file[7]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="/processortestbench/clk_period" type="other" db_ref_id="1">
