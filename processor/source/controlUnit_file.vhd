@@ -49,6 +49,8 @@ entity controlUnit_file is
 				n_flag: IN STD_LOGIC;
 				z_flag: IN STD_LOGIC;
 				pc_write_en : OUT STD_LOGIC;
+				dest_select : OUT STD_LOGIC;
+				result_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				-- MEMORY
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- WRITE BACK
@@ -365,6 +367,14 @@ pc_write_en <=
 	'1' when ((opcode_exe = "1000101") and (z_flag = '1')) else	-- BR.Z
 	'1' when opcode_exe = "1000110" else	-- BR.SUB
 	'0';
+
+dest_select <=
+	'1' when opcode_exe = "1000110" else	-- BR.SUB writing to R7
+	'0';
+	
+result_select <=
+	"01" when opcode_exe = "1000110" else	-- BR.SUB
+	"00";
 
 -- WRITE BACK
 reg_wen <=

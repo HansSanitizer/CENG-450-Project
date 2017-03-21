@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="27" />
+   <WVObjectSize size="29" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -50,6 +50,16 @@
       <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
       <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
       <obj_property name="label">EXECUTE[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/ifid0/pc_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_in[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/ifid0/pc_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_out[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/memwb0/opcode_in" type="array" db_ref_id="1">
       <obj_property name="DisplayName">label</obj_property>

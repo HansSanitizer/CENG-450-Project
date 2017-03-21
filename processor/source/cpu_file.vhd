@@ -53,6 +53,8 @@ entity cpu_file is
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				pcwr_en : IN STD_LOGIC;
+				wraddr_sel : IN STD_LOGIC;
+				result_sel : IN STD_LOGIC_VECTOR(1 downto 0);
 				-- MEM Stage Signals Monitored by Control Unit
 				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				-- Control Unit WRITE BACK Signals
@@ -140,6 +142,19 @@ component alu_file is
 		n_flag : out  STD_LOGIC);
 end component;
 
+component result_data_mux is
+	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
+				pc_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				alu_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				data : OUT STD_LOGIC_VECTOR(15 downto 0));
+end component;
+
+component wraddr_mux is
+	Port (	data_select: IN STD_LOGIC;
+				dest_addr : IN STD_LOGIC_VECTOR(2 downto 0);
+				data : OUT STD_LOGIC_VECTOR(2 downto 0));
+end component;
+
 -- Inter-stage pipeline registers
 
 component reg_IF_ID is
@@ -161,10 +176,13 @@ component reg_ID_EXE is
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				-- Next PC Value
+				next_pc_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- Register File read signals
 				op1_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				op2_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
-				-- Register Write signals
+				-- write signals
+				next_pc_out : OUT STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				alu_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -213,14 +231,14 @@ end component;
 
 signal currentPC, nextPC : STD_LOGIC_VECTOR(15 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
-signal pcValue : STD_LOGIC_VECTOR(15 downto 0);
+signal pcValue, pcNextValueEXE : STD_LOGIC_VECTOR(15 downto 0);
 signal regOpData1, regOpData2, muxOpData1, muxOpData2 : STD_LOGIC_VECTOR(15 downto 0);
-signal aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
+signal aluOpData1, aluOpData2, aluResult, resultMux : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal stallEnable, fstallEnable : STD_LOGIC;
 
 signal opcode_EXE : STD_LOGIC_VECTOR(6 downto 0);
-signal dest_addr_EXE, op1_addr_EXE, op2_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
+signal dest_addr_EXE, dest_addr_EXMUX, op1_addr_EXE, op2_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
 
 signal opcode_MEM : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_MEM, op1_addr_MEM, op2_addr_MEM : STD_LOGIC_VECTOR(2 downto 0);
@@ -306,6 +324,7 @@ mux2: op2_data_mux port map (
 idexe0: reg_ID_EXE port map (
 	clk => clk, 
 	rst => stallEnable,
+	next_pc_in => currentPC,
 	opcode_in => opcode_in,
 	alu_in => alu_code,
 	dest_addr_in => dest_addr_in,
@@ -313,6 +332,7 @@ idexe0: reg_ID_EXE port map (
 	op2_addr_in => op_index2, 
 	op1_data_in => muxOpData1,
 	op2_data_in => muxOpData2,
+	next_pc_out => pcNextValueEXE,
 	opcode_out => opcode_EXE,
 	alu_out => aluCode,
 	dest_addr_out => dest_addr_EXE,
@@ -330,6 +350,17 @@ alu0: alu_file port map (
 	result => aluResult,
 	z_flag => zeroFlag,
 	n_flag => negativeFlag);
+	
+mux3: result_data_mux port map (
+	data_select => result_sel, -- From CU
+	pc_value => pcNextValueEXE,
+	alu_data => aluResult,
+	data => resultMux);
+	
+mux4: wraddr_mux port map (
+	data_select => wraddr_sel, -- From CU
+	dest_addr => dest_addr_EXE,
+	data => dest_addr_EXMUX);
 
 -- EXE/MEM
 
@@ -337,10 +368,10 @@ exemem0: reg_EXE_MEM port map (
 	clk => clk,
 	rst => rst,
 	opcode_in => opcode_EXE,
-	dest_addr_in => dest_addr_EXE,
+	dest_addr_in => dest_addr_EXMUX,
 	op1_addr_in => op1_addr_EXE,
 	op2_addr_in => op2_addr_EXE,
-	result_in => aluResult,
+	result_in => resultMux,
 	z_flag_in => zeroFlag,
 	n_flag_in => negativeFlag,
 	opcode_out => opcode_MEM,

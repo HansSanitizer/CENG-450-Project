@@ -63,6 +63,8 @@ component cpu_file is
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				pcwr_en : IN STD_LOGIC;
+				wraddr_sel : IN STD_LOGIC;
+				result_sel : IN STD_LOGIC_VECTOR(1 downto 0);
 				-- MEM Stage Signals Monitored by Control Unit
 				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				-- Control Unit WRITE BACK Signals
@@ -95,6 +97,8 @@ component controlUnit_file is
 				n_flag: IN STD_LOGIC;
 				z_flag: IN STD_LOGIC;
 				pc_write_en : OUT STD_LOGIC;
+				dest_select : OUT STD_LOGIC;
+				result_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				-- MEMORY
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
 				-- WRITE BACK
@@ -110,9 +114,9 @@ signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0);
 signal dispData : STD_LOGIC_VECTOR(8 downto 0);
 signal immData : STD_LOGIC_VECTOR(3 downto 0);
-signal data1Sel, data2Sel : STD_LOGIC_VECTOR(1 downto 0);
+signal data1Sel, data2Sel, resultSel : STD_LOGIC_VECTOR(1 downto 0);
 signal zeroFlag, negativeFlag : STD_LOGIC;
-signal wen, wbSel, stallEnable, fetchStallEn, pcWriteEnable : STD_LOGIC;
+signal wen, wbSel, destSel, stallEnable, fetchStallEn, pcWriteEnable : STD_LOGIC;
 
 begin
 
@@ -136,6 +140,8 @@ ctrl0: controlUnit_file port map (
 	n_flag => negativeFlag,
 	z_flag => zeroFlag,
 	pc_write_en => pcWriteEnable,
+	dest_select => destSel,
+	result_select => resultSel,
 	dest_addr_mem => dest_addr_MEM,
 	dest_addr_wb => dest_addr_WB,
 	opcode_wb => opcodeWB,
@@ -162,6 +168,8 @@ cpu0: cpu_file port map (
 	zero_flag => zeroFlag,
 	ngtv_flag => negativeFlag,
 	pcwr_en => pcWriteEnable, -- From CU
+	wraddr_sel => destSel, -- From CU
+	result_sel => resultSel, -- From CU
 	dest_addr_MEM_CU => dest_addr_MEM,
 	dest_addr_WB_CU => dest_addr_WB,
 	wr_data => wr_data, -- External
