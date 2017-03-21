@@ -31,6 +31,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity controlUnit_file is
     Port (	-- DECODE
+    			io_switch_in : in STD_LOGIC;
 				instruction : in STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
 				ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
@@ -65,6 +66,7 @@ architecture Behavioral of controlUnit_file is
 --signal PC : unsigned(6 downto 0) := "0000000";
 --signal PC_next : unsigned(6 downto 0);
 --signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
+signal ioflag : STD_LOGIC := '0';
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
 alias opcode is instruction(15 downto 9); -- All formats
@@ -172,9 +174,25 @@ dataHazard(1 downto 0) <=
 	"10" when operand_rc = dest_addr_mem else
 	"11" when operand_rc = dest_addr_wb else
 	"00";
-
+iostall: process (ioflag, opcode, io_switch_in)
+begin
+	case opcode is
+		when "0100000" => -- OUT
+			ioflag <= '1';
+		when "0100001" => -- IN
+			ioflag <= '1';
+		when others =>
+			-- don't raise ioflag
+	end case;
+	case io_switch_in is
+		when '1' =>
+			ioflag <= '0';
+		when others =>
+			ioflag <= '1';
+	end case;
+end process iostall;
 -- detect and handle hazard
-hazard: process (dataHazard, opcode)
+hazard: process (dataHazard, opcode, ioflag)
 begin
 	stall <='0';	
 	case opcode is
@@ -351,6 +369,12 @@ begin
 					-- don't stall
 			end case;
 		when others =>
+	end case;
+	case ioflag is
+		when '1' =>
+			stall <='1';
+		when others =>
+			-- don't stall
 	end case;
 end process hazard;
 

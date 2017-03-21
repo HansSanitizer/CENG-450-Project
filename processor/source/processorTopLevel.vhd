@@ -34,6 +34,7 @@ entity processorTopLevel is
 				rst: in STD_LOGIC;
 				stall : OUT STD_LOGIC;
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
+				io_switch_in: IN STD_LOGIC;
 				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end processorTopLevel;
 
@@ -77,6 +78,7 @@ end component;
 
 component controlUnit_file is
     Port (	-- DECODE
+    			io_switch_in : in STD_LOGIC;
 				instruction : in STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
 				ra_addr : out STD_LOGIC_VECTOR(2 downto 0);
@@ -119,6 +121,7 @@ begin
 stall <= stallEnable;
 
 ctrl0: controlUnit_file port map (
+	io_switch_in => io_switch_in,
 	instruction => instr,
 	opcode_out => opcodeID,
 	ra_addr => ra,
