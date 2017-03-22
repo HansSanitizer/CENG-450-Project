@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-<<<<<<< a14f5de87e35c20f0410a532a0c52abddb046a2f
   <DateModified>2017-03-10T17:14:08</DateModified>
   <DateModified>2017-03-09T18:27:17</DateModified>
   <ModuleName>RAM_VHDL</ModuleName>
@@ -13,14 +12,12 @@
   <SavedFilePath>C:/hackThePlanet/CENG-450-Project/processor/iseconfig/processorTopLevel.xreport</SavedFilePath>
   <ImplementationReportsDirectory>C:/hackThePlanet/CENG-450-Project/processor\</ImplementationReportsDirectory>
   <DateInitialized>2017-03-09T17:24:36</DateInitialized>
-=======
-  <DateModified>2017-03-16T13:45:41</DateModified>
-  <ModuleName>processorTopLevel</ModuleName>
-  <SummaryTimeStamp>2017-03-09T09:37:25</SummaryTimeStamp>
-  <SavedFilePath>C:/Users/tlong/Documents/CENG-450-Project/processor/iseconfig/processorTopLevel.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/Users/tlong/Documents/CENG-450-Project/processor\</ImplementationReportsDirectory>
-  <DateInitialized>2017-03-08T15:21:29</DateInitialized>
->>>>>>> expanded instruction mem space to 16-bit
+  <DateModified>2017-03-10T13:40:46</DateModified>
+  <ModuleName>cpu_file</ModuleName>
+  <SummaryTimeStamp>2017-03-10T13:38:41</SummaryTimeStamp>
+  <SavedFilePath>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor/iseconfig/RAM_VHDL.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor</ImplementationReportsDirectory>
+  <DateInitialized>2017-03-10T13:37:43</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>
