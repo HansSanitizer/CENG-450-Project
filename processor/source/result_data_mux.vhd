@@ -31,6 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity result_data_mux is
 	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
+				op1_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				pc_value : IN STD_LOGIC_VECTOR(15 downto 0);
 				alu_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
@@ -40,7 +41,10 @@ architecture Behavioral of result_data_mux is
 
 begin
 
-data <= pc_value when data_select = "01" else alu_data;
+data <=
+	pc_value when data_select = "01" else
+	op1_data when data_select = "10" else
+	alu_data;
 
 end Behavioral;
 

@@ -35,8 +35,7 @@ entity reg_EXE_MEM is
 				-- EXE Stage Read Signals
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				op1_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_in : IN STD_LOGIC;
 				-- ALU Read Signals
 				result_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				z_flag_in : IN STD_LOGIC;
@@ -44,8 +43,7 @@ entity reg_EXE_MEM is
 				-- Write Signals
 				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
-				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
-				op2_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_out : OUT STD_LOGIC;
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0);
 				z_flag_out : OUT STD_LOGIC;
 				n_flag_out : OUT STD_LOGIC);
@@ -53,14 +51,13 @@ end reg_EXE_MEM;
 
 architecture Behavioral of reg_EXE_MEM is
 
-signal pipeRegister : STD_LOGIC_VECTOR(33 downto 0) := (others => '0');
+signal pipeRegister : STD_LOGIC_VECTOR(28 downto 0) := (others => '0');
 attribute S: string;
 attribute S of pipeRegister: signal is "Yes";
 
-alias opcode is pipeRegister(33 downto 27);
-alias destAddress is pipeRegister(26 downto 24);
-alias operandAddress1 is pipeRegister(23 downto 21);
-alias operandAddress2 is pipeRegister(20 downto 18);
+alias opcode is pipeRegister(28 downto 22);
+alias destAddress is pipeRegister(21 downto 19);
+alias operandM1 is pipeRegister(18);
 alias aluResult is pipeRegister(17 downto 2);
 alias zeroFlag is pipeRegister(1);
 alias negativeFlag is pipeRegister(0);
@@ -77,8 +74,7 @@ begin
 		else
 			opcode <= opcode_in;
 			destAddress <= dest_addr_in;
-			operandAddress1 <= op1_addr_in;
-			operandAddress2 <= op2_addr_in;
+			operandM1 <= op_m1_in;
 			aluResult <= result_in;
 			zeroFlag <= z_flag_in;
 			negativeFlag <= n_flag_in;
@@ -92,8 +88,7 @@ begin
 		-- Send data out to next stage
 		opcode_out <= opcode;
 		dest_addr_out <= destAddress;
-		op1_addr_out <= operandAddress1;
-		op2_addr_out <= operandAddress2;
+		op_M1_out <= operandM1;
 		result_out <= aluResult;
 		z_flag_out <= zeroFlag;
 		n_flag_out <= negativeFlag;

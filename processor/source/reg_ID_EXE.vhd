@@ -36,8 +36,7 @@ entity reg_ID_EXE is
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				alu_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				op1_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_in : IN STD_LOGIC;
 				-- Next PC Value
 				next_pc_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- Register File read signals
@@ -48,23 +47,21 @@ entity reg_ID_EXE is
 				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				alu_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
-				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_out : OUT STD_LOGIC;
 				op1_data_out : OUT STD_LOGIC_VECTOR(15 downto 0);
-				op2_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op2_data_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end reg_ID_EXE;
 
 architecture Behavioral of reg_ID_EXE is
 
-signal pipeRegister : STD_LOGIC_VECTOR(66 downto 0) := (others => '0');
+signal pipeRegister : STD_LOGIC_VECTOR(61 downto 0) := (others => '0');
 
-alias nextPC is pipeRegister (66 downto 51); -- PC+2
-alias opCode is pipeRegister (50 downto 44);
-alias aluCode is pipeRegister(43 downto 41);
-alias destAddress is pipeRegister(40 downto 38);
-alias operandAddress1 is pipeRegister(37 downto 35);
-alias operandData1 is pipeRegister(34 downto 19);
-alias operandAddress2 is pipeRegister(18 downto 16);
+alias nextPC is pipeRegister (61 downto 46); -- PC+2
+alias opCode is pipeRegister (45 downto 39);
+alias aluCode is pipeRegister(38 downto 36);
+alias destAddress is pipeRegister(35 downto 32);
+alias operandM1 is pipeRegister(32);
+alias operandData1 is pipeRegister(31 downto 16);
 alias operandData2 is pipeRegister(15 downto 0);
 
 begin
@@ -81,9 +78,8 @@ begin
 			opCode <= opcode_in;
 			aluCode <= alu_in;
 			destAddress <= dest_addr_in;
-			operandAddress1 <= op1_addr_in;
+			operandM1 <= op_m1_in;
 			operandData1 <= op1_data_in;
-			operandAddress2 <= op2_addr_in;
 			operandData2 <= op2_data_in;
 		end if;
 	end if;
@@ -97,9 +93,8 @@ begin
 		opCode_out <= opCode;
 		alu_out <= aluCode;
 		dest_addr_out <= destAddress;
-		op1_addr_out <= operandAddress1;
+		op_m1_out <= operandM1;
 		op1_data_out <= operandData1;
-		op2_addr_out <= operandAddress2;
 		op2_data_out <= operandData2;
 	end if;
 end process;

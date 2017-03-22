@@ -35,25 +35,24 @@ entity reg_MEM_WB is
 				-- MEM Stage Read Signals
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				op1_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				op2_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_in : IN STD_LOGIC;
 				result_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				-- Write Signals
 				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_out: OUT STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_out : OUT STD_LOGIC;
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end reg_MEM_WB;
 
 architecture Behavioral of reg_MEM_WB is
 
-signal pipeRegister : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+signal pipeRegister : STD_LOGIC_VECTOR(26 downto 0) := (others => '0');
 attribute S: string;
 attribute S of pipeRegister: signal is "Yes";
 
-alias opcode is pipeRegister(31 downto 25);
-alias destAddress is pipeRegister(24 downto 22);
-alias operandAddress1 is pipeRegister(21 downto 19);
-alias operandAddress2 is pipeRegister(18 downto 16);
+alias opcode is pipeRegister(26 downto 20);
+alias destAddress is pipeRegister(19 downto 17);
+alias operandM1 is pipeRegister(16);
 alias aluResult is pipeRegister(15 downto 0);
 
 begin
@@ -68,8 +67,7 @@ begin
 		else
 			opCode <= opcode_in;
 			destAddress <= dest_addr_in;
-			operandAddress1 <= op1_addr_in;
-			operandAddress2 <= op2_addr_in;
+			operandM1 <= op_m1_in;
 			aluResult <= result_in;
 		end if;
 	end if;
@@ -81,6 +79,7 @@ begin
 		-- Send data out to next stage
 		opcode_out <= opcode;
 		dest_addr_out <= destAddress;
+		op_m1_out <= operandM1;
 		result_out <= aluResult;
 	end if;
 end process;
