@@ -25,10 +25,11 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity RAM_VHDL is
 	generic(N : integer := 8; M : integer := 8);
-	port(clk, we : in  STD_LOGIC;
-		 adr     : in  STD_LOGIC_VECTOR(15 downto 0);
-		 din     : in  STD_LOGIC_VECTOR(15 downto 0);
-		 dout    : out STD_LOGIC_VECTOR(15 downto 0));
+	port(
+		clk, we : in  STD_LOGIC;
+		adr     : in  STD_LOGIC_VECTOR(15 downto 0);
+		din     : in  STD_LOGIC_VECTOR(15 downto 0);
+		dout    : out STD_LOGIC_VECTOR(15 downto 0));
 end;
 
 architecture synth of RAM_VHDL is
@@ -37,7 +38,7 @@ architecture synth of RAM_VHDL is
 begin
 	process(clk)
 	begin
-		if rising_edge(clk) then
+		if falling_edge(clk) then
 			if (we = '1') then
 				mem(to_integer(unsigned(adr(7 downto 0))))     <= din(7 downto 0);
 				mem(to_integer(unsigned(adr(7 downto 0))) + 1) <= din(15 downto 8);
@@ -45,11 +46,8 @@ begin
 		end if;
 	end process;
 
-	process(clk)
-	begin
-		if falling_edge(clk) then
-			dout(7 downto 0)  <= mem(to_integer(unsigned(adr(7 downto 0))));
-			dout(15 downto 8) <= mem(to_integer(unsigned(adr(7 downto 0)) + 1));
-		end if;
-	end process;
+	-- Read Operations
+	dout(7 downto 0)  <= mem(to_integer(unsigned(adr(7 downto 0))));
+	dout(15 downto 8) <= mem(to_integer(unsigned(adr(7 downto 0)) + 1));
+
 end;
