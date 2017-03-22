@@ -51,7 +51,6 @@ entity controlUnit_file is
 				n_flag: IN STD_LOGIC;
 				z_flag: IN STD_LOGIC;
 				pc_write_en : OUT STD_LOGIC;
-				dest_select : OUT STD_LOGIC;
 				result_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				-- MEMORY
 				opcode_mem : IN STD_LOGIC_VECTOR(6 downto 0);
@@ -93,8 +92,8 @@ begin
 opcode_out <= opcode;
 
 ra_addr <=
+	"111" when opcode = "1000110" else	-- BR.SUB
 	"111" when opcode = "0010010" else	-- LOADIMM
-	--operand_rb when opcode = "0010000" else -- LOAD
 	operand_ra;
 
 rb_addr <= 
@@ -193,8 +192,11 @@ fetch_stall <=
 -- possible data hazards
 dataHazard(5 downto 4) <=
 	"01" when operand_ra = dest_addr_exe else
+	"01" when (("111" = dest_addr_exe) and (opcode = "1000111")) else -- RETURN
 	"10" when operand_ra = dest_addr_mem else
+	"10" when (("111" = dest_addr_mem) and (opcode = "1000111")) else -- RETURN
 	"11" when operand_ra = dest_addr_wb else
+	"11" when (("111" = dest_addr_wb) and (opcode = "1000111")) else -- RETURN
 	"00";
 dataHazard(3 downto 2) <=
 	"01" when operand_rb = dest_addr_exe else
@@ -206,6 +208,7 @@ dataHazard(1 downto 0) <=
 	"10" when operand_rc = dest_addr_mem else
 	"11" when operand_rc = dest_addr_wb else
 	"00";
+
 iostall: process (ioflag, opcode, io_switch_in)
 begin
 	case opcode is
@@ -223,6 +226,7 @@ begin
 			ioflag <= '1';
 	end case;
 end process iostall;
+
 -- detect and handle hazard
 hazard: process (dataHazard, opcode, ioflag)
 begin
@@ -400,6 +404,139 @@ begin
 				when others =>
 					-- don't stall
 			end case;
+		when "1000011" => -- BR
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "1000100" => -- BR.N
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "1000101" => -- BR.Z
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "1000110" => -- BR.SUB
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "1000111" => -- RETURN
+		-- Check Operand for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0010000" => -- LOAD
+		-- Check Operand for pending write
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0010001" => -- STORE
+		-- Check Operands for pending write
+			case dataHazard(5 downto 4) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
+		when "0010011" => -- MOV
+		-- Check Operand for pending write
+			case dataHazard(3 downto 2) is
+				when "01" =>
+					-- stall
+					stall <= '1';
+				when "10" =>
+					-- stall
+					stall <= '1';
+				when "11" =>
+					-- stall
+					stall <= '1';
+				when others =>
+					-- don't stall
+			end case;
 		when others =>
 	end case;
 	case ioflag is
@@ -421,10 +558,6 @@ pc_write_en <=
 	'1' when ((opcode_exe = "1000101") and (z_flag = '1')) else	-- BR.Z
 	'1' when opcode_exe = "1000110" else	-- BR.SUB
 	'1' when opcode_exe = "1000111" else	-- RETURN
-	'0';
-
-dest_select <=
-	'1' when opcode_exe = "1000110" else	-- BR.SUB writing to R7
 	'0';
 	
 result_select <=

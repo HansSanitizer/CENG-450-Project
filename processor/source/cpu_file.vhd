@@ -52,7 +52,6 @@ entity cpu_file is
 				zero_flag : OUT STD_LOGIC;
 				ngtv_flag : OUT STD_LOGIC;
 				pcwr_en : IN STD_LOGIC;
-				wraddr_sel : IN STD_LOGIC;
 				result_sel : IN STD_LOGIC_VECTOR(1 downto 0);
 				-- Control Unit MEMORY Signals
 				opcode_MEM_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
@@ -261,7 +260,7 @@ signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal stallEnable, fstallEnable : STD_LOGIC;
 
 signal opcode_EXE : STD_LOGIC_VECTOR(6 downto 0);
-signal dest_addr_EXE, dest_addr_EXMUX : STD_LOGIC_VECTOR(2 downto 0);
+signal dest_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
 signal operandM1_EXE : STD_LOGIC;
 signal operand2Data : STD_LOGIC_VECTOR(15 downto 0);
 
@@ -383,11 +382,6 @@ mux3: result_data_mux port map (
 	pc_value => pcNextValueEXE,
 	alu_data => aluResult,
 	data => resultMux);
-	
-mux4: wraddr_mux port map (
-	data_select => wraddr_sel, -- From CU
-	dest_addr => dest_addr_EXE,
-	data => dest_addr_EXMUX);
 
 -- EXE/MEM
 
@@ -396,7 +390,7 @@ exemem0: reg_EXE_MEM port map (
 	rst => rst,
 	op2_data_in => aluOpData2,
 	opcode_in => opcode_EXE,
-	dest_addr_in => dest_addr_EXMUX,
+	dest_addr_in => dest_addr_EXE,
 	op_m1_in => operandM1_EXE,
 	result_in => resultMux,
 	z_flag_in => zeroFlag,
@@ -419,7 +413,7 @@ ram0: RAM_VHDL port map (
 	din => operand2Data,
 	dout => memoryData);
 	
-mux5: mem_data_mux port map (
+mux4: mem_data_mux port map (
 	data_select => mem_data_sel, -- From CU
 	result_data => result_MEM,
 	mem_data => memoryData,
