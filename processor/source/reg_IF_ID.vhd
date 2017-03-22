@@ -32,34 +32,44 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity reg_IF_ID is
 	port(	clk : IN STD_LOGIC;
 			rst : IN STD_LOGIC;
+			hold : IN STD_LOGIC;
 			instr_in : IN STD_LOGIC_VECTOR(15 downto 0);
-			instr_out : OUT STD_LOGIC_VECTOR(15 downto 0));
+			pc_in : IN STD_LOGIC_VECTOR(15 downto 0);
+			instr_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+			pc_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end reg_IF_ID;
 
 architecture Behavioral of reg_IF_ID is
 
-signal instructionReg : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
+signal instructionReg : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+
+alias programCounter is instructionReg(31 downto 16);
+alias instruction is instructionReg(15 downto 0);
 
 begin
 
 process(clk)
 begin
-	if(rising_edge(clk)) then
+	if(falling_edge(clk)) then
 		-- Falling edge action latch new instruction
 		if(rst = '1') then
 			-- Clear register with reset signal
 			instructionReg <= (others => '0');
 		elsif(rst = '0') then
-			instructionReg <= instr_in;
+			instruction <= instr_in;
+			programCounter <= pc_in;
 		end if;
 	end if;
 end process;
 
 process(clk)
 begin
-	if(falling_edge(clk)) then
+	if(rising_edge(clk)) then
 		-- Send instruction out to be decoded
-		instr_out <= instructionReg;
+		if hold = '0' then
+			instr_out <= instruction;
+			pc_out <= programCounter;
+		end if;
 	end if;
 end process;
 

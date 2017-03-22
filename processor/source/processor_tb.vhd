@@ -43,7 +43,9 @@ ARCHITECTURE behavior OF processorTestBench IS
     PORT(
          clk : IN  std_logic;
          rst : IN  std_logic;
-         wr_data : IN  std_logic_vector(15 downto 0)
+			stall : OUT STD_LOGIC;
+         wr_data : IN  std_logic_vector(15 downto 0);
+			result : OUT STD_LOGIC_VECTOR(15 downto 0)
         );
     END COMPONENT;
     
@@ -52,6 +54,10 @@ ARCHITECTURE behavior OF processorTestBench IS
    signal clk : std_logic := '0';
    signal rst : std_logic := '0';
    signal wr_data : std_logic_vector(15 downto 0) := x"0003";
+	
+	--Outputs
+	signal result : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
+	signal stall : std_logic := '0';
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -62,6 +68,7 @@ BEGIN
    uut: processorTopLevel PORT MAP (
           clk => clk,
           rst => rst,
+			 stall => stall,
           wr_data => wr_data
         );
 
