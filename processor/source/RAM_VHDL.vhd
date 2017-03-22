@@ -25,10 +25,11 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity RAM_VHDL is
 	generic(N : integer := 8; M : integer := 8);
-	port(clk, we : in  STD_LOGIC;
-		 adr     : in  STD_LOGIC_VECTOR(15 downto 0);
-		 din     : in  STD_LOGIC_VECTOR(15 downto 0);
-		 dout    : out STD_LOGIC_VECTOR(15 downto 0));
+	port(
+		clk, we : in  STD_LOGIC;
+		adr     : in  STD_LOGIC_VECTOR(15 downto 0);
+		din     : in  STD_LOGIC_VECTOR(15 downto 0);
+		dout    : out STD_LOGIC_VECTOR(15 downto 0));
 end;
 
 architecture synth of RAM_VHDL is

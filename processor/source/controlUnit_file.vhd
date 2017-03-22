@@ -53,7 +53,10 @@ entity controlUnit_file is
 				dest_select : OUT STD_LOGIC;
 				result_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				-- MEMORY
+				opcode_mem : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
+				mem_write_en : OUT STD_LOGIC;
+				mem_data_select : OUT STD_LOGIC;
 				-- WRITE BACK
 				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_wb : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -100,10 +103,14 @@ rb_addr <=
 	operand_ra when opcode = "1000100" else	-- BR.N
 	operand_ra when opcode = "1000101" else	-- BR.Z
 	operand_ra when opcode = "1000110" else	-- BR.SUB
+	operand_ra when opcode = "0010001" else	-- STORE
 	"111" when opcode = "1000111" else			-- RETURN
 	operand_rb;
 	
-rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
+rc_addr <=
+	operand_rb when opcode = "0000100" else	-- NAND
+	operand_rb when opcode = "0010001" else	-- STORE
+	operand_rc;
 
 op_m1_out <= operand_m1;
 
@@ -397,8 +404,13 @@ dest_select <=
 	
 result_select <=
 	"01" when opcode_exe = "1000110" else	-- BR.SUB
+	"10" when opcode_exe = "0010000" else	-- LOAD
+	"10" when opcode_exe = "0010001" else	-- STORE
 	"10" when opcode_exe = "0010010" else	-- LOADIMM
+	"10" when opcode_exe = "0010011" else	-- MOV
 	"00";
+
+-- MEMORY
 
 -- WRITE BACK
 reg_wen <=

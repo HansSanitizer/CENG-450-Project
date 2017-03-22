@@ -46,18 +46,18 @@ entity cpu_file is
 				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
 				fstall_en : IN STD_LOGIC;
-				-- EXE Stage Signals Monitored by Control Unit
+				-- Control Unit EXECUTE Signals
 				opcode_EXE_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				zero_flag : OUT STD_LOGIC;
 				ngtv_flag : OUT STD_LOGIC;
-				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
-				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				pcwr_en : IN STD_LOGIC;
 				wraddr_sel : IN STD_LOGIC;
 				result_sel : IN STD_LOGIC_VECTOR(1 downto 0);
-				-- MEM Stage Signals Monitored by Control Unit
+				-- Control Unit MEMORY Signals
 				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
+				mem_wr_en : IN STD_LOGIC;
+				mem_data_sel : IN STD_LOGIC;
 				-- Control Unit WRITE BACK Signals
 				dest_addr_WB_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
@@ -161,6 +161,24 @@ component wraddr_mux is
 				data : OUT STD_LOGIC_VECTOR(2 downto 0));
 end component;
 
+-- MEM Components
+
+component RAM_VHDL is
+	generic(N : integer := 8; M : integer := 8);
+	port(
+		clk, we : in  STD_LOGIC;
+		adr     : in  STD_LOGIC_VECTOR(15 downto 0);
+		din     : in  STD_LOGIC_VECTOR(15 downto 0);
+		dout    : out STD_LOGIC_VECTOR(15 downto 0));
+end component;
+
+component mem_data_mux is
+	Port (	data_select: IN STD_LOGIC;
+				result_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				mem_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				data : OUT STD_LOGIC_VECTOR(15 downto 0));
+end component;
+
 -- Inter-stage pipeline registers
 
 component reg_IF_ID is
@@ -200,6 +218,7 @@ component reg_EXE_MEM is
 	port (	clk : IN STD_LOGIC;
 				rst : IN STD_LOGIC;
 				-- EXE Stage Read Signals
+				op2_data_in : IN STD_LOGIC_VECTOR(15 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
 				op_m1_in : IN STD_LOGIC;
@@ -208,6 +227,7 @@ component reg_EXE_MEM is
 				z_flag_in : IN STD_LOGIC;
 				n_flag_in : IN STD_LOGIC;
 				-- Write Signals
+				op2_data_out : OUT STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op_m1_out : OUT STD_LOGIC;
@@ -242,10 +262,11 @@ signal stallEnable, fstallEnable : STD_LOGIC;
 signal opcode_EXE : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_EXE, dest_addr_EXMUX : STD_LOGIC_VECTOR(2 downto 0);
 signal operandM1_EXE : STD_LOGIC;
+signal operand2Data : STD_LOGIC_VECTOR(15 downto 0);
 
 signal opcode_MEM : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_MEM : STD_LOGIC_VECTOR(2 downto 0);
-signal result_MEM : STD_LOGIC_VECTOR(15 downto 0);
+signal result_MEM, memoryData, memDataMux : STD_LOGIC_VECTOR(15 downto 0);
 signal zeroFlag, negativeFlag, operandM1_MEM : STD_LOGIC;
 
 signal writeAddress : STD_LOGIC_VECTOR(2 downto 0);
@@ -371,18 +392,36 @@ mux4: wraddr_mux port map (
 exemem0: reg_EXE_MEM port map (
 	clk => clk,
 	rst => rst,
+	op2_data_in => aluOpData2,
 	opcode_in => opcode_EXE,
 	dest_addr_in => dest_addr_EXMUX,
 	op_m1_in => operandM1_EXE,
 	result_in => resultMux,
 	z_flag_in => zeroFlag,
 	n_flag_in => negativeFlag,
+	op2_data_out => operand2Data,
 	opcode_out => opcode_MEM,
 	dest_addr_out => dest_addr_MEM,
 	op_m1_out => operandM1_MEM,
 	result_out => result_MEM,
 	z_flag_out => zero_flag,
 	n_flag_out => ngtv_flag);
+
+
+-- MEMORY
+
+ram0: RAM_VHDL port map (
+	clk => clk,
+	we => mem_wr_en, -- From CU
+	adr => result_MEM,
+	din => operand2Data,
+	dout => memoryData);
+	
+mux5: mem_data_mux port map (
+	data_select => mem_data_sel, -- From CU
+	result_data => result_MEM,
+	mem_data => memoryData,
+	data => memDataMux);
 	
 -- MEM/WB
 	
@@ -392,7 +431,7 @@ memwb0: reg_MEM_WB port map (
 	opcode_in => opcode_MEM,
 	dest_addr_in => dest_addr_MEM,
 	op_m1_in => operandM1_MEM,
-	result_in => result_MEM,
+	result_in => memDataMux,
 	opcode_out => wb_opcode, -- To CU
 	dest_addr_out => writeAddress,
 	op_m1_out => wb_opm1, -- To CU
