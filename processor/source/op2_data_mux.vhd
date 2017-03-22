@@ -31,7 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity op2_data_mux is
 	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
-				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				displacement : IN STD_LOGIC_VECTOR(8 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
@@ -43,7 +43,7 @@ signal bigImmediate : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
 
 begin
 
-bigImmediate(3 downto 0) <= immediate;
+bigImmediate(7 downto 0) <= immediate;
 
 data <=
 	bigImmediate when data_select = "01" else

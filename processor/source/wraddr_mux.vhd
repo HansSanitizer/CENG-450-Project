@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    11:15:37 03/18/2017 
+-- Create Date:    14:23:36 03/21/2017 
 -- Design Name: 
--- Module Name:    op1_data_mux - Behavioral 
+-- Module Name:    wraddr_mux - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,22 +29,17 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity op1_data_mux is
-	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
-				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
-				pc_value : IN STD_LOGIC_VECTOR(15 downto 0);
-				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
-				data : OUT STD_LOGIC_VECTOR(15 downto 0));
-end op1_data_mux;
+entity wraddr_mux is
+	Port (	data_select: IN STD_LOGIC;
+				dest_addr : IN STD_LOGIC_VECTOR(2 downto 0);
+				data : OUT STD_LOGIC_VECTOR(2 downto 0));
+end wraddr_mux;
 
-architecture Behavioral of op1_data_mux is
+architecture Behavioral of wraddr_mux is
 
 begin
 
-data <=
-	pc_value when data_select = "01" else
-	(X"00" & immediate) when data_select = "10" else
-	reg_data;
+data <= "111" when data_select = '1' else dest_addr;
 
 end Behavioral;
 

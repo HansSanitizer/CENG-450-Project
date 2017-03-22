@@ -38,10 +38,11 @@ entity controlUnit_file is
 				rb_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				rc_addr : out STD_LOGIC_VECTOR(2 downto 0);
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
-				imm_data : OUT STD_LOGIC_VECTOR(3 downto 0);
+				imm_data : OUT STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
 				data1_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				data2_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				op_m1_out : OUT STD_LOGIC;
 				fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
 				-- EXECUTE
@@ -50,11 +51,18 @@ entity controlUnit_file is
 				n_flag: IN STD_LOGIC;
 				z_flag: IN STD_LOGIC;
 				pc_write_en : OUT STD_LOGIC;
+				dest_select : OUT STD_LOGIC;
+				result_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				-- MEMORY
+				opcode_mem : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
+				mem_write_en : OUT STD_LOGIC;
+				mem_data_select : OUT STD_LOGIC;
 				-- WRITE BACK
 				opcode_wb: IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_wb : IN STD_LOGIC_VECTOR(2 downto 0);
+				op_m1_wb : IN STD_LOGIC;
+				wr_mode_sel : OUT STD_LOGIC_VECTOR(1 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
 				reg_wen : OUT STD_LOGIC);
 end controlUnit_file;
@@ -70,18 +78,25 @@ signal ioflag : STD_LOGIC := '0';
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
 alias opcode is instruction(15 downto 9); -- All formats
-alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3, B2
-alias operand_rb is instruction(5 downto 3); -- Formats: A1
+alias operand_ra is instruction(8 downto 6); -- Formats: A1, A2, A3, B2, L2(r.dest)
+alias operand_rb is instruction(5 downto 3); -- Formats: A1, L2(r.src)
 alias operand_rc is instruction(2 downto 0); -- Formats: A1
 alias operand_c1 is instruction(3 downto 0); -- Formats: A2
+alias operand_m1 is instruction(8); -- Formats: L1
 alias disp_l is instruction(8 downto 0); -- Formats: B1
 alias disp_s is instruction(5 downto 0); -- Formats: B2
+alias imm is instruction (7 downto 0); -- Formats: L1
 
 begin
 
 -- DECODE
 opcode_out <= opcode;
-ra_addr <= operand_ra; 
+
+ra_addr <=
+	"111" when opcode = "0010010" else	-- LOADIMM
+	--operand_rb when opcode = "0010000" else -- LOAD
+	operand_ra;
+
 rb_addr <= 
 	operand_ra when opcode = "0000100" else	-- NAND
 	operand_ra when opcode = "0000101" else	-- SHL
@@ -91,10 +106,21 @@ rb_addr <=
 	operand_ra when opcode = "1000100" else	-- BR.N
 	operand_ra when opcode = "1000101" else	-- BR.Z
 	operand_ra when opcode = "1000110" else	-- BR.SUB
+	operand_ra when opcode = "0010001" else	-- STORE
+	"111" when opcode = "1000111" else			-- RETURN
 	operand_rb;
-rc_addr <= operand_rb when opcode = "0000100" else operand_rc;	-- NAND
+	
+rc_addr <=
+	operand_rb when opcode = "0000100" else	-- NAND
+	operand_rb when opcode = "0010001" else	-- STORE
+	operand_rc;
 
-imm_data <= operand_c1;
+op_m1_out <= operand_m1;
+
+imm_data <=
+	imm when opcode = "0010010" else	-- LOADIMM
+	("0000" & operand_c1);
+
 disp_data <=
 	("000" & disp_s) when ((opcode = "1000011") and (disp_s(5) = '0')) else	-- BR
 	("111" & disp_s) when ((opcode = "1000011") and (disp_s(5) = '1')) else
@@ -104,12 +130,14 @@ disp_data <=
 	("111" & disp_s) when ((opcode = "1000101") and (disp_s(5) = '1')) else
 	("000" & disp_s) when ((opcode = "1000110") and (disp_s(5) = '0')) else	-- BR.SUB
 	("111" & disp_s) when ((opcode = "1000110") and (disp_s(5) = '1')) else
+	"000000000" when opcode = "1000111" else											-- RETURN
 	disp_l;
 
 data1_select <=
 	"01" when opcode = "1000000" else	-- BRR PC value
 	"01" when opcode = "1000001" else	-- BRR.N PC value
 	"01" when opcode = "1000010" else	-- BRR.Z PC value
+	"10" when opcode = "0010010" else	-- LOADIMM
 	"00";
 
 data2_select <=
@@ -122,6 +150,7 @@ data2_select <=
 	"10" when opcode = "1000100" else	-- BR.N displacement
 	"10" when opcode = "1000101" else	-- BR.Z displacement
 	"10" when opcode = "1000110" else	-- BR.SUB displacement
+	"10" when opcode = "1000111" else	-- RETURN displacement of zero
 	"00";
 
 alu_code <=
@@ -138,6 +167,7 @@ alu_code <=
 	"001" when opcode = "1000100" else	-- BR.N
 	"001" when opcode = "1000101" else	-- BR.Z
 	"001" when opcode = "1000110" else	-- BR.SUB
+	"001" when opcode = "1000111" else	-- RETURN
 	"000";										-- NOP
 
 -- control hazard
@@ -156,6 +186,8 @@ fetch_stall <=
 	'1' when opcode_exe = "1000101" else
 	'1' when opcode = "1000110" else 	-- BR.SUB
 	'1' when opcode_exe = "1000110" else
+	'1' when opcode = "1000111" else 	-- RETURN
+	'1' when opcode_exe = "1000111" else
 	'0';
 
 -- possible data hazards
@@ -388,7 +420,26 @@ pc_write_en <=
 	'1' when ((opcode_exe = "1000100") and (n_flag = '1')) else	-- BR.N
 	'1' when ((opcode_exe = "1000101") and (z_flag = '1')) else	-- BR.Z
 	'1' when opcode_exe = "1000110" else	-- BR.SUB
+	'1' when opcode_exe = "1000111" else	-- RETURN
 	'0';
+
+dest_select <=
+	'1' when opcode_exe = "1000110" else	-- BR.SUB writing to R7
+	'0';
+	
+result_select <=
+	"01" when opcode_exe = "1000110" else	-- BR.SUB
+	"10" when opcode_exe = "0010000" else	-- LOAD
+	"10" when opcode_exe = "0010001" else	-- STORE
+	"10" when opcode_exe = "0010010" else	-- LOADIMM
+	"10" when opcode_exe = "0010011" else	-- MOV
+	"00";
+
+-- MEMORY
+
+mem_write_en <= '1' when opcode_mem = "0010001" else '0'; -- STORE
+
+mem_data_select <= '1' when opcode_mem = "0010000" else '0'; -- LOAD
 
 -- WRITE BACK
 reg_wen <=
@@ -398,7 +449,17 @@ reg_wen <=
 	'0' when opcode_wb = "1000000" else -- BRR
 	'0' when opcode_wb = "1000001" else -- BRR.N
 	'0' when opcode_wb = "1000010" else -- BRR.Z
+	'0' when opcode_wb = "1000011" else	-- BR
+	'0' when opcode_wb = "1000100" else	-- BR.N
+	'0' when opcode_wb = "1000101" else	-- BR.Z
+	'0' when opcode_wb = "1000111" else	-- RETURN
+	'0' when opcode_wb = "0010001" else	-- STORE
 	'1';
+
+wr_mode_sel <=
+	"01" when ((opcode_wb = "0010010") and (op_m1_wb = '0')) else -- LOADIMM lower
+	"10" when ((opcode_wb = "0010010") and (op_m1_wb = '1')) else -- LOADIMM upper
+	"00";
 
 wb_mux_sel <= '1' when opcode_wb = "0100001" else '0'; -- IN
 
