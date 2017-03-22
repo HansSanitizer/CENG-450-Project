@@ -30,10 +30,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity op1_data_mux is
-	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
+	Port (	data_select: IN STD_LOGIC_VECTOR(2 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				pc_value : IN STD_LOGIC_VECTOR(15 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				exe_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				mem_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				wb_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
 end op1_data_mux;
 
@@ -42,8 +45,11 @@ architecture Behavioral of op1_data_mux is
 begin
 
 data <=
-	pc_value when data_select = "01" else
-	(X"00" & immediate) when data_select = "10" else
+	pc_value when data_select = "001" else
+	(X"00" & immediate) when data_select = "010" else
+	exe_value when data_select = "101" else
+	mem_data when data_select = "110" else
+	wb_data when data_select = "111" else
 	reg_data;
 
 end Behavioral;

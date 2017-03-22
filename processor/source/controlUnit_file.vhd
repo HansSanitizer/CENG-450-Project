@@ -40,8 +40,8 @@ entity controlUnit_file is
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
-				data1_select : OUT STD_LOGIC_VECTOR(1 downto 0);
-				data2_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : OUT STD_LOGIC_VECTOR(2 downto 0);
+				data2_select : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op_m1_out : OUT STD_LOGIC;
 				fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
@@ -67,12 +67,7 @@ entity controlUnit_file is
 end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
---Define states for each stage
---type state_type is (fetch, decode, execute);
---signal Current_State, Next_State : state_type;
---signal PC : unsigned(6 downto 0) := "0000000";
---signal PC_next : unsigned(6 downto 0);
---signal instr_reg : STD_LOGIC_VECTOR(15 downto 0);
+
 signal ioflag : STD_LOGIC := '0';
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
@@ -133,24 +128,24 @@ disp_data <=
 	disp_l;
 
 data1_select <=
-	"01" when opcode = "1000000" else	-- BRR PC value
-	"01" when opcode = "1000001" else	-- BRR.N PC value
-	"01" when opcode = "1000010" else	-- BRR.Z PC value
-	"10" when opcode = "0010010" else	-- LOADIMM
-	"00";
+	"001" when opcode = "1000000" else	-- BRR PC value
+	"001" when opcode = "1000001" else	-- BRR.N PC value
+	"001" when opcode = "1000010" else	-- BRR.Z PC value
+	"010" when opcode = "0010010" else	-- LOADIMM
+	"000";
 
 data2_select <=
-	"01" when opcode = "0000101" else	-- SHL immediate
-	"01" when opcode = "0000110" else	-- SHR immediate
-	"10" when opcode = "1000000" else	-- BRR displacement
-	"10" when opcode = "1000001" else	-- BRR.N displacement
-	"10" when opcode = "1000010" else	-- BRR.Z displacement
-	"10" when opcode = "1000011" else	-- BR displacement
-	"10" when opcode = "1000100" else	-- BR.N displacement
-	"10" when opcode = "1000101" else	-- BR.Z displacement
-	"10" when opcode = "1000110" else	-- BR.SUB displacement
-	"10" when opcode = "1000111" else	-- RETURN displacement of zero
-	"00";
+	"001" when opcode = "0000101" else	-- SHL immediate
+	"001" when opcode = "0000110" else	-- SHR immediate
+	"010" when opcode = "1000000" else	-- BRR displacement
+	"010" when opcode = "1000001" else	-- BRR.N displacement
+	"010" when opcode = "1000010" else	-- BRR.Z displacement
+	"010" when opcode = "1000011" else	-- BR displacement
+	"010" when opcode = "1000100" else	-- BR.N displacement
+	"010" when opcode = "1000101" else	-- BR.Z displacement
+	"010" when opcode = "1000110" else	-- BR.SUB displacement
+	"010" when opcode = "1000111" else	-- RETURN displacement of zero
+	"000";
 
 alu_code <=
 	"001" when opcode = "0000001" else	-- ADD

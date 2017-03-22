@@ -22,14 +22,19 @@
   <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="processor.xise"/>
 
   <files xmlns="http://www.xilinx.com/XMLSchema">
+    <file xil_pn:fileType="FILE_LSO" xil_pn:name=".lso"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="cpu_file.sym" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_NCD" xil_pn:name="cpu_file_guide.ncd" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="op2_data_mux.prj"/>
+    <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="op2_data_mux.stx"/>
+    <file xil_pn:fileType="FILE_XST" xil_pn:name="op2_data_mux.xst"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="processorTestBench_stx_beh.prj"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="processorTopLevel.sym" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_NCD" xil_pn:name="processorTopLevel_guide.ncd" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="reg_IF_ID.sym" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
+    <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xst"/>
   </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
@@ -40,6 +45,10 @@
     <transform xil_pn:end_ts="1490216374" xil_pn:in_ck="989051348731613940" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1490216374">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="source/RAM_VHDL.vhd"/>
       <outfile xil_pn:name="source/ROM_VHDL.vhd"/>
       <outfile xil_pn:name="source/alu_file.vhd"/>
