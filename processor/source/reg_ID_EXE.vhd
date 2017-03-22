@@ -59,7 +59,7 @@ signal pipeRegister : STD_LOGIC_VECTOR(61 downto 0) := (others => '0');
 alias nextPC is pipeRegister (61 downto 46); -- PC+2
 alias opCode is pipeRegister (45 downto 39);
 alias aluCode is pipeRegister(38 downto 36);
-alias destAddress is pipeRegister(35 downto 32);
+alias destAddress is pipeRegister(35 downto 33);
 alias operandM1 is pipeRegister(32);
 alias operandData1 is pipeRegister(31 downto 16);
 alias operandData2 is pipeRegister(15 downto 0);

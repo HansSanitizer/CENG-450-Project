@@ -127,26 +127,6 @@ disp_data <=
 	"000000000" when opcode = "1000111" else											-- RETURN
 	disp_l;
 
-data1_select <=
-	"001" when opcode = "1000000" else	-- BRR PC value
-	"001" when opcode = "1000001" else	-- BRR.N PC value
-	"001" when opcode = "1000010" else	-- BRR.Z PC value
-	"010" when opcode = "0010010" else	-- LOADIMM
-	"000";
-
-data2_select <=
-	"001" when opcode = "0000101" else	-- SHL immediate
-	"001" when opcode = "0000110" else	-- SHR immediate
-	"010" when opcode = "1000000" else	-- BRR displacement
-	"010" when opcode = "1000001" else	-- BRR.N displacement
-	"010" when opcode = "1000010" else	-- BRR.Z displacement
-	"010" when opcode = "1000011" else	-- BR displacement
-	"010" when opcode = "1000100" else	-- BR.N displacement
-	"010" when opcode = "1000101" else	-- BR.Z displacement
-	"010" when opcode = "1000110" else	-- BR.SUB displacement
-	"010" when opcode = "1000111" else	-- RETURN displacement of zero
-	"000";
-
 alu_code <=
 	"001" when opcode = "0000001" else	-- ADD
 	"010" when opcode = "0000010" else	-- SUB
@@ -218,262 +198,279 @@ begin
 		when '1' =>
 			ioflag <= '0';
 		when others =>
-			ioflag <= '1';
+			NULL;
 	end case;
 end process iostall;
 
 -- detect and handle hazard
 hazard: process (dataHazard, opcode, ioflag)
 begin
-	stall <='0';	
+	stall <='0';
 	case opcode is
 		when "0000001" => -- ADD
 		-- Check Operands for pending write
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
 			case dataHazard(1 downto 0) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from EXE
+					data2_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from MEM
+					data2_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from WB
+					data2_select <= "111";
 				when others =>
-					-- don't stall
+					data2_select <= "000";
 			end case;
 		when "0000010" => -- SUB
 		-- Check Operands for pending write
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
 			case dataHazard(1 downto 0) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from EXE
+					data2_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from MEM
+					data2_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from WB
+					data2_select <= "111";
 				when others =>
-					-- don't stall
+					data2_select <= "000";
 			end case;
 		when "0000011" => -- MUL
 		-- Check Operands for pending write
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
 			case dataHazard(1 downto 0) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from EXE
+					data2_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from MEM
+					data2_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from WB
+					data2_select <= "111";
 				when others =>
-					-- don't stall
+					data2_select <= "000";
 			end case;
 		when "0000100" => -- NAND
 		-- Check Operands for pending write
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
 			case dataHazard(1 downto 0) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from EXE
+					data2_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from MEM
+					data2_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from WB
+					data2_select <= "111";
 				when others =>
-					-- don't stall
-			end case;
+					data2_select <= "000";
+			end case;			
 		when "0000101" => -- SHL
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
-			end case;
+					data1_select <= "000";
+			end case;			
+			data2_select <= "001";	-- immediate
 		when "0000110" => -- SHR
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "001";	-- immediate
 		when "0000111" => -- TEST
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
 		when "0100000" => -- OUT
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "000";
+		when "1000000" => -- BRR
+			data1_select <= "001";	-- PC value
+			data2_select <= "010";	-- displacement
+		when "1000001" => -- BRR.N
+			data1_select <= "001";	-- PC value
+			data2_select <= "010";	-- displacement
+		when "1000010" => -- BRR.Z
+			data1_select <= "001";	-- PC value
+			data2_select <= "010";	-- displacement
 		when "1000011" => -- BR
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "010";	-- displacement
 		when "1000100" => -- BR.N
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "010";	-- displacement
 		when "1000101" => -- BR.Z
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "010";	-- displacement
 		when "1000110" => -- BR.SUB
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "010";	-- displacement
 		when "1000111" => -- RETURN
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from EXE
+					data1_select <= "101";
 				when "10" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from MEM
+					data1_select <= "110";
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "010";	-- displacement of zero
 		when "0010000" => -- LOAD
 		-- Check Operand for pending write
 			case dataHazard(3 downto 2) is
@@ -517,6 +514,9 @@ begin
 				when others =>
 					-- don't stall
 			end case;
+		when "0010010" => -- LOADIMM
+			data1_select <= "010"; -- Immediate Value
+			data2_select <= "000";
 		when "0010011" => -- MOV
 		-- Check Operand for pending write
 			case dataHazard(3 downto 2) is
@@ -533,6 +533,8 @@ begin
 					-- don't stall
 			end case;
 		when others =>
+			data1_select <= "000";
+			data2_select <= "000";
 	end case;
 	case ioflag is
 		when '1' =>

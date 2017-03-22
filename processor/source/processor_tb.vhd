@@ -45,6 +45,7 @@ ARCHITECTURE behavior OF processorTestBench IS
          rst : IN  std_logic;
 			stall : OUT STD_LOGIC;
          wr_data : IN  std_logic_vector(15 downto 0);
+			io_switch_in: IN STD_LOGIC;
 			result : OUT STD_LOGIC_VECTOR(15 downto 0)
         );
     END COMPONENT;
@@ -54,6 +55,7 @@ ARCHITECTURE behavior OF processorTestBench IS
    signal clk : std_logic := '0';
    signal rst : std_logic := '0';
    signal wr_data : std_logic_vector(15 downto 0) := x"0003";
+	signal io_switch_in : std_logic := '1';
 	
 	--Outputs
 	signal result : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
@@ -69,7 +71,9 @@ BEGIN
           clk => clk,
           rst => rst,
 			 stall => stall,
-          wr_data => wr_data
+          wr_data => wr_data,
+			 io_switch_in => io_switch_in,
+			 result => result
         );
 
    -- Clock process definitions

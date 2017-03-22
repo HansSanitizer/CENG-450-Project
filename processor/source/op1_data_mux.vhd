@@ -47,7 +47,7 @@ begin
 data <=
 	pc_value when data_select = "001" else
 	(X"00" & immediate) when data_select = "010" else
-	exe_value when data_select = "101" else
+	exe_data when data_select = "101" else
 	mem_data when data_select = "110" else
 	wb_data when data_select = "111" else
 	reg_data;
