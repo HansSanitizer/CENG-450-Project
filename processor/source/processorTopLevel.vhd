@@ -65,6 +65,7 @@ component cpu_file is
 				wraddr_sel : IN STD_LOGIC;
 				result_sel : IN STD_LOGIC_VECTOR(1 downto 0);
 				-- Control Unit MEMORY Signals
+				opcode_MEM_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				mem_wr_en : IN STD_LOGIC;
 				mem_data_sel : IN STD_LOGIC;
@@ -104,6 +105,7 @@ component controlUnit_file is
 				dest_select : OUT STD_LOGIC;
 				result_select : OUT STD_LOGIC_VECTOR(1 downto 0);
 				-- MEMORY
+				opcode_mem : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_mem : IN STD_LOGIC_VECTOR(2 downto 0);
 				mem_write_en : OUT STD_LOGIC;
 				mem_data_select : OUT STD_LOGIC;
@@ -117,7 +119,7 @@ component controlUnit_file is
 end component;
 
 signal instr : STD_LOGIC_VECTOR(15 downto 0);
-signal opcodeID, opcodeEXE, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
+signal opcodeID, opcodeEXE, opcodeMEM, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
 signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0);
 signal dispData : STD_LOGIC_VECTOR(8 downto 0);
@@ -152,6 +154,7 @@ ctrl0: controlUnit_file port map (
 	pc_write_en => pcWriteEnable,
 	dest_select => destSel,
 	result_select => resultSel,
+	opcode_mem => opcodeMEM,
 	dest_addr_mem => dest_addr_MEM,
 	mem_write_en => memWriteEnable,
 	mem_data_select => memDataSelect,
@@ -185,6 +188,7 @@ cpu0: cpu_file port map (
 	pcwr_en => pcWriteEnable, -- From CU
 	wraddr_sel => destSel, -- From CU
 	result_sel => resultSel, -- From CU
+	opcode_MEM_CU => opcodeMEM, -- To CU
 	dest_addr_MEM_CU => dest_addr_MEM, -- To CU
 	mem_wr_en => memWriteEnable, -- From CU
 	mem_data_sel => memDataSelect, -- From CU

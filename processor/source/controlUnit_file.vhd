@@ -92,6 +92,7 @@ opcode_out <= opcode;
 
 ra_addr <=
 	"111" when opcode = "0010010" else	-- LOADIMM
+	--operand_rb when opcode = "0010000" else -- LOAD
 	operand_ra;
 
 rb_addr <= 
@@ -412,6 +413,10 @@ result_select <=
 
 -- MEMORY
 
+mem_write_en <= '1' when opcode_mem = "0010001" else '0'; -- STORE
+
+mem_data_select <= '1' when opcode_mem = "0010000" else '0'; -- LOAD
+
 -- WRITE BACK
 reg_wen <=
 	'0' when opcode_wb = "0000000" else	-- NOP
@@ -424,6 +429,7 @@ reg_wen <=
 	'0' when opcode_wb = "1000100" else	-- BR.N
 	'0' when opcode_wb = "1000101" else	-- BR.Z
 	'0' when opcode_wb = "1000111" else	-- RETURN
+	'0' when opcode_wb = "0010001" else	-- STORE
 	'1';
 
 wr_mode_sel <=

@@ -55,6 +55,7 @@ entity cpu_file is
 				wraddr_sel : IN STD_LOGIC;
 				result_sel : IN STD_LOGIC_VECTOR(1 downto 0);
 				-- Control Unit MEMORY Signals
+				opcode_MEM_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				mem_wr_en : IN STD_LOGIC;
 				mem_data_sel : IN STD_LOGIC;
@@ -278,6 +279,7 @@ stallEnable <= stall_en;
 fstallEnable <= fstall_en;
 
 opcode_EXE_CU <= opcode_EXE;
+opcode_MEM_CU <= opcode_MEM;
 
 dest_addr_EXE_CU <= dest_addr_EXE;
 dest_addr_MEM_CU <= dest_addr_MEM;

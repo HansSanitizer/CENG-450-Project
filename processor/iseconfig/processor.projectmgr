@@ -11,7 +11,7 @@
       <SelectedItems>
          <SelectedItem>rom0 - ROM_VHDL - BHV (C:/Users/tlong/Documents/CENG-450-Project/processor/source/ROM_VHDL.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >3</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001a5000000020000000000000000000000000200000064ffffffff000000810000000300000002000001a50000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
@@ -75,13 +75,13 @@
          <ClosedNodesVersion>2</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>processorTestBench - behavior (C:/Users/tlong/Documents/CENG-450-Project/processor/source/processor_tb.vhd)</SelectedItem>
+         <SelectedItem>ram0 - RAM_VHDL - synth (C:/Users/tlong/Documents/CENG-450-Project/processor/source/RAM_VHDL.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >5</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001b9000000020000000000000000000000000200000064ffffffff000000810000000300000002000001b90000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>processorTestBench - behavior (C:/Users/tlong/Documents/CENG-450-Project/processor/source/processor_tb.vhd)</CurrentItem>
+      <CurrentItem>ram0 - RAM_VHDL - synth (C:/Users/tlong/Documents/CENG-450-Project/processor/source/RAM_VHDL.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
