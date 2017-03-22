@@ -46,12 +46,16 @@ entity reg_EXE_MEM is
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op2_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
-				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
+				result_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+				z_flag_out : OUT STD_LOGIC;
+				n_flag_out : OUT STD_LOGIC);
 end reg_EXE_MEM;
 
 architecture Behavioral of reg_EXE_MEM is
 
 signal pipeRegister : STD_LOGIC_VECTOR(33 downto 0) := (others => '0');
+attribute S: string;
+attribute S of pipeRegister: signal is "Yes";
 
 alias opcode is pipeRegister(33 downto 27);
 alias destAddress is pipeRegister(26 downto 24);
@@ -91,6 +95,8 @@ begin
 		op1_addr_out <= operandAddress1;
 		op2_addr_out <= operandAddress2;
 		result_out <= aluResult;
+		z_flag_out <= zeroFlag;
+		n_flag_out <= negativeFlag;
 	end if;
 end process;
 

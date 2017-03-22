@@ -44,7 +44,8 @@ ARCHITECTURE behavior OF processorTestBench IS
          clk : IN  std_logic;
          rst : IN  std_logic;
 			stall : OUT STD_LOGIC;
-         wr_data : IN  std_logic_vector(15 downto 0)
+         wr_data : IN  std_logic_vector(15 downto 0);
+			result : OUT STD_LOGIC_VECTOR(15 downto 0)
         );
     END COMPONENT;
     
@@ -55,6 +56,7 @@ ARCHITECTURE behavior OF processorTestBench IS
    signal wr_data : std_logic_vector(15 downto 0) := x"0003";
 	
 	--Outputs
+	signal result : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
 	signal stall : std_logic := '0';
 
    -- Clock period definitions

@@ -30,15 +30,15 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity pc_incrementor is
-	port (	input : IN STD_LOGIC_VECTOR(6 downto 0);
-				output : OUT STD_LOGIC_VECTOR(6 downto 0));
+	port (	input : IN STD_LOGIC_VECTOR(15 downto 0);
+				output : OUT STD_LOGIC_VECTOR(15 downto 0));
 end pc_incrementor;
 
 architecture Behavioral of pc_incrementor is
 
 begin
 
-output <= std_logic_vector(unsigned(input) +1 );
+output <= std_logic_vector(unsigned(input) +2 );
 
 end Behavioral;
 

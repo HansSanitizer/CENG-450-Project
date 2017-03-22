@@ -39,24 +39,30 @@ entity cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				imm_select : IN STD_LOGIC;
+				data1_select : IN STD_LOGIC_VECTOR(1 downto 0);
+				data2_select : IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
+				fstall_en : IN STD_LOGIC;
 				-- EXE Stage Signals Monitored by Control Unit
-				--opcode_EXE : OUT STD_LOGIC_VECTOR(6 downto 0);
+				opcode_EXE_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
+				zero_flag : OUT STD_LOGIC;
+				ngtv_flag : OUT STD_LOGIC;
 				--op1_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
 				--op2_addr_EXE : OUT STD_LOGIC_VECTOR(2 downto 0);
+				pcwr_en : IN STD_LOGIC;
 				-- MEM Stage Signals Monitored by Control Unit
 				dest_addr_MEM_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
-				--write signals (From WB stage)
-				--wr_index: in std_logic_vector(2 downto 0); 
 				-- Control Unit WRITE BACK Signals
 				dest_addr_WB_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				wb_mux_select: IN STD_LOGIC; -- 1 external, 0 write back
 				wr_enable: IN STD_LOGIC;
-				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0));
+				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0);
+				-- FOR TESTING
+				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end cpu_file;
 
 architecture Structure of cpu_file is
@@ -66,19 +72,22 @@ architecture Structure of cpu_file is
 component program_counter is
 	port (	clk : IN STD_LOGIC;
 				hold : IN STD_LOGIC;
-				next_value : IN STD_LOGIC_VECTOR(6 downto 0);
-				current_value : OUT STD_LOGIC_VECTOR(6 downto 0));
+				fhold : IN STD_LOGIC;
+				write_en : IN STD_LOGIC;
+				next_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				overwrite_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				current_value : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component pc_incrementor is
-	port (	input : IN STD_LOGIC_VECTOR(6 downto 0);
-				output : OUT STD_LOGIC_VECTOR(6 downto 0));
+	port (	input : IN STD_LOGIC_VECTOR(15 downto 0);
+				output : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component ROM_VHDL is
     port(
          clk      : in  std_logic;
-         addr     : in  std_logic_vector (6 downto 0);
+         addr     : in  std_logic_vector (15 downto 0);
          data     : out std_logic_vector (15 downto 0)
          );
 end component;
@@ -105,9 +114,17 @@ component register_file is
 		wr_enable: in std_logic);
 end component;
 
+component op1_data_mux is
+	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
+				pc_value : IN STD_LOGIC_VECTOR(15 downto 0);
+				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				data : OUT STD_LOGIC_VECTOR(15 downto 0));
+end component;
+
 component op2_data_mux is
-	Port (	imm_select: IN STD_LOGIC;
+	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(3 downto 0);
+				displacement : IN STD_LOGIC_VECTOR(8 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
@@ -128,9 +145,11 @@ end component;
 component reg_IF_ID is
 	port(	clk : IN STD_LOGIC;
 			rst : IN STD_LOGIC;
-			hold: IN STD_LOGIC;
+			hold : IN STD_LOGIC;
 			instr_in : IN STD_LOGIC_VECTOR(15 downto 0);
-			instr_out : OUT STD_LOGIC_VECTOR(15 downto 0));
+			pc_in : IN STD_LOGIC_VECTOR(15 downto 0);
+			instr_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+			pc_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component reg_ID_EXE is
@@ -172,7 +191,9 @@ component reg_EXE_MEM is
 				dest_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op1_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op2_addr_out : OUT STD_LOGIC_VECTOR(2 downto 0);
-				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
+				result_out : OUT STD_LOGIC_VECTOR(15 downto 0);
+				z_flag_out : OUT STD_LOGIC;
+				n_flag_out : OUT STD_LOGIC);
 end component;
 
 component reg_MEM_WB is
@@ -190,36 +211,48 @@ component reg_MEM_WB is
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
-signal currentPC, nextPC : STD_LOGIC_VECTOR(6 downto 0);
+signal currentPC, nextPC : STD_LOGIC_VECTOR(15 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
-signal regOpData1, regOpData2, muxOpData2, aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
+signal pcValue : STD_LOGIC_VECTOR(15 downto 0);
+signal regOpData1, regOpData2, muxOpData1, muxOpData2 : STD_LOGIC_VECTOR(15 downto 0);
+signal aluOpData1, aluOpData2, aluResult : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
-signal stallEnable, zeroFlag, negFlag : STD_LOGIC;
+signal stallEnable, fstallEnable : STD_LOGIC;
 
-signal opcode_EXE: STD_LOGIC_VECTOR(6 downto 0);
+signal opcode_EXE : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_EXE, op1_addr_EXE, op2_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
 
-signal opcode_MEM: STD_LOGIC_VECTOR(6 downto 0);
+signal opcode_MEM : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_MEM, op1_addr_MEM, op2_addr_MEM : STD_LOGIC_VECTOR(2 downto 0);
-signal result_MEM: STD_LOGIC_VECTOR(15 downto 0);
+signal result_MEM : STD_LOGIC_VECTOR(15 downto 0);
+signal zeroFlag, negativeFlag : STD_LOGIC;
 
-signal writeAddress: STD_LOGIC_VECTOR(2 downto 0);
-signal writeData, wbMuxData: STD_LOGIC_VECTOR(15 downto 0);
+signal writeAddress : STD_LOGIC_VECTOR(2 downto 0);
+signal writeData, wbMuxData : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
 stallEnable <= stall_en;
+fstallEnable <= fstall_en;
+
+opcode_EXE_CU <= opcode_EXE;
 
 dest_addr_EXE_CU <= dest_addr_EXE;
 dest_addr_MEM_CU <= dest_addr_MEM;
 dest_addr_WB_CU <= writeAddress;
+
+--TESTING
+result <= writeData;
 
 -- ISTRUCTION FETCH
 
 pc0: program_counter port map (
 	clk => clk,
 	hold  => stallEnable,
+	write_en => pcwr_en, -- From CU
+	fhold => fstallEnable,
 	next_value => nextPC,
+	overwrite_value => aluResult, -- Forwarded from EXE
 	current_value => currentPC);
 	
 pc1: pc_incrementor port map (
@@ -235,9 +268,11 @@ rom0: ROM_VHDL port map (
 
 ifid0: reg_IF_ID port map (
 	clk => clk, 
-	rst => rst,
+	rst => fstallEnable,
 	hold => stallEnable,
+	pc_in => currentPC,
 	instr_in => instructionFETCH,
+	pc_out => pcValue,
 	instr_out => instr_out);
 
 -- INSTRUCTION DECODE
@@ -252,14 +287,19 @@ reg0: register_file port map (
 	wr_index => writeAddress,
 	wr_data => wbMuxData,
 	wr_enable => wr_enable);
-	
-mux1: op2_data_mux port map (
-	imm_select => imm_select, -- From CU
-	immediate => immediate, -- From CU
-	reg_data => regOpData2,
-	data => muxOpData2);
-	
 
+mux1: op1_data_mux port map (
+	data_select => data1_select, -- From CU
+	pc_value => pcValue,
+	reg_data => regOpData1,
+	data => muxOpData1);
+
+mux2: op2_data_mux port map (
+	data_select => data2_select, -- From CU
+	immediate => immediate, -- From CU
+	displacement => disp_data, -- From CU
+	reg_data => regOpData2,
+	data => muxOpData2);	
 
 -- ID/EXE
 
@@ -271,7 +311,7 @@ idexe0: reg_ID_EXE port map (
 	dest_addr_in => dest_addr_in,
 	op1_addr_in => op_index1,
 	op2_addr_in => op_index2, 
-	op1_data_in => regOpData1,
+	op1_data_in => muxOpData1,
 	op2_data_in => muxOpData2,
 	opcode_out => opcode_EXE,
 	alu_out => aluCode,
@@ -289,7 +329,7 @@ alu0: alu_file port map (
 	alu_mode => aluCode ,
 	result => aluResult,
 	z_flag => zeroFlag,
-	n_flag => negFlag);
+	n_flag => negativeFlag);
 
 -- EXE/MEM
 
@@ -302,12 +342,14 @@ exemem0: reg_EXE_MEM port map (
 	op2_addr_in => op2_addr_EXE,
 	result_in => aluResult,
 	z_flag_in => zeroFlag,
-	n_flag_in => negFlag,
+	n_flag_in => negativeFlag,
 	opcode_out => opcode_MEM,
 	dest_addr_out => dest_addr_MEM,
 	op1_addr_out => op1_addr_MEM,
 	op2_addr_out => op2_addr_MEM,
-	result_out => result_MEM);
+	result_out => result_MEM,
+	z_flag_out => zero_flag,
+	n_flag_out => ngtv_flag);
 	
 -- MEM/WB
 	
