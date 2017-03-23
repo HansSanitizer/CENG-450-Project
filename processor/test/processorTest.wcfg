@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="22" />
+   <WVObjectSize size="24" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -109,6 +109,16 @@
    <wvobject fp_name="/processortestbench/uut/ctrl0/mem_data_select" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">mem_data_select</obj_property>
       <obj_property name="ObjectShortName">mem_data_select</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/ram0/adr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">adr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">adr[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/cpu0/ram0/din" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">din[15:0]</obj_property>
+      <obj_property name="ObjectShortName">din[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/reg0/reg_file" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">reg_file[0:7]</obj_property>

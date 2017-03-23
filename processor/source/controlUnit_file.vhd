@@ -203,7 +203,7 @@ begin
 end process iostall;
 
 -- detect and handle hazard
-hazard: process (dataHazard, opcode, ioflag)
+hazard: process (dataHazard, opcode, opcode_exe, opcode_mem, ioflag)
 begin
 	stall <='0';
 	case opcode is
@@ -211,11 +211,29 @@ begin
 		-- Check Operands for pending write
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- Forward Op1 from EXE
-					data1_select <= "101";
+					case opcode_exe is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
+						when "0010000" =>	-- LOAD
+							-- data not avialable until MEM
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from EXE
+							data1_select <= "101";
+						end case;
 				when "10" =>
-					-- Forward Op1 from MEM
-					data1_select <= "110";
+					case opcode_mem is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from MEM
+							data1_select <= "110";
+						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
@@ -224,11 +242,28 @@ begin
 			end case;
 			case dataHazard(1 downto 0) is
 				when "01" =>
-					-- Forward Op2 from EXE
-					data2_select <= "101";
+					case opcode_exe is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data2_select <= "000";
+						when "0010000" =>	-- LOAD
+							stall <= '1';
+							data2_select <= "000";
+						when others =>
+							-- Forward Op2 from EXE
+							data2_select <= "101";
+					end case;
 				when "10" =>
-					-- Forward Op2 from MEM
-					data2_select <= "110";
+					case opcode_mem is
+						when "0100001" =>	-- IN
+						-- data not available until WB
+						stall <= '1';
+						data2_select <= "000";
+						when others =>
+							-- Forward Op2 from MEM
+							data2_select <= "110";
+					end case;
 				when "11" =>
 					-- Forward Op2 from WB
 					data2_select <= "111";
@@ -475,44 +510,98 @@ begin
 		-- Check Operand for pending write
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					case opcode_exe is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
+						when "0010000" =>	-- LOAD
+							-- data not avialable until MEM
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from EXE
+							data1_select <= "101";
+						end case;
 				when "10" =>
-					-- stall
-					stall <= '1';
+					case opcode_mem is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from MEM
+							data1_select <= "110";
+						end case;
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
+			data2_select <= "000";
 		when "0010001" => -- STORE
 		-- Check Operands for pending write
 			case dataHazard(5 downto 4) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					case opcode_exe is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
+						when "0010000" =>	-- LOAD
+							-- data not avialable until MEM
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from EXE
+							data1_select <= "101";
+						end case;
 				when "10" =>
-					-- stall
-					stall <= '1';
+					case opcode_mem is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from MEM
+							data1_select <= "110";
+						end case;
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op1 from WB
+					data1_select <= "111";
 				when others =>
-					-- don't stall
+					data1_select <= "000";
 			end case;
 			case dataHazard(3 downto 2) is
 				when "01" =>
-					-- stall
-					stall <= '1';
+					case opcode_exe is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data2_select <= "000";
+						when "0010000" =>	-- LOAD
+							stall <= '1';
+							data2_select <= "000";
+						when others =>
+							-- Forward Op2 from EXE
+							data2_select <= "101";
+					end case;
 				when "10" =>
-					-- stall
-					stall <= '1';
+					case opcode_mem is
+						when "0100001" =>	-- IN
+							-- data not available until WB
+							stall <= '1';
+							data2_select <= "000";
+						when others =>
+							-- Forward Op2 from MEM
+							data2_select <= "110";
+					end case;
 				when "11" =>
-					-- stall
-					stall <= '1';
+					-- Forward Op2 from WB
+					data2_select <= "111";
 				when others =>
-					-- don't stall
+					data2_select <= "000";
 			end case;
 		when "0010010" => -- LOADIMM
 			data1_select <= "010"; -- Immediate Value
