@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="24" />
+   <WVObjectSize size="30" />
    <wvobject fp_name="/processortestbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -63,6 +63,30 @@
       <obj_property name="ObjectShortName">opcode_out[6:0]</obj_property>
       <obj_property name="label">WRITEBACK[6:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/ra_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ra_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ra_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/rb_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rb_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">rb_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/rc_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rc_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">rc_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/dest_addr_exe" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dest_addr_exe[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dest_addr_exe[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/dest_addr_mem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dest_addr_mem[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dest_addr_mem[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processortestbench/uut/ctrl0/dest_addr_wb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dest_addr_wb[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dest_addr_wb[2:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/processortestbench/uut/ctrl0/datahazard" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">datahazard[5:0]</obj_property>
       <obj_property name="ObjectShortName">datahazard[5:0]</obj_property>
@@ -90,12 +114,12 @@
    <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">in1[15:0]</obj_property>
       <obj_property name="ObjectShortName">in1[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/alu0/in2" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">in2[15:0]</obj_property>
       <obj_property name="ObjectShortName">in2[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/processortestbench/uut/cpu0/alu0/result" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">result[15:0]</obj_property>
