@@ -45,6 +45,9 @@ entity controlUnit_file is
 				op_m1_out : OUT STD_LOGIC;
 				fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
+				led_fwd_exe: OUT STD_LOGIC;
+				led_fwd_mem: OUT STD_LOGIC;
+				led_fwd_wb: OUT STD_LOGIC;
 				-- EXECUTE
 				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -68,10 +71,7 @@ end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
 
-type buttonState is (pressed, released);
-
-signal buttState : buttonState := released;
-
+signal buttState : STD_LOGIC := '0';
 signal ioflag : STD_LOGIC := '0';
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
@@ -191,25 +191,29 @@ dataHazard(1 downto 0) <=
 iostall: process (ioflag, opcode, io_switch_in, buttState)
 begin
 	case opcode is
-		when "0100000" => -- OUT
-			ioflag <= '1';
 		when "0100001" => -- IN
+			ioflag <= '1';
+		when others =>
+			-- don't raise ioflag
+		end case;
+	case opcode_wb is
+		when "0100000" => -- OUT
 			ioflag <= '1';
 		when others =>
 			-- don't raise ioflag
 	end case;
 	case buttState is
-		when released =>
+		when '0' =>
 			case io_switch_in is
 				when '1' =>
-				buttState <= pressed;
+				buttState <= '1';
 				when others =>
 					NULL;
 			end case;
-		when pressed =>
+		when '1' =>
 			case io_switch_in is
 				when '0' =>
-					buttState <= released;
+					buttState <= '0';
 					ioflag <= '0';
 				when others =>
 					NULL;
@@ -223,6 +227,9 @@ end process iostall;
 hazard: process (dataHazard, opcode, opcode_exe, opcode_mem, ioflag)
 begin
 	stall <='0';
+	led_fwd_exe <= '0';
+	led_fwd_mem <= '0';
+	led_fwd_wb <= '0';
 	case opcode is
 		when "0000001" => -- ADD
 		-- Check Operands for pending write
@@ -240,6 +247,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -250,10 +258,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -270,6 +280,7 @@ begin
 						when others =>
 							-- Forward Op2 from EXE
 							data2_select <= "101";
+							led_fwd_exe <= '1';
 					end case;
 				when "10" =>
 					case opcode_mem is
@@ -280,10 +291,12 @@ begin
 						when others =>
 							-- Forward Op2 from MEM
 							data2_select <= "110";
+							led_fwd_mem <= '1';
 					end case;
 				when "11" =>
 					-- Forward Op2 from WB
 					data2_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data2_select <= "000";
 			end case;
@@ -303,6 +316,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -313,10 +327,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -333,6 +349,7 @@ begin
 						when others =>
 							-- Forward Op2 from EXE
 							data2_select <= "101";
+							led_fwd_exe <= '1';
 					end case;
 				when "10" =>
 					case opcode_mem is
@@ -343,10 +360,12 @@ begin
 						when others =>
 							-- Forward Op2 from MEM
 							data2_select <= "110";
+							led_fwd_mem <= '1';
 					end case;
 				when "11" =>
 					-- Forward Op2 from WB
 					data2_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data2_select <= "000";
 			end case;
@@ -366,6 +385,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -376,10 +396,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -396,6 +418,7 @@ begin
 						when others =>
 							-- Forward Op2 from EXE
 							data2_select <= "101";
+							led_fwd_exe <= '1';
 					end case;
 				when "10" =>
 					case opcode_mem is
@@ -406,10 +429,12 @@ begin
 						when others =>
 							-- Forward Op2 from MEM
 							data2_select <= "110";
+							led_fwd_mem <= '1';
 					end case;
 				when "11" =>
 					-- Forward Op2 from WB
 					data2_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data2_select <= "000";
 			end case;
@@ -429,6 +454,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -439,10 +465,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -459,6 +487,7 @@ begin
 						when others =>
 							-- Forward Op2 from EXE
 							data2_select <= "101";
+							led_fwd_exe <= '1';
 					end case;
 				when "10" =>
 					case opcode_mem is
@@ -469,10 +498,12 @@ begin
 						when others =>
 							-- Forward Op2 from MEM
 							data2_select <= "110";
+							led_fwd_mem <= '1';
 					end case;
 				when "11" =>
 					-- Forward Op2 from WB
 					data2_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data2_select <= "000";
 			end case;			
@@ -492,6 +523,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -502,10 +534,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;			
@@ -526,6 +560,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -536,10 +571,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -560,6 +597,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -570,10 +608,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -593,6 +633,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -603,10 +644,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -636,6 +679,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -646,10 +690,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -670,6 +716,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -680,10 +727,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -704,6 +753,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -714,10 +764,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -738,6 +790,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -748,10 +801,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -772,6 +827,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -782,10 +838,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -806,6 +864,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -816,10 +875,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -840,6 +901,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -850,10 +912,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -870,6 +934,7 @@ begin
 						when others =>
 							-- Forward Op2 from EXE
 							data2_select <= "101";
+							led_fwd_exe <= '1';
 					end case;
 				when "10" =>
 					case opcode_mem is
@@ -880,10 +945,12 @@ begin
 						when others =>
 							-- Forward Op2 from MEM
 							data2_select <= "110";
+							led_fwd_mem <= '1';
 					end case;
 				when "11" =>
 					-- Forward Op2 from WB
 					data2_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data2_select <= "000";
 			end case;
@@ -906,6 +973,7 @@ begin
 						when others =>
 							-- Forward Op1 from EXE
 							data1_select <= "101";
+							led_fwd_exe <= '1';
 						end case;
 				when "10" =>
 					case opcode_mem is
@@ -916,10 +984,12 @@ begin
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
+							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
 					-- Forward Op1 from WB
 					data1_select <= "111";
+					led_fwd_wb <= '1';
 				when others =>
 					data1_select <= "000";
 			end case;

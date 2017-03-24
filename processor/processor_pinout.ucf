@@ -2,14 +2,21 @@
 # PlanAhead Generated physical constraints 
 
 NET "clk" LOC = U9;
-NET "result[0]" LOC = J14;
-NET "result[1]" LOC = J15;
-NET "result[2]" LOC = K15;
-NET "result[3]" LOC = K14;
-NET "result[4]" LOC = E16;
-NET "result[5]" LOC = P16;
-NET "result[6]" LOC = E4;
-NET "result[7]" LOC = P4;
+NET "stall" LOC = J14;
+NET "led_fwd_wb" LOC = P16;
+NET "led_fwd_mem" LOC = E4;
+NET "led_fwd_exe" LOC = P4;
+NET "cathodes[6]" LOC = H14;
+NET "cathodes[5]" LOC = J17;
+NET "cathodes[4]" LOC = G14;
+NET "cathodes[3]" LOC = D16;
+NET "cathodes[2]" LOC = D17;
+NET "cathodes[1]" LOC = F18;
+NET "cathodes[0]" LOC = L18;
+NET "anodes[0]" LOC = F17;
+NET "anodes[1]" LOC = H17;
+NET "anodes[2]" LOC = C18;
+NET "anodes[3]" LOC = F15;
 NET "wr_data[0]" LOC = G18;
 NET "wr_data[1]" LOC = H18;
 NET "wr_data[2]" LOC = K18;
@@ -19,4 +26,4 @@ NET "wr_data[5]" LOC = L13;
 NET "wr_data[6]" LOC = N17;
 NET "wr_data[7]" LOC = R17;
 NET "rst" LOC = B18;
-#NET "stall" LOC = D18;
+NET "io_switch_in" LOC = H13;

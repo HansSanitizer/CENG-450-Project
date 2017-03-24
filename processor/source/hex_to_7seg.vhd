@@ -57,7 +57,7 @@ begin
 	process(temp, CPU_result)
 	begin
 	if temp = "0001" then
-		anodes <= "0001";
+		anodes <= not"0001";
 		--LSB of Cathodes is CA
 		--EX : Display 0 -> "CG CF CE CD CC CB CA" = not "0111111"
 		case CPU_result(3 downto 0) is
@@ -80,7 +80,7 @@ begin
 			when others => cathodes <= not "0000000";
 		end case;
 	elsif temp = "0010" then
-		anodes <= "0010";
+		anodes <= not"0010";
 		case CPU_result(7 downto 4) is
 			when "0000"  => cathodes <= not "0111111";
 			when "0001"  => cathodes <= not "0000110";
@@ -101,7 +101,7 @@ begin
 			when others => cathodes <= not "0000000";
 		end case;
 	elsif temp = "0100" then
-		anodes <= "0100";
+		anodes <= not"0100";
 		case CPU_result(11 downto 8) is
 			when "0000"  => cathodes <= not "0111111";
 			when "0001"  => cathodes <= not "0000110";
@@ -123,7 +123,7 @@ begin
 		end case;
 	elsif temp = "1000" then
 		--
-		anodes <= "1000";
+		anodes <= not"1000";
 		case CPU_result(15 downto 12) is
 			when "0000"  => cathodes <= not "0111111";
 			when "0001"  => cathodes <= not "0000110";
