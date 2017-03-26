@@ -30,7 +30,8 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity controlUnit_file is
-    Port (	-- DECODE
+    Port (	clk : IN STD_LOGIC;
+				-- DECODE
     			io_switch_in : in STD_LOGIC;
 				instruction : in STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
@@ -48,6 +49,8 @@ entity controlUnit_file is
 				led_fwd_exe: OUT STD_LOGIC;
 				led_fwd_mem: OUT STD_LOGIC;
 				led_fwd_wb: OUT STD_LOGIC;
+				--led_stall_in : OUT STD_LOGIC;
+				--led_stall_out : OUT STD_LOGIC;
 				-- EXECUTE
 				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -71,7 +74,7 @@ end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
 
-signal buttState : STD_LOGIC := '0';
+--signal buttState : STD_LOGIC := '0';
 signal ioflag : STD_LOGIC := '0';
 signal ioflagInstTemp : STD_LOGIC_VECTOR(15 downto 0) := (others=> '0');
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
@@ -189,18 +192,23 @@ dataHazard(1 downto 0) <=
 	"11" when ((operand_rc = dest_addr_wb) and (opcode_wb /= "0000000")) else
 	"00";
 
-iostall: process (ioflag, opcode, io_switch_in, buttState)
+iostall: process (clk, ioflag, opcode, opcode_wb, io_switch_in, instruction, ioflagInstTemp)
+variable buttState : STD_LOGIC := '0';
+variable flagClear : STD_LOGIC := '0';
+
 begin
 if ioflagInstTemp /= instruction then
 	case opcode is
 		when "0100001" => -- IN
 			ioflag <= '1';
+			--led_stall_in <= '1';
 		when others =>
 			-- don't raise ioflag
 		end case;
 	case opcode_wb is
 		when "0100000" => -- OUT
 			ioflag <= '1';
+			--led_stall_out <= '1';
 		when others =>
 			-- don't raise ioflag
 	end case;
@@ -210,22 +218,32 @@ end if;
 		when '0' =>
 			case io_switch_in is
 				when '1' =>
-				buttState <= '1';
+				buttState := '1';
 				when others =>
 					NULL;
 			end case;
 		when '1' =>
 			case io_switch_in is
 				when '0' =>
-					buttState <= '0';
-					ioflag <= '0';
+					if (rising_edge(clk)) then
+						buttState := '0';
+						flagClear := '1';
+					end if;
 				when others =>
 					NULL;
 			end case;
 		when others =>
 			NULL;
 	end case;
-
+	
+	if flagClear = '1' then
+		flagClear := '0';
+		ioflag <= '0';
+		--led_stall_in <= '0';
+		--led_stall_out <= '0';
+	end if;
+		
+	
 end process iostall;
 
 -- detect and handle hazard

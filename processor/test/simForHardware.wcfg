@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/tlong/Documents/CENG-450-Project/processor/processor_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="processor_tb" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="24" />
+   <wvobject fp_name="/processor_tb/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/pc0/current_value" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">current_value[15:0]</obj_property>
+      <obj_property name="ObjectShortName">current_value[15:0]</obj_property>
+      <obj_property name="label">PC[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/ifid0/instr_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">instr_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instr_in[15:0]</obj_property>
+      <obj_property name="label">FETCH[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/idexe0/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="label">DECODE[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/ctrl0/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/exemem0/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="label">EXECUTE[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/memwb0/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[6:0]</obj_property>
+      <obj_property name="label">MEMORY[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/memwb0/opcode_out" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">opcode_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_out[6:0]</obj_property>
+      <obj_property name="label">WRITEBACK[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/wr_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wr_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_data[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/cpu0/reg0/reg_file" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_file[0:7]</obj_property>
+      <obj_property name="ObjectShortName">reg_file[0:7]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/io_switch_in" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">io_switch_in</obj_property>
+      <obj_property name="ObjectShortName">io_switch_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/ctrl0/ioflag" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ioflag</obj_property>
+      <obj_property name="ObjectShortName">ioflag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/ctrl0/fetch_stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fetch_stall</obj_property>
+      <obj_property name="ObjectShortName">fetch_stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/led_fwd_exe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_fwd_exe</obj_property>
+      <obj_property name="ObjectShortName">led_fwd_exe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/led_fwd_mem" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_fwd_mem</obj_property>
+      <obj_property name="ObjectShortName">led_fwd_mem</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/led_fwd_wb" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_fwd_wb</obj_property>
+      <obj_property name="ObjectShortName">led_fwd_wb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/ctrl0/led_stall_in" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_stall_in</obj_property>
+      <obj_property name="ObjectShortName">led_stall_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/ctrl0/led_stall_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_stall_out</obj_property>
+      <obj_property name="ObjectShortName">led_stall_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/uut/hex7seg/cpurestemp" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cpurestemp[15:0]</obj_property>
+      <obj_property name="ObjectShortName">cpurestemp[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/cathodes" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cathodes[6:0]</obj_property>
+      <obj_property name="ObjectShortName">cathodes[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/anodes" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">anodes[3:0]</obj_property>
+      <obj_property name="ObjectShortName">anodes[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_tb/clk_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+</wave_config>

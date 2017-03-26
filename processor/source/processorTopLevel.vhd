@@ -36,6 +36,8 @@ entity processorTopLevel is
 				led_fwd_exe: OUT STD_LOGIC;
 				led_fwd_mem: OUT STD_LOGIC;
 				led_fwd_wb: OUT STD_LOGIC;
+				--led_stall_in : OUT STD_LOGIC;
+				--led_stall_out : OUT STD_LOGIC;
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				io_switch_in: IN STD_LOGIC;
 				cathodes: OUT STD_LOGIC_VECTOR(6 downto 0);
@@ -86,7 +88,8 @@ component cpu_file is
 end component;
 
 component controlUnit_file is
-    Port (	-- DECODE
+    Port (	clk : IN STD_LOGIC;
+				-- DECODE
     			io_switch_in : in STD_LOGIC;
 				instruction : in STD_LOGIC_VECTOR(15 downto 0);
 				opcode_out : out STD_LOGIC_VECTOR(6 downto 0);
@@ -104,6 +107,8 @@ component controlUnit_file is
 				led_fwd_exe: OUT STD_LOGIC;
 				led_fwd_mem: OUT STD_LOGIC;
 				led_fwd_wb: OUT STD_LOGIC;
+				--led_stall_in : OUT STD_LOGIC;
+				--led_stall_out : OUT STD_LOGIC;
 				-- EXECUTE
 				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -150,6 +155,7 @@ begin
 stall <= stallEnable;
 
 ctrl0: controlUnit_file port map (
+	clk => clk,
 	io_switch_in => io_switch_in,
 	instruction => instr,
 	opcode_out => opcodeID,
@@ -166,6 +172,8 @@ ctrl0: controlUnit_file port map (
 	led_fwd_exe => led_fwd_exe,
 	led_fwd_mem => led_fwd_mem,
 	led_fwd_wb => led_fwd_wb,
+	--led_stall_in => led_stall_in,
+	--led_stall_out => led_stall_out,
 	fetch_stall => fetchStallEn,
 	opcode_exe => opcodeEXE,
 	dest_addr_exe => dest_addr_EXE,

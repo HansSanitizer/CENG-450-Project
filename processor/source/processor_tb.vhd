@@ -101,8 +101,46 @@ BEGIN
    stim_proc: process
    begin		
 
-
-      wr_data <= "0000000000000001";
+      wr_data <= X"0001";
+		
+		wait for 60 ns;
+		
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+		wait for 40 ns;
+		wr_data <= X"0002";
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+		wait for 40 ns;
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+		wait for 100 ns;
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+		wait for 60 ns;
+		
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+		wait for 40 ns;
+		wr_data <= X"0003";
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+		wait for 40 ns;
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
 
       wait;
    end process;

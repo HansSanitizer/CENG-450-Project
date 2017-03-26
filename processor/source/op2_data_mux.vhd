@@ -43,6 +43,8 @@ end op2_data_mux;
 architecture Behavioral of op2_data_mux is
 
 signal bigImmediate : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
+attribute S: string;
+attribute S of bigImmediate: signal is "Yes";
 
 begin
 
