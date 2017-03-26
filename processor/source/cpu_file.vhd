@@ -45,7 +45,7 @@ entity cpu_file is
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
-				fstall_en : IN STD_LOGIC;
+				--fstall_en : IN STD_LOGIC;
 				-- Control Unit EXECUTE Signals
 				opcode_EXE_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -77,7 +77,7 @@ architecture Structure of cpu_file is
 component program_counter is
 	port (	clk : IN STD_LOGIC;
 				hold : IN STD_LOGIC;
-				fhold : IN STD_LOGIC;
+				--fhold : IN STD_LOGIC;
 				write_en : IN STD_LOGIC;
 				next_value : IN STD_LOGIC_VECTOR(15 downto 0);
 				overwrite_value : IN STD_LOGIC_VECTOR(15 downto 0);
@@ -200,6 +200,7 @@ end component;
 component reg_ID_EXE is
 	port (	clk : IN STD_LOGIC;
 				rst : IN STD_LOGIC;
+				flush : IN STD_LOGIC;
 				-- Control Unit read signals
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				alu_in : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -263,7 +264,7 @@ signal pcValue, pcNextValueEXE : STD_LOGIC_VECTOR(15 downto 0);
 signal regOpData1, regOpData2, muxOpData1, muxOpData2 : STD_LOGIC_VECTOR(15 downto 0);
 signal aluOpData1, aluOpData2, aluResult, resultMux : STD_LOGIC_VECTOR(15 downto 0);
 signal aluCode : STD_LOGIC_VECTOR(2 downto 0);
-signal stallEnable, fstallEnable : STD_LOGIC;
+signal stallEnable : STD_LOGIC;
 
 signal opcode_EXE : STD_LOGIC_VECTOR(6 downto 0);
 signal dest_addr_EXE : STD_LOGIC_VECTOR(2 downto 0);
@@ -281,7 +282,7 @@ signal writeData, wbMuxData : STD_LOGIC_VECTOR(15 downto 0);
 begin
 
 stallEnable <= stall_en;
-fstallEnable <= fstall_en;
+--fstallEnable <= fstall_en;
 
 opcode_EXE_CU <= opcode_EXE;
 opcode_MEM_CU <= opcode_MEM;
@@ -299,7 +300,7 @@ pc0: program_counter port map (
 	clk => clk,
 	hold  => stallEnable,
 	write_en => pcwr_en, -- From CU
-	fhold => fstallEnable,
+	--fhold => fstallEnable,
 	next_value => nextPC,
 	overwrite_value => aluResult, -- Forwarded from EXE
 	current_value => currentPC);
@@ -317,7 +318,7 @@ rom0: ROM_VHDL port map (
 
 ifid0: reg_IF_ID port map (
 	clk => clk, 
-	rst => fstallEnable,
+	rst => pcwr_en,
 	hold => stallEnable,
 	pc_in => currentPC,
 	instr_in => instructionFETCH,
@@ -363,6 +364,7 @@ mux2: op2_data_mux port map (
 idexe0: reg_ID_EXE port map (
 	clk => clk, 
 	rst => stallEnable,
+	flush => pcwr_en,
 	next_pc_in => currentPC,
 	opcode_in => opcode_in,
 	alu_in => alu_code,

@@ -13,7 +13,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="24" />
+   <WVObjectSize size="22" />
    <wvobject fp_name="/processor_tb/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -75,6 +75,10 @@
       <obj_property name="ObjectShortName">reg_file[0:7]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/processor_tb/uut/ctrl0/pc_write_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pc_write_en</obj_property>
+      <obj_property name="ObjectShortName">pc_write_en</obj_property>
+   </wvobject>
    <wvobject fp_name="/processor_tb/io_switch_in" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">io_switch_in</obj_property>
       <obj_property name="ObjectShortName">io_switch_in</obj_property>
@@ -87,10 +91,6 @@
       <obj_property name="ElementShortName">stall</obj_property>
       <obj_property name="ObjectShortName">stall</obj_property>
    </wvobject>
-   <wvobject fp_name="/processor_tb/uut/ctrl0/fetch_stall" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">fetch_stall</obj_property>
-      <obj_property name="ObjectShortName">fetch_stall</obj_property>
-   </wvobject>
    <wvobject fp_name="/processor_tb/led_fwd_exe" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">led_fwd_exe</obj_property>
       <obj_property name="ObjectShortName">led_fwd_exe</obj_property>
@@ -102,14 +102,6 @@
    <wvobject fp_name="/processor_tb/led_fwd_wb" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">led_fwd_wb</obj_property>
       <obj_property name="ObjectShortName">led_fwd_wb</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_tb/uut/ctrl0/led_stall_in" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">led_stall_in</obj_property>
-      <obj_property name="ObjectShortName">led_stall_in</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_tb/uut/ctrl0/led_stall_out" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">led_stall_out</obj_property>
-      <obj_property name="ObjectShortName">led_stall_out</obj_property>
    </wvobject>
    <wvobject fp_name="/processor_tb/uut/hex7seg/cpurestemp" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">cpurestemp[15:0]</obj_property>

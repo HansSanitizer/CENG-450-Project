@@ -62,7 +62,7 @@ component cpu_file is
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
-				fstall_en : IN STD_LOGIC;
+				--fstall_en : IN STD_LOGIC;
 				-- Control Unit EXECUTE Signals
 				opcode_EXE_CU : OUT STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_EXE_CU : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -102,7 +102,7 @@ component controlUnit_file is
 				data1_select : OUT STD_LOGIC_VECTOR(2 downto 0);
 				data2_select : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op_m1_out : OUT STD_LOGIC;
-				fetch_stall : OUT STD_LOGIC;
+				--fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
 				led_fwd_exe: OUT STD_LOGIC;
 				led_fwd_mem: OUT STD_LOGIC;
@@ -147,7 +147,7 @@ signal immData : STD_LOGIC_VECTOR(7 downto 0);
 signal data1Sel, data2Sel : STD_LOGIC_VECTOR(2 downto 0);
 signal resultSel, wrModeSel : STD_LOGIC_VECTOR(1 downto 0);
 signal zeroFlag, negativeFlag, operandM1, operandM1_WB : STD_LOGIC;
-signal wen, wbSel, stallEnable, fetchStallEn, pcWriteEnable : STD_LOGIC;
+signal wen, wbSel, stallEnable, pcWriteEnable : STD_LOGIC;
 signal memWriteEnable, memDataSelect : STD_LOGIC;
 
 begin
@@ -174,7 +174,7 @@ ctrl0: controlUnit_file port map (
 	led_fwd_wb => led_fwd_wb,
 	--led_stall_in => led_stall_in,
 	--led_stall_out => led_stall_out,
-	fetch_stall => fetchStallEn,
+	--fetch_stall => fetchStallEn,
 	opcode_exe => opcodeEXE,
 	dest_addr_exe => dest_addr_EXE,
 	n_flag => negativeFlag,
@@ -207,7 +207,7 @@ cpu0: cpu_file port map (
 	immediate => immData, -- From CU
 	disp_data => dispData, -- From CU
 	stall_en => stallEnable, -- From CU
-	fstall_en => fetchStallEn, -- From CU
+	--fstall_en => fetchStallEn, -- From CU
 	dest_addr_EXE_CU => dest_addr_EXE, -- To CU
 	opcode_EXE_CU => opcodeEXE, -- To CU
 	zero_flag => zeroFlag, -- To CU

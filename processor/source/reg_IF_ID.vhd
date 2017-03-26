@@ -66,6 +66,10 @@ process(clk)
 begin
 	if(rising_edge(clk)) then
 		-- Send instruction out to be decoded
+		if(rst = '1') then
+			instr_out <= X"0000";
+			pc_out <= X"0000";
+		end if;
 		if hold = '0' then
 			instr_out <= instruction;
 			pc_out <= programCounter;

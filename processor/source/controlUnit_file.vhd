@@ -44,7 +44,7 @@ entity controlUnit_file is
 				data1_select : OUT STD_LOGIC_VECTOR(2 downto 0);
 				data2_select : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op_m1_out : OUT STD_LOGIC;
-				fetch_stall : OUT STD_LOGIC;
+				--fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
 				led_fwd_exe: OUT STD_LOGIC;
 				led_fwd_mem: OUT STD_LOGIC;
@@ -153,24 +153,24 @@ alu_code <=
 	"000";										-- NOP
 
 -- control hazard
-fetch_stall <=
-	'1' when opcode = "1000000" else 	-- BRR
-	'1' when opcode_exe = "1000000" else
-	'1' when opcode = "1000001" else 	-- BRR.N
-	'1' when opcode_exe = "1000001" else
-	'1' when opcode = "1000010" else 	-- BRR.Z
-	'1' when opcode_exe = "1000010" else
-	'1' when opcode = "1000011" else 	-- BR
-	'1' when opcode_exe = "1000011" else
-	'1' when opcode = "1000100" else 	-- BR.N
-	'1' when opcode_exe = "1000100" else
-	'1' when opcode = "1000101" else 	-- BR.Z
-	'1' when opcode_exe = "1000101" else
-	'1' when opcode = "1000110" else 	-- BR.SUB
-	'1' when opcode_exe = "1000110" else
-	'1' when opcode = "1000111" else 	-- RETURN
-	'1' when opcode_exe = "1000111" else
-	'0';
+--fetch_stall <=
+--	'1' when opcode = "1000000" else 	-- BRR
+--	'1' when opcode_exe = "1000000" else
+--	'1' when opcode = "1000001" else 	-- BRR.N
+--	'1' when opcode_exe = "1000001" else
+--	'1' when opcode = "1000010" else 	-- BRR.Z
+--	'1' when opcode_exe = "1000010" else
+--	'1' when opcode = "1000011" else 	-- BR
+--	'1' when opcode_exe = "1000011" else
+--	'1' when opcode = "1000100" else 	-- BR.N
+--	'1' when opcode_exe = "1000100" else
+--	'1' when opcode = "1000101" else 	-- BR.Z
+--	'1' when opcode_exe = "1000101" else
+--	'1' when opcode = "1000110" else 	-- BR.SUB
+--	'1' when opcode_exe = "1000110" else
+--	'1' when opcode = "1000111" else 	-- RETURN
+--	'1' when opcode_exe = "1000111" else
+--	'0';
 
 -- possible data hazards
 dataHazard(5 downto 4) <=
