@@ -40,8 +40,8 @@ entity cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				data1_select : IN STD_LOGIC_VECTOR(1 downto 0);
-				data2_select : IN STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : IN STD_LOGIC_VECTOR(2 downto 0);
+				data2_select : IN STD_LOGIC_VECTOR(2 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
@@ -121,18 +121,24 @@ component register_file is
 end component;
 
 component op1_data_mux is
-	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
+	Port (	data_select: IN STD_LOGIC_VECTOR(2 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				pc_value : IN STD_LOGIC_VECTOR(15 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				exe_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				mem_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				wb_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 component op2_data_mux is
-	Port (	data_select: IN STD_LOGIC_VECTOR(1 downto 0);
+	Port (	data_select: IN STD_LOGIC_VECTOR(2 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				displacement : IN STD_LOGIC_VECTOR(8 downto 0);
 				reg_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				exe_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				mem_data : IN STD_LOGIC_VECTOR(15 downto 0);
+				wb_data : IN STD_LOGIC_VECTOR(15 downto 0);
 				data : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
@@ -337,6 +343,9 @@ mux1: op1_data_mux port map (
 	immediate => immediate, -- From CU
 	pc_value => pcValue,
 	reg_data => regOpData1,
+	exe_data => resultMux, -- EXE Forwarding
+	mem_data => memDataMux, -- MEM Forwarding
+	wb_data => wbMuxData, -- WB Forwarding
 	data => muxOpData1);
 
 mux2: op2_data_mux port map (
@@ -344,6 +353,9 @@ mux2: op2_data_mux port map (
 	immediate => immediate, -- From CU
 	displacement => disp_data, -- From CU
 	reg_data => regOpData2,
+	exe_data => resultMux, -- EXE Forwarding
+	mem_data => memDataMux, -- MEM Forwarding
+	wb_data => wbMuxData, -- WB Forwarding
 	data => muxOpData2);	
 
 -- ID/EXE

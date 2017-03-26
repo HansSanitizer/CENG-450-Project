@@ -33,9 +33,13 @@ entity processorTopLevel is
 	Port (	clk: in STD_LOGIC;
 				rst: in STD_LOGIC;
 				stall : OUT STD_LOGIC;
+				led_fwd_exe: OUT STD_LOGIC;
+				led_fwd_mem: OUT STD_LOGIC;
+				led_fwd_wb: OUT STD_LOGIC;
 				wr_data: IN STD_LOGIC_VECTOR(15 downto 0);
 				io_switch_in: IN STD_LOGIC;
-				result: OUT STD_LOGIC_VECTOR(15 downto 0));
+				cathodes: OUT STD_LOGIC_VECTOR(6 downto 0);
+				anodes: OUT STD_LOGIC_VECTOR(3 downto 0));
 end processorTopLevel;
 
 architecture Structure of processorTopLevel is
@@ -51,8 +55,8 @@ component cpu_file is
 				alu_code : IN  STD_LOGIC_VECTOR(2 downto 0);
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_in : IN STD_LOGIC_VECTOR(2 downto 0);
-				data1_select : IN STD_LOGIC_VECTOR(1 downto 0);
-				data2_select : IN STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : IN STD_LOGIC_VECTOR(2 downto 0);
+				data2_select : IN STD_LOGIC_VECTOR(2 downto 0);
 				immediate : IN STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : IN STD_LOGIC_VECTOR(8 downto 0);
 				stall_en : IN STD_LOGIC;
@@ -92,11 +96,14 @@ component controlUnit_file is
 				alu_code : out STD_LOGIC_VECTOR(2 downto 0);
 				imm_data : OUT STD_LOGIC_VECTOR(7 downto 0);
 				disp_data : OUT STD_LOGIC_VECTOR(8 downto 0);
-				data1_select : OUT STD_LOGIC_VECTOR(1 downto 0);
-				data2_select : OUT STD_LOGIC_VECTOR(1 downto 0);
+				data1_select : OUT STD_LOGIC_VECTOR(2 downto 0);
+				data2_select : OUT STD_LOGIC_VECTOR(2 downto 0);
 				op_m1_out : OUT STD_LOGIC;
 				fetch_stall : OUT STD_LOGIC;
 				stall : OUT STD_LOGIC;
+				led_fwd_exe: OUT STD_LOGIC;
+				led_fwd_mem: OUT STD_LOGIC;
+				led_fwd_wb: OUT STD_LOGIC;
 				-- EXECUTE
 				opcode_exe : IN STD_LOGIC_VECTOR(6 downto 0);
 				dest_addr_exe : IN STD_LOGIC_VECTOR(2 downto 0);
@@ -118,13 +125,22 @@ component controlUnit_file is
 				reg_wen : OUT STD_LOGIC);
 end component;
 
-signal instr : STD_LOGIC_VECTOR(15 downto 0);
+component hex_to_7seg is
+    Port ( clk : in  STD_LOGIC;
+           CPU_result : in  STD_LOGIC_VECTOR (15 downto 0);
+           hex_opcode_in: in STD_LOGIC_VECTOR (6 downto 0);
+           cathodes : out  STD_LOGIC_VECTOR (6 downto 0);
+           anodes : out  STD_LOGIC_VECTOR (3 downto 0));
+end component;
+
+signal instr, cpuResult : STD_LOGIC_VECTOR(15 downto 0);
 signal opcodeID, opcodeEXE, opcodeMEM, opcodeWB : STD_LOGIC_VECTOR(6 downto 0);
 signal ra, rb, rc, aluCode : STD_LOGIC_VECTOR(2 downto 0);
 signal dest_addr_EXE, dest_addr_MEM, dest_addr_WB : STD_LOGIC_VECTOR(2 downto 0);
 signal dispData : STD_LOGIC_VECTOR(8 downto 0);
 signal immData : STD_LOGIC_VECTOR(7 downto 0);
-signal data1Sel, data2Sel, resultSel, wrModeSel : STD_LOGIC_VECTOR(1 downto 0);
+signal data1Sel, data2Sel : STD_LOGIC_VECTOR(2 downto 0);
+signal resultSel, wrModeSel : STD_LOGIC_VECTOR(1 downto 0);
 signal zeroFlag, negativeFlag, operandM1, operandM1_WB : STD_LOGIC;
 signal wen, wbSel, stallEnable, fetchStallEn, pcWriteEnable : STD_LOGIC;
 signal memWriteEnable, memDataSelect : STD_LOGIC;
@@ -147,6 +163,9 @@ ctrl0: controlUnit_file port map (
 	data1_select => data1Sel,
 	data2_select => data2Sel,
 	stall => stallEnable,
+	led_fwd_exe => led_fwd_exe,
+	led_fwd_mem => led_fwd_mem,
+	led_fwd_wb => led_fwd_wb,
 	fetch_stall => fetchStallEn,
 	opcode_exe => opcodeEXE,
 	dest_addr_exe => dest_addr_EXE,
@@ -198,7 +217,14 @@ cpu0: cpu_file port map (
 	wr_mode_select => wrModeSel, -- From CU
 	wb_opcode => opcodeWB, -- To CU
 	wb_opm1 => operandM1_WB, -- To CU
-	result => result);
+	result => cpuResult);
 
+hex7seg: hex_to_7seg port map (
+	clk => clk,
+	CPU_result => cpuResult,
+	hex_opcode_in => opcodeMEM,
+	cathodes => cathodes,
+	anodes => anodes);
+	
 end Structure;
 
