@@ -73,6 +73,7 @@ architecture Behavioral of controlUnit_file is
 
 signal buttState : STD_LOGIC := '0';
 signal ioflag : STD_LOGIC := '0';
+signal ioflagInstTemp : STD_LOGIC_VECTOR(15 downto 0) := (others=> '0');
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
 alias opcode is instruction(15 downto 9); -- All formats
@@ -190,6 +191,7 @@ dataHazard(1 downto 0) <=
 
 iostall: process (ioflag, opcode, io_switch_in, buttState)
 begin
+if ioflagInstTemp /= instruction then
 	case opcode is
 		when "0100001" => -- IN
 			ioflag <= '1';
@@ -202,6 +204,8 @@ begin
 		when others =>
 			-- don't raise ioflag
 	end case;
+	ioflagInstTemp <= instruction;
+end if;
 	case buttState is
 		when '0' =>
 			case io_switch_in is
@@ -221,6 +225,7 @@ begin
 		when others =>
 			NULL;
 	end case;
+
 end process iostall;
 
 -- detect and handle hazard
