@@ -128,6 +128,7 @@ end component;
 component hex_to_7seg is
     Port ( clk : in  STD_LOGIC;
            CPU_result : in  STD_LOGIC_VECTOR (15 downto 0);
+           hex_opcode_in: in STD_LOGIC_VECTOR (6 downto 0);
            cathodes : out  STD_LOGIC_VECTOR (6 downto 0);
            anodes : out  STD_LOGIC_VECTOR (3 downto 0));
 end component;
@@ -221,6 +222,7 @@ cpu0: cpu_file port map (
 hex7seg: hex_to_7seg port map (
 	clk => clk,
 	CPU_result => cpuResult,
+	hex_opcode_in => opcodeMEM,
 	cathodes => cathodes,
 	anodes => anodes);
 	

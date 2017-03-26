@@ -2,10 +2,10 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   14:36:17 03/07/2017
+-- Create Date:   17:36:48 03/25/2017
 -- Design Name:   
--- Module Name:   C:/Users/tlong/Documents/CENG-450-Project/processorProj/processorTestBench.vhd
--- Project Name:  processorProj
+-- Module Name:   C:/Users/J-Lenovo14/OneDrive/3A 4A/CENG 450/CENG450Project/processor/source/processor_tb.vhd
+-- Project Name:  processor
 -- Target Device:  
 -- Tool versions:  
 -- Description:   
@@ -32,10 +32,10 @@ USE ieee.std_logic_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY processorTestBench IS
-END processorTestBench;
+ENTITY processor_tb IS
+END processor_tb;
  
-ARCHITECTURE behavior OF processorTestBench IS 
+ARCHITECTURE behavior OF processor_tb IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -43,10 +43,14 @@ ARCHITECTURE behavior OF processorTestBench IS
     PORT(
          clk : IN  std_logic;
          rst : IN  std_logic;
-			stall : OUT STD_LOGIC;
+         stall : OUT  std_logic;
+         led_fwd_exe : OUT  std_logic;
+         led_fwd_mem : OUT  std_logic;
+         led_fwd_wb : OUT  std_logic;
          wr_data : IN  std_logic_vector(15 downto 0);
-			io_switch_in: IN STD_LOGIC;
-			result : OUT STD_LOGIC_VECTOR(15 downto 0)
+         io_switch_in : IN  std_logic;
+         cathodes : OUT  std_logic_vector(6 downto 0);
+         anodes : OUT  std_logic_vector(3 downto 0)
         );
     END COMPONENT;
     
@@ -54,12 +58,16 @@ ARCHITECTURE behavior OF processorTestBench IS
    --Inputs
    signal clk : std_logic := '0';
    signal rst : std_logic := '0';
-   signal wr_data : std_logic_vector(15 downto 0) := x"0003";
-	signal io_switch_in : std_logic := '1';
-	
-	--Outputs
-	signal result : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
-	signal stall : std_logic := '0';
+   signal wr_data : std_logic_vector(15 downto 0) := (others => '0');
+   signal io_switch_in : std_logic := '0';
+
+ 	--Outputs
+   signal stall : std_logic;
+   signal led_fwd_exe : std_logic;
+   signal led_fwd_mem : std_logic;
+   signal led_fwd_wb : std_logic;
+   signal cathodes : std_logic_vector(6 downto 0);
+   signal anodes : std_logic_vector(3 downto 0);
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -70,10 +78,14 @@ BEGIN
    uut: processorTopLevel PORT MAP (
           clk => clk,
           rst => rst,
-			 stall => stall,
+          stall => stall,
+          led_fwd_exe => led_fwd_exe,
+          led_fwd_mem => led_fwd_mem,
+          led_fwd_wb => led_fwd_wb,
           wr_data => wr_data,
-			 io_switch_in => io_switch_in,
-			 result => result
+          io_switch_in => io_switch_in,
+          cathodes => cathodes,
+          anodes => anodes
         );
 
    -- Clock process definitions
@@ -84,17 +96,13 @@ BEGIN
 		clk <= '1';
 		wait for clk_period/2;
    end process;
- 
-
+  
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
 
-      wait for clk_period*10;
 
-      -- insert stimulus here 
+      wr_data <= "0000000000000001";
 
       wait;
    end process;
