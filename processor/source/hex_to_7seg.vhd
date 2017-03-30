@@ -56,13 +56,23 @@ begin
 		else temp <= "0000";
 		end if;
 	end if;
+	
 	end process;
-	process(temp, CPU_result, hex_opcode_in)
+	
+	process (clk, hex_opcode_in)
 	begin
-		if (hex_opcode_in = "0100000") then --opcode is OUT
+		if ((hex_opcode_in = "0100000") and falling_edge(clk)) then --opcode is OUT
 			cpuresTemp <= CPU_result;
 			--hexOpTemp <= hex_istr_in;
 		end if;
+	end process;
+	
+	process(temp, CPU_result, cpuresTemp)
+	begin
+--		if (hex_opcode_in = "0100000") then --opcode is OUT
+--			cpuresTemp <= CPU_result;
+--			--hexOpTemp <= hex_istr_in;
+--		end if;
 
 			if temp = "0001" then
 				anodes <= not"0001";
