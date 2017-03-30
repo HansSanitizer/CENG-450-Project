@@ -75,7 +75,7 @@ end controlUnit_file;
 architecture Behavioral of controlUnit_file is
 
 --signal buttState : STD_LOGIC := '0';
-signal ioflag : STD_LOGIC := '0';
+signal ioflag, flagClear : STD_LOGIC := '0';
 signal ioflagInstTemp : STD_LOGIC_VECTOR(15 downto 0) := (others=> '0');
 signal dataHazard : STD_LOGIC_VECTOR(5 downto 0) := (others=> '0');
 
@@ -194,15 +194,9 @@ dataHazard(1 downto 0) <=
 	"11" when ((operand_rc = dest_addr_wb) and (opcode_wb /= "0000000") and (opcode /= "1000111")) else
 	"00";
 
-iostall: process (clk, ioflag, opcode, opcode_wb, io_switch_in, instruction, ioflagInstTemp)
-variable buttState : STD_LOGIC := '0';
-variable flagClear : STD_LOGIC := '0';
---variable stallFlagIN : STD_LOGIC := '0';
---variable stallFlagOUT : STD_LOGIC := '0';
-
+process (clk, ioflagInstTemp, instruction, flagClear)
 begin
---if rising_edge(clk) then
-	if ((ioflagInstTemp /= instruction) or (instruction = X"0000")) then
+	if ((falling_edge(clk)) and ((ioflagInstTemp /= instruction) or (instruction = X"0000"))) then
 		case opcode is
 			when "0100001" => -- IN
 				ioflag <= '1';
@@ -222,45 +216,68 @@ begin
 		end case;
 		ioflagInstTemp <= instruction;
 	end if;
+	if flagClear = '1' then
+		ioflag <= '0';
+		--stallFlagIN := '0';
+		--stallFlagOUT := '0';
+	end if;
+end process;
+
+iostall: process (clk, ioflag, opcode, opcode_wb, io_switch_in, instruction, ioflagInstTemp)
+variable buttState : STD_LOGIC := '0';
+--variable flagClear : STD_LOGIC := '0';
+--variable stallFlagIN : STD_LOGIC := '0';
+--variable stallFlagOUT : STD_LOGIC := '0';
+
+begin
+--if rising_edge(clk) then
+--	if ((ioflagInstTemp /= instruction) or (instruction = X"0000")) then
+--		case opcode is
+--			when "0100001" => -- IN
+--				ioflag <= '1';
+--				--stallFlagIN := '1';				
+--			when others =>
+--				--led_stall_in <= ioflag;
+--				-- don't raise ioflag
+--			end case;
+--		case opcode_wb is
+--			when "0100000" => -- OUT
+--				ioflag <= '1';
+--				--stallFlagOUT := '1';
+--				--led_stall_out <= ioflag;
+--			when others =>
+--				--led_stall_out <= ioflag;
+--				-- don't raise ioflag
+--		end case;
+--		ioflagInstTemp <= instruction;
+--	end if;
 	case buttState is
 		when '0' =>
 			case io_switch_in is
 				when '1' =>
-				buttState := '1';
+					buttState := '1';
+					flagClear <= '0';
 				when others =>
-					NULL;
+					flagClear <= '0';
 			end case;
 		when '1' =>
 			case io_switch_in is
 				when '0' =>
 					if (rising_edge(clk)) then
 						buttState := '0';
-						flagClear := '1';
-						--stallFlagIN := '0';
-						--stallFlagOUT := '0';
+						flagClear <= '1';
 					end if;
 				when others =>
-					NULL;
+					flagClear <= '0';
 			end case;
 		when others =>
 			NULL;
 	end case;
---end if;	
-	if flagClear = '1' then
-		flagClear := '0';
-		ioflag <= '0';
-		--stallFlagIN := '0';
-		--stallFlagOUT := '0';
-	end if;
-	
-	--ioflag <= stallFlagIN or stallFlagOUT;
-	--led_stall_in <= stallFlagIN;	
-	--led_stall_out <= stallFlagOUT;
 	
 end process iostall;
 
 -- detect and handle hazard
-hazard: process (dataHazard, opcode, opcode_exe, opcode_mem, ioflag)
+hazard: process (dataHazard, opcode, opcode_exe, opcode_mem, ioflag, ioflagInstTemp, instruction)
 begin
 	stall <='0';
 	led_fwd_exe <= '0';
@@ -690,6 +707,12 @@ begin
 				when others =>
 					data1_select <= "000";
 			end case;
+			data2_select <= "000";
+		when "0100001" => -- IN
+			if (ioflagInstTemp /= instruction) then
+				stall <= '1';
+			end if;
+			data1_select <= "000";
 			data2_select <= "000";
 		when "1000000" => -- BRR
 			data1_select <= "001";	-- PC value

@@ -106,16 +106,16 @@ BEGIN
 		
 		rst <= '0';
 		
-		wait for 60 ns;
-		wr_data <= X"0002";
+		wait for 100 ns;
+		wr_data <= X"0003";
 		io_switch_in <= '1';
 		wait for 40 ns;
 		io_switch_in <= '0';
 
-		wait for 620 ns;
-		io_switch_in <= '1';
-		wait for 40 ns;
-		io_switch_in <= '0';
+--		wait for 620 ns;
+--		io_switch_in <= '1';
+--		wait for 40 ns;
+--		io_switch_in <= '0';
 
       wait;
    end process;
