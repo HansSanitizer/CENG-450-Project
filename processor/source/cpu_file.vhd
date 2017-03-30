@@ -76,6 +76,7 @@ architecture Structure of cpu_file is
 
 component program_counter is
 	port (	clk : IN STD_LOGIC;
+				rst : IN STD_LOGIC;
 				hold : IN STD_LOGIC;
 				--fhold : IN STD_LOGIC;
 				write_en : IN STD_LOGIC;
@@ -190,6 +191,7 @@ end component;
 component reg_IF_ID is
 	port(	clk : IN STD_LOGIC;
 			rst : IN STD_LOGIC;
+			mrst : IN STD_LOGIC;
 			hold : IN STD_LOGIC;
 			instr_in : IN STD_LOGIC_VECTOR(15 downto 0);
 			pc_in : IN STD_LOGIC_VECTOR(15 downto 0);
@@ -200,6 +202,7 @@ end component;
 component reg_ID_EXE is
 	port (	clk : IN STD_LOGIC;
 				rst : IN STD_LOGIC;
+				mrst : IN STD_LOGIC;
 				flush : IN STD_LOGIC;
 				-- Control Unit read signals
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
@@ -298,6 +301,7 @@ result <= writeData;
 
 pc0: program_counter port map (
 	clk => clk,
+	rst => rst,
 	hold  => stallEnable,
 	write_en => pcwr_en, -- From CU
 	--fhold => fstallEnable,
@@ -319,6 +323,7 @@ rom0: ROM_VHDL port map (
 ifid0: reg_IF_ID port map (
 	clk => clk, 
 	rst => pcwr_en,
+	mrst => rst,
 	hold => stallEnable,
 	pc_in => currentPC,
 	instr_in => instructionFETCH,
@@ -364,6 +369,7 @@ mux2: op2_data_mux port map (
 idexe0: reg_ID_EXE port map (
 	clk => clk, 
 	rst => stallEnable,
+	mrst => rst,
 	flush => pcwr_en,
 	next_pc_in => currentPC,
 	opcode_in => opcode_in,

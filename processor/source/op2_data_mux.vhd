@@ -42,16 +42,16 @@ end op2_data_mux;
 
 architecture Behavioral of op2_data_mux is
 
-signal bigImmediate : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
-attribute S: string;
-attribute S of bigImmediate: signal is "Yes";
+--signal bigImmediate : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
+--attribute S: string;
+--attribute S of bigImmediate: signal is "Yes";
 
 begin
 
-bigImmediate(7 downto 0) <= immediate;
+--bigImmediate(7 downto 0) <= immediate;
 
 data <=
-	bigImmediate when data_select = "001" else
+	X"00" & immediate when data_select = "001" else
 	"000000" & displacement & "0" when ((data_select = "010") and (displacement(8) = '0')) else -- 2*disp
 	"111111" & displacement & "0" when ((data_select = "010") and (displacement(8) = '1')) else -- 2*disp (negative)
 	exe_data when data_select = "101" else

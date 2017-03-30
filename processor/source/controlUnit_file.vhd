@@ -109,6 +109,7 @@ rb_addr <=
 	operand_ra when opcode = "1000101" else	-- BR.Z
 	operand_ra when opcode = "1000110" else	-- BR.SUB
 	operand_ra when opcode = "0010001" else	-- STORE
+	operand_ra when opcode = "0100000" else	-- OUT
 	"111" when opcode = "1000111" else			-- RETURN
 	operand_rb;
 	
@@ -145,6 +146,7 @@ alu_code <=
 	"111" when opcode = "0000111" else	-- TEST
 	"001" when opcode = "1000000" else	-- BRR
 	"001" when opcode = "1000001" else	-- BRR.N
+	"001" when opcode = "1000010" else	-- BRR.Z
 	"001" when opcode = "1000011" else	-- BR
 	"001" when opcode = "1000100" else	-- BR.N
 	"001" when opcode = "1000101" else	-- BR.Z
@@ -174,46 +176,52 @@ alu_code <=
 
 -- possible data hazards
 dataHazard(5 downto 4) <=
-	"01" when ((operand_ra = dest_addr_exe) and (opcode_exe /= "0000000")) else
+	"01" when ((operand_ra = dest_addr_exe) and (opcode_exe /= "0000000") and (opcode /= "1000111")) else
 	"01" when (("111" = dest_addr_exe) and (opcode = "1000111")) else -- RETURN
-	"10" when ((operand_ra = dest_addr_mem) and (opcode_mem /= "0000000")) else
+	"10" when ((operand_ra = dest_addr_mem) and (opcode_mem /= "0000000") and (opcode /= "1000111")) else
 	"10" when (("111" = dest_addr_mem) and (opcode = "1000111")) else -- RETURN
-	"11" when ((operand_ra = dest_addr_wb) and (opcode_wb /= "0000000")) else
+	"11" when ((operand_ra = dest_addr_wb) and (opcode_wb /= "0000000") and (opcode /= "1000111")) else
 	"11" when (("111" = dest_addr_wb) and (opcode = "1000111")) else -- RETURN
 	"00";
 dataHazard(3 downto 2) <=
-	"01" when ((operand_rb = dest_addr_exe) and (opcode_exe /= "0000000")) else
-	"10" when ((operand_rb = dest_addr_mem) and (opcode_mem /= "0000000")) else
-	"11" when ((operand_rb = dest_addr_wb) and (opcode_wb /= "0000000")) else
+	"01" when ((operand_rb = dest_addr_exe) and (opcode_exe /= "0000000") and (opcode /= "1000111")) else
+	"10" when ((operand_rb = dest_addr_mem) and (opcode_mem /= "0000000") and (opcode /= "1000111")) else
+	"11" when ((operand_rb = dest_addr_wb) and (opcode_wb /= "0000000") and (opcode /= "1000111")) else
 	"00";
 dataHazard(1 downto 0) <=
-	"01" when ((operand_rc = dest_addr_exe) and (opcode_exe /= "0000000")) else
-	"10" when ((operand_rc = dest_addr_mem) and (opcode_mem /= "0000000")) else
-	"11" when ((operand_rc = dest_addr_wb) and (opcode_wb /= "0000000")) else
+	"01" when ((operand_rc = dest_addr_exe) and (opcode_exe /= "0000000") and (opcode /= "1000111")) else
+	"10" when ((operand_rc = dest_addr_mem) and (opcode_mem /= "0000000") and (opcode /= "1000111")) else
+	"11" when ((operand_rc = dest_addr_wb) and (opcode_wb /= "0000000") and (opcode /= "1000111")) else
 	"00";
 
 iostall: process (clk, ioflag, opcode, opcode_wb, io_switch_in, instruction, ioflagInstTemp)
 variable buttState : STD_LOGIC := '0';
 variable flagClear : STD_LOGIC := '0';
+--variable stallFlagIN : STD_LOGIC := '0';
+--variable stallFlagOUT : STD_LOGIC := '0';
 
 begin
-if ioflagInstTemp /= instruction then
-	case opcode is
-		when "0100001" => -- IN
-			ioflag <= '1';
-			--led_stall_in <= '1';
-		when others =>
-			-- don't raise ioflag
+--if rising_edge(clk) then
+	if ((ioflagInstTemp /= instruction) or (instruction = X"0000")) then
+		case opcode is
+			when "0100001" => -- IN
+				ioflag <= '1';
+				--stallFlagIN := '1';				
+			when others =>
+				--led_stall_in <= ioflag;
+				-- don't raise ioflag
+			end case;
+		case opcode_wb is
+			when "0100000" => -- OUT
+				ioflag <= '1';
+				--stallFlagOUT := '1';
+				--led_stall_out <= ioflag;
+			when others =>
+				--led_stall_out <= ioflag;
+				-- don't raise ioflag
 		end case;
-	case opcode_wb is
-		when "0100000" => -- OUT
-			ioflag <= '1';
-			--led_stall_out <= '1';
-		when others =>
-			-- don't raise ioflag
-	end case;
-	ioflagInstTemp <= instruction;
-end if;
+		ioflagInstTemp <= instruction;
+	end if;
 	case buttState is
 		when '0' =>
 			case io_switch_in is
@@ -228,6 +236,8 @@ end if;
 					if (rising_edge(clk)) then
 						buttState := '0';
 						flagClear := '1';
+						--stallFlagIN := '0';
+						--stallFlagOUT := '0';
 					end if;
 				when others =>
 					NULL;
@@ -235,14 +245,17 @@ end if;
 		when others =>
 			NULL;
 	end case;
-	
+--end if;	
 	if flagClear = '1' then
 		flagClear := '0';
 		ioflag <= '0';
-		--led_stall_in <= '0';
-		--led_stall_out <= '0';
+		--stallFlagIN := '0';
+		--stallFlagOUT := '0';
 	end if;
-		
+	
+	--ioflag <= stallFlagIN or stallFlagOUT;
+	--led_stall_in <= stallFlagIN;	
+	--led_stall_out <= stallFlagOUT;
 	
 end process iostall;
 
@@ -640,6 +653,7 @@ begin
 				when others =>
 					data1_select <= "000";
 			end case;
+			data2_select <= "000";
 		when "0100000" => -- OUT
 		-- Check Operand for pending write
 			case dataHazard(5 downto 4) is
@@ -1016,6 +1030,7 @@ begin
 				when others =>
 					data1_select <= "000";
 			end case;
+			data2_select <= "000";
 		when others =>
 			data1_select <= "000";
 			data2_select <= "000";
@@ -1047,6 +1062,7 @@ result_select <=
 	"10" when opcode_exe = "0010001" else	-- STORE
 	"10" when opcode_exe = "0010010" else	-- LOADIMM
 	"10" when opcode_exe = "0010011" else	-- MOV
+	"10" when opcode_exe = "0100000" else	-- OUT
 	"00";
 
 -- MEMORY

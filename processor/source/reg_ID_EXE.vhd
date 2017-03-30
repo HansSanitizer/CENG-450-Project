@@ -32,6 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity reg_ID_EXE is
 	port (	clk : IN STD_LOGIC;
 				rst : IN STD_LOGIC;
+				mrst : IN STD_LOGIC;
 				flush : IN STD_LOGIC;
 				-- Control Unit read signals
 				opcode_in : IN STD_LOGIC_VECTOR(6 downto 0);
@@ -71,7 +72,7 @@ process(clk)
 begin
 	if(clk='0' and clk'event) then
 		-- Falling edge action latch new data from previous stage
-		if ((rst = '1') or (flush = '1')) then
+		if ((rst = '1') or (flush = '1') or (mrst = '1')) then
 			-- Clear register with reset signal
 			pipeRegister <= (others => '0');
 		else

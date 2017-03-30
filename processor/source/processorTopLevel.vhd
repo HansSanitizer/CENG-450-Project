@@ -230,7 +230,7 @@ cpu0: cpu_file port map (
 hex7seg: hex_to_7seg port map (
 	clk => clk,
 	CPU_result => cpuResult,
-	hex_opcode_in => opcodeMEM,
+	hex_opcode_in => opcodeWB,
 	cathodes => cathodes,
 	anodes => anodes);
 	
