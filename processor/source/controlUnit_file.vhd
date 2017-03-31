@@ -277,7 +277,7 @@ begin
 end process iostall;
 
 -- detect and handle hazard
-hazard: process (dataHazard, opcode, opcode_exe, opcode_mem, ioflag, ioflagInstTemp, instruction)
+hazard: process (dataHazard, opcode, opcode_exe, opcode_mem, opcode_wb, ioflag, ioflagInstTemp, instruction)
 begin
 	stall <='0';
 	led_fwd_exe <= '0';
@@ -1063,6 +1063,12 @@ begin
 			stall <='1';
 		when others =>
 			-- don't stall
+	end case;
+	case opcode_wb is
+		when "0100000" => -- OUT
+			stall <= '1';
+		when others =>
+			Null;
 	end case;
 end process hazard;
 

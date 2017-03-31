@@ -99,7 +99,26 @@ BEGIN
   
    -- Stimulus process
    stim_proc: process
-   begin		
+   begin	
+--		-- TEST 1
+--		rst <= '1';
+--		
+--		wait for 20 ns;
+--		
+--		rst <= '0';
+--		
+--		wait for 80 ns;
+--		wr_data<= X"0002";
+--		io_switch_in <= '1';
+--		wait for 40 ns;
+--		io_switch_in <= '0';
+--		
+--		wait for 620 ns;
+--		io_switch_in <= '1';
+--		wait for 40 ns;
+--		io_switch_in <= '0';
+		
+		-- TEST 2
 		rst <= '1';
 		
 		wait for 20 ns;
@@ -111,8 +130,26 @@ BEGIN
 		io_switch_in <= '1';
 		wait for 40 ns;
 		io_switch_in <= '0';
-
---		wait for 620 ns;
+		
+		wait for 340 ns;
+		io_switch_in <= '1';
+		wait for 40 ns;
+		io_switch_in <= '0';
+		
+--		-- TEST 2B
+--		rst <= '1';
+--		
+--		wait for 20 ns;
+--		
+--		rst <= '0';
+--		
+--		wait for 140 ns;
+--		wr_data <= X"0003";
+--		io_switch_in <= '1';
+--		wait for 40 ns;
+--		io_switch_in <= '0';
+--		
+--		wait for 340 ns;
 --		io_switch_in <= '1';
 --		wait for 40 ns;
 --		io_switch_in <= '0';
