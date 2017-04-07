@@ -69,7 +69,8 @@ entity controlUnit_file is
 				op_m1_wb : IN STD_LOGIC;
 				wr_mode_sel : OUT STD_LOGIC_VECTOR(1 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
-				reg_wen : OUT STD_LOGIC);
+				reg_wen : OUT STD_LOGIC;
+				out_reg_en : OUT STD_LOGIC);
 end controlUnit_file;
 
 architecture Behavioral of controlUnit_file is
@@ -1121,6 +1122,8 @@ wr_mode_sel <=
 	"00";
 
 wb_mux_sel <= '1' when opcode_wb = "0100001" else '0'; -- IN
+
+out_reg_en <= '1' when opcode_wb = "0100000" else '0'; -- OUT
 
 end Behavioral;
 

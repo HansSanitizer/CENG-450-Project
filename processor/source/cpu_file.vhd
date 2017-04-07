@@ -66,6 +66,7 @@ entity cpu_file is
 				wr_mode_select : IN STD_LOGIC_VECTOR(1 downto 0);
 				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0);
 				wb_opm1 : OUT STD_LOGIC;
+				ouput_en : IN STD_LOGIC;
 				-- FOR TESTING
 				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end cpu_file;
@@ -261,6 +262,14 @@ component reg_MEM_WB is
 				result_out : OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
+component reg_output is 
+	port (	clk : IN STD_LOGIC;
+				rst : IN STD_LOGIC;
+				enable : IN STD_LOGIC;
+				data_in : IN STD_LOGIC_VECTOR(15 downto 0);
+				data_out : OUT STD_LOGIC_VECTOR(15 downto 0));
+end component;				
+
 signal currentPC, nextPC : STD_LOGIC_VECTOR(15 downto 0);
 signal instructionFETCH : STD_LOGIC_VECTOR(15 downto 0);
 signal pcValue, pcNextValueEXE : STD_LOGIC_VECTOR(15 downto 0);
@@ -293,9 +302,6 @@ opcode_MEM_CU <= opcode_MEM;
 dest_addr_EXE_CU <= dest_addr_EXE;
 dest_addr_MEM_CU <= dest_addr_MEM;
 dest_addr_WB_CU <= writeAddress;
-
---TESTING
-result <= writeData;
 
 -- ISTRUCTION FETCH
 
@@ -460,6 +466,13 @@ mux0: reg_wrdata_mux port map (
 	wb_data => writeData,
 	ext_data => wr_data, -- From CU
 	data => wbMuxData);
+
+outreg0: reg_output port map (
+	clk => clk,
+	rst => rst,
+	enable => ouput_en,
+	data_in => writeData,
+	data_out => result);
 
 end Structure;
 

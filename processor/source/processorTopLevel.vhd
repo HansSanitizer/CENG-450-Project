@@ -83,6 +83,7 @@ component cpu_file is
 				wr_mode_select : IN STD_LOGIC_VECTOR(1 downto 0);
 				wb_opcode: OUT STD_LOGIC_VECTOR(6 downto 0);
 				wb_opm1 : OUT STD_LOGIC;
+				ouput_en : IN STD_LOGIC;
 				-- FOR TESTING
 				result: OUT STD_LOGIC_VECTOR(15 downto 0));
 end component;
@@ -127,13 +128,14 @@ component controlUnit_file is
 				op_m1_wb : IN STD_LOGIC;
 				wr_mode_sel : OUT STD_LOGIC_VECTOR(1 downto 0);
 				wb_mux_sel: OUT STD_LOGIC;
-				reg_wen : OUT STD_LOGIC);
+				reg_wen : OUT STD_LOGIC;
+				out_reg_en : OUT STD_LOGIC);
 end component;
 
 component hex_to_7seg is
     Port ( clk : in  STD_LOGIC;
            CPU_result : in  STD_LOGIC_VECTOR (15 downto 0);
-           hex_opcode_in: in STD_LOGIC_VECTOR (6 downto 0);
+           --hex_opcode_in: in STD_LOGIC_VECTOR (6 downto 0);
            cathodes : out  STD_LOGIC_VECTOR (6 downto 0);
            anodes : out  STD_LOGIC_VECTOR (3 downto 0));
 end component;
@@ -148,7 +150,7 @@ signal data1Sel, data2Sel : STD_LOGIC_VECTOR(2 downto 0);
 signal resultSel, wrModeSel : STD_LOGIC_VECTOR(1 downto 0);
 signal zeroFlag, negativeFlag, operandM1, operandM1_WB : STD_LOGIC;
 signal wen, wbSel, stallEnable, pcWriteEnable : STD_LOGIC;
-signal memWriteEnable, memDataSelect : STD_LOGIC;
+signal memWriteEnable, memDataSelect, outRegEnable : STD_LOGIC;
 
 begin
 
@@ -190,7 +192,8 @@ ctrl0: controlUnit_file port map (
 	op_m1_wb => operandM1_WB,
 	wr_mode_sel => wrModeSel,
 	wb_mux_sel => wbSel,
-	reg_wen => wen);
+	reg_wen => wen,
+	out_reg_en => outRegEnable);
 	
 cpu0: cpu_file port map (
 	clk => clk,
@@ -225,12 +228,13 @@ cpu0: cpu_file port map (
 	wr_mode_select => wrModeSel, -- From CU
 	wb_opcode => opcodeWB, -- To CU
 	wb_opm1 => operandM1_WB, -- To CU
+	ouput_en => outRegEnable,
 	result => cpuResult);
 
 hex7seg: hex_to_7seg port map (
 	clk => clk,
 	CPU_result => cpuResult,
-	hex_opcode_in => opcodeWB,
+	--hex_opcode_in => opcodeWB,
 	cathodes => cathodes,
 	anodes => anodes);
 	

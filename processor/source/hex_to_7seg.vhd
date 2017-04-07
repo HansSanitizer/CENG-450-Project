@@ -32,14 +32,14 @@ use IEEE.NUMERIC_STD.ALL;
 entity hex_to_7seg is
     Port ( clk : in  STD_LOGIC;
            CPU_result : in  STD_LOGIC_VECTOR (15 downto 0);
-           hex_opcode_in: in STD_LOGIC_VECTOR (6 downto 0);
+           --hex_opcode_in: in STD_LOGIC_VECTOR (6 downto 0);
            cathodes : out  STD_LOGIC_VECTOR (6 downto 0);
            anodes : out  STD_LOGIC_VECTOR (3 downto 0));
 end hex_to_7seg;
 
 architecture Behavioral of hex_to_7seg is
 	signal temp: STD_LOGIC_VECTOR(3 downto 0):="0000";
-	signal cpuresTemp: STD_LOGIC_VECTOR(15 downto 0):= (others=> '0');
+	--signal cpuresTemp: STD_LOGIC_VECTOR(15 downto 0):= (others=> '0');
 	--signal hexOpTemp: STD_LOGIC_VECTOR(7 downto 0):= (others=> '0');
 begin
 	process(clk)
@@ -59,15 +59,15 @@ begin
 	
 	end process;
 	
-	process (clk, hex_opcode_in)
-	begin
-		if ((hex_opcode_in = "0100000") and falling_edge(clk)) then --opcode is OUT
-			cpuresTemp <= CPU_result;
-			--hexOpTemp <= hex_istr_in;
-		end if;
-	end process;
+--	process (clk, hex_opcode_in)
+--	begin
+--		if ((hex_opcode_in = "0100000") and falling_edge(clk)) then --opcode is OUT
+--			cpuresTemp <= CPU_result;
+--			--hexOpTemp <= hex_istr_in;
+--		end if;
+--	end process;
 	
-	process(temp, CPU_result, cpuresTemp)
+	process(temp, CPU_result)
 	begin
 --		if (hex_opcode_in = "0100000") then --opcode is OUT
 --			cpuresTemp <= CPU_result;
@@ -78,7 +78,7 @@ begin
 				anodes <= not"0001";
 				--LSB of Cathodes is CA
 				--EX : Display 0 -> "CG CF CE CD CC CB CA" = not "0111111"
-				case cpuresTemp(3 downto 0) is
+				case CPU_result(3 downto 0) is
 					when "0000"  => cathodes <= not "0111111";
 					when "0001"  => cathodes <= not "0000110";
 					when "0010"  => cathodes <= not "1011011";
@@ -99,7 +99,7 @@ begin
 				end case;
 			elsif temp = "0010" then
 				anodes <= not"0010";
-				case cpuresTemp(7 downto 4) is
+				case CPU_result(7 downto 4) is
 					when "0000"  => cathodes <= not "0111111";
 					when "0001"  => cathodes <= not "0000110";
 					when "0010"  => cathodes <= not "1011011";
@@ -120,7 +120,7 @@ begin
 				end case;
 			elsif temp = "0100" then
 				anodes <= not"0100";
-				case cpuresTemp(11 downto 8) is
+				case CPU_result(11 downto 8) is
 					when "0000"  => cathodes <= not "0111111";
 					when "0001"  => cathodes <= not "0000110";
 					when "0010"  => cathodes <= not "1011011";
@@ -142,7 +142,7 @@ begin
 			elsif temp = "1000" then
 				--
 				anodes <= not"1000";
-				case cpuresTemp(15 downto 12) is
+				case CPU_result(15 downto 12) is
 					when "0000"  => cathodes <= not "0111111";
 					when "0001"  => cathodes <= not "0000110";
 					when "0010"  => cathodes <= not "1011011";
