@@ -100,6 +100,79 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin	
+	
+--	-- Format A
+--	rst <= '1';
+--	
+--	wait for 20 ns;
+--	
+--	rst <= '0';
+--	
+--	wait for 40 ns;
+--	wr_data <= X"0001";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 20 ns;
+--	wr_data <= X"0002";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 20 ns;
+--	wr_data <= X"0003";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+	
+--	-- Format B Test 2
+--	wait for 20 ns;
+--	wr_data <= X"0002";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0003";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0001";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0005";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0014";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0001";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0005";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+--	wait for 40 ns;
+--	wr_data <= X"0000";
+--	io_switch_in <= '1';
+--	wait for 20 ns;
+--	io_switch_in <= '0';
+	
+	-- Format L Test
+	rst <= '1';
+	
+	wait for 40 ns;
+	
+	rst <= '0';
+	
 --		-- TEST 1
 --		rst <= '1';
 --		
@@ -118,23 +191,23 @@ BEGIN
 --		wait for 40 ns;
 --		io_switch_in <= '0';
 		
-		-- TEST 2
-		rst <= '1';
-		
-		wait for 20 ns;
-		
-		rst <= '0';
-		
-		wait for 100 ns;
-		wr_data <= X"0003";
-		io_switch_in <= '1';
-		wait for 40 ns;
-		io_switch_in <= '0';
-		
-		wait for 340 ns;
-		io_switch_in <= '1';
-		wait for 40 ns;
-		io_switch_in <= '0';
+--		-- TEST 2
+--		rst <= '1';
+--		
+--		wait for 20 ns;
+--		
+--		rst <= '0';
+--		
+--		wait for 100 ns;
+--		wr_data <= X"0003";
+--		io_switch_in <= '1';
+--		wait for 40 ns;
+--		io_switch_in <= '0';
+--		
+--		wait for 340 ns;
+--		io_switch_in <= '1';
+--		wait for 40 ns;
+--		io_switch_in <= '0';
 
       wait;
    end process;

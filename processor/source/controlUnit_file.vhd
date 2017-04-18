@@ -570,6 +570,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -585,15 +589,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;			
@@ -607,6 +622,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -622,15 +641,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -644,6 +674,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -659,15 +693,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -681,6 +726,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -696,15 +745,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -733,6 +793,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -748,15 +812,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -770,6 +845,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -785,15 +864,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -807,6 +897,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -822,15 +916,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -844,6 +949,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -859,15 +968,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -881,6 +1001,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -896,15 +1020,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -918,6 +1053,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -933,15 +1072,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -955,6 +1105,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -970,15 +1124,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
 						end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
@@ -989,6 +1154,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data2_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							stall <= '1';
 							data2_select <= "000";
@@ -1003,15 +1172,26 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data2_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op2 from MEM
 							data2_select <= "110";
 							led_fwd_mem <= '1';
 					end case;
 				when "11" =>
-					-- Forward Op2 from WB
-					data2_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data2_select <= "000";
 			end case;
@@ -1027,6 +1207,10 @@ begin
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until WB
+							stall <= '1';
+							data1_select <= "000";
 						when "0010000" =>	-- LOAD
 							-- data not avialable until MEM
 							stall <= '1';
@@ -1035,22 +1219,33 @@ begin
 							-- Forward Op1 from EXE
 							data1_select <= "101";
 							led_fwd_exe <= '1';
-						end case;
+					end case;
 				when "10" =>
 					case opcode_mem is
 						when "0100001" =>	-- IN
 							-- data not available until WB
 							stall <= '1';
 							data1_select <= "000";
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
 						when others =>
 							-- Forward Op1 from MEM
 							data1_select <= "110";
 							led_fwd_mem <= '1';
-						end case;
+					end case;
 				when "11" =>
-					-- Forward Op1 from WB
-					data1_select <= "111";
-					led_fwd_wb <= '1';
+					case opcode_wb is
+						when "0010010" => -- LOADIMM
+							-- data not available until after WB
+							stall <= '1';
+							data1_select <= "000";
+						when others =>
+							-- Forward Op1 from WB
+							data1_select <= "111";
+							led_fwd_wb <= '1';
+					end case;
 				when others =>
 					data1_select <= "000";
 			end case;
