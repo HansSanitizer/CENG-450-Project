@@ -135,24 +135,6 @@ BEGIN
 		io_switch_in <= '1';
 		wait for 40 ns;
 		io_switch_in <= '0';
-		
---		-- TEST 2B
---		rst <= '1';
---		
---		wait for 20 ns;
---		
---		rst <= '0';
---		
---		wait for 140 ns;
---		wr_data <= X"0003";
---		io_switch_in <= '1';
---		wait for 40 ns;
---		io_switch_in <= '0';
---		
---		wait for 340 ns;
---		io_switch_in <= '1';
---		wait for 40 ns;
---		io_switch_in <= '0';
 
       wait;
    end process;
